@@ -25,7 +25,17 @@ const reducer: Reducer<ISearchState> = (state = initialState, action) => {
       };
     }
     case SearchActionTypes.REQUEST_ERROR: {
-      return { ...state, loading: false, errors: action.payload };
+      return { ...state, errors: action.payload, loading: false };
+    }
+    case SearchActionTypes.TWEET_SET_SENTIMENT: {
+      const newTweets = [...state.tweets];
+      const idx = newTweets.findIndex(t => t.id === action.payload.id);
+      newTweets[idx] = {
+        ...newTweets[idx],
+        sentiment: action.payload.sentiment,
+      };
+
+      return { ...state, tweets: newTweets };
     }
     default: {
       return state;

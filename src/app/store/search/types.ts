@@ -2,6 +2,13 @@ export interface IQuery {
   term: string;
 }
 
+export enum sentiment {
+  Positive,
+  Negative,
+  Neutral,
+  Unorder,
+}
+
 interface ITweeturls {
   url: string;
   expanded_url: string;
@@ -23,6 +30,7 @@ export interface ITweet {
   entities: ITweetEntities;
   id: number;
   text: string;
+  sentiment?: sentiment;
   url: string;
 }
 
@@ -32,6 +40,7 @@ export const enum SearchActionTypes {
   REQUEST_SEND = '@@search/SEND_REQUEST',
   REQUEST_SUCCESS = '@@search/REQUEST_SUCCESS',
   REQUEST_ERROR = '@@search/REQUEST_ERROR',
+  TWEET_SET_SENTIMENT = '@@search/TWEET_SET_SENTIMENT',
 }
 
 export interface ISearchState {

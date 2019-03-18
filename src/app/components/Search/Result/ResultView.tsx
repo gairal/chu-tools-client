@@ -2,27 +2,94 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import Tweet from '@/components/Search/Result/Tweet';
-import { ITweet } from '@/store/search/types';
+import { setSentiment } from '@/store/search/actions';
+import { ITweet, sentiment } from '@/store/search/types';
 
 interface IPropsFromState {
   tweets: ITweet[];
-  loading: boolean;
+  loading?: boolean;
+  setTheSentiment: typeof setSentiment;
+  title?: string;
 }
 
 type AllProps = IPropsFromState;
 
-const ResultView: React.SFC<AllProps> = ({ tweets }) => (
-  <Result>
+const ResultColumn: React.SFC<AllProps> = ({
+  tweets,
+  title,
+  setTheSentiment,
+}) => (
+  <Tweets>
+    <h1>{title}</h1>
     {tweets.map(t => (
-      <Tweet key={t.id} tweet={t} />
+      <Tweet key={t.id} setTheSentiment={setTheSentiment} tweet={t} />
     ))}
-  </Result>
+  </Tweets>
 );
+
+const ResultView: React.SFC<AllProps> = ({ setTheSentiment, tweets }) => {
+  const { unordered, negative, neutral, positive } = tweets.reduce(
+    (acc, t) => {
+      switch (t.sentiment) {
+        case sentiment.Negative:
+          acc.negative.push(t);
+          break;
+        case sentiment.Neutral:
+          acc.neutral.push(t);
+          break;
+        case sentiment.Positive:
+          acc.positive.push(t);
+          break;
+        default:
+          acc.unordered.push(t);
+          break;
+      }
+
+      return acc;
+    },
+    {
+      negative: [],
+      neutral: [],
+      positive: [],
+      unordered: [],
+    },
+  );
+
+  return (
+    <Result>
+      <ResultColumn
+        tweets={unordered}
+        setTheSentiment={setTheSentiment}
+        title="Unordered"
+      />
+      <ResultColumn
+        tweets={negative}
+        setTheSentiment={setTheSentiment}
+        title="Negative"
+      />
+      <ResultColumn
+        tweets={neutral}
+        setTheSentiment={setTheSentiment}
+        title="Neutral"
+      />
+      <ResultColumn
+        tweets={positive}
+        setTheSentiment={setTheSentiment}
+        title="Positive"
+      />
+    </Result>
+  );
+};
 
 const Result = styled.div`
   display: flex;
-  flex-direction: column;
   padding: ${props => props.theme.lengths.l4};
+`;
+
+const Tweets = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: ${props => props.theme.lengths.l2};
 `;
 
 export default ResultView;

@@ -29,6 +29,12 @@ export default {
     blueLight: '#6cb2eb',
     blueLighter: '#bcdefa',
     blueLightest: '#eff8ff',
+
+    // green
+    green: '#38c172',
+
+    // red
+    red: '#e3342f',
   },
   fonts: {
     family: [
@@ -55,6 +61,7 @@ export default {
     l12: '3rem',
     l16: '4rem',
     l2: '0.5rem',
+    l3: '0.75rem',
     l4: '1rem',
     l6: '1.25rem',
     l7: '1.5rem',
