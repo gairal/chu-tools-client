@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noStrictGenericChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "target": "es5",
+    "baseUrl": "./",
+    "lib": ["dom", "es2015"],
+    "paths": {
+      "@/*": ["src/app/*"]
+    }
+  },
+  "include": ["./src/app/**/*"],
+  "exclude": ["node_modules"]
+}
