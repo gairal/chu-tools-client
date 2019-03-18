@@ -5,5 +5,5 @@ const API_ENDPOINT =
 
 export default {
   API_AUTH_ENDPOINT: `${API_ENDPOINT}/auth`,
-  API_BOT_ENDPOINT: `${API_ENDPOINT}/bot`,
+  API_SEARCH_ENDPOINT: `${API_ENDPOINT}/tweets`,
 };

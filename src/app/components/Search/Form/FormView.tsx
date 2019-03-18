@@ -18,25 +18,28 @@ type AllProps = IPropsFromState & IPropsFromDispatch;
 const FormView: React.SFC<AllProps> = ({ request }) => {
   const [keyword, setKeyword] = React.useState('');
 
-  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+  // TODO: REMOVE
+  React.useEffect(() => {
+    request('group');
+  }, [false]);
+
+  const keyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.keyCode === 13) request(keyword);
   };
 
-  const handleRequest = () => {
-    request(keyword);
+  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
   };
 
   return (
     <Form>
       <Input
-        type="text"
-        placeholder="keyword"
-        value={keyword}
         onChange={handleKeywordChange}
+        onKeyUp={keyPress}
+        placeholder="keyword"
+        type="text"
+        value={keyword}
       />
-      <Button type="button" onClick={handleRequest}>
-        search
-      </Button>
     </Form>
   );
 };
@@ -52,9 +55,5 @@ const Form = styled.form`
 
 const Input = styled.input`
   padding: ${props => props.theme.lengths.l2};
-  width: 80%;
-`;
-
-const Button = styled.button`
-  border: ${props => `solid 1px ${props.theme.colors.greyLight}`};
+  width: 100%;
 `;

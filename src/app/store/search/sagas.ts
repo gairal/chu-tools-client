@@ -10,13 +10,13 @@ function* handleFetch(q: any) {
   try {
     if (!q.payload || '' === q.payload.trim()) return;
 
-    const query: IQuery = { q: q.payload };
+    const query: IQuery = { term: `linkedin ${q.payload}` };
 
     const idToken = yield select(({ firebase }) => firebase.idToken);
 
     const res = yield call(
       fetch,
-      `${config.API_BOT_ENDPOINT}?${qs.stringify(query)}`,
+      `${config.API_SEARCH_ENDPOINT}?${qs.stringify(query)}`,
       {
         headers: {
           Authorization: `Bearer ${idToken}`,

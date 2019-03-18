@@ -2,8 +2,6 @@ import { action } from 'typesafe-actions';
 
 import { ITweet, SearchActionTypes } from './types';
 
-export const loadSearch = () => action(SearchActionTypes.SEARCH_LOAD);
-export const flushSearch = () => action(SearchActionTypes.SEARCH_FLUSH);
 export const requestSend = (q: string) =>
   action(SearchActionTypes.REQUEST_SEND, q);
 export const requestSuccess = (data: ITweet[]) =>
