@@ -11,12 +11,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
-    "target": "es5",
+    "target": "es2015",
     "baseUrl": "./",
     "lib": ["dom", "es2015"],
     "paths": {
       "@/*": ["src/app/*"]
-    }
+    },
+    "outDir": "./dist"
   },
   "include": ["./src/app/**/*"],
   "exclude": ["node_modules"]

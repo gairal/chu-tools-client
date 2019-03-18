@@ -13,7 +13,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin({
-      dry: true,
       verbose: true,
       cleanOnceBeforeBuildPatterns: ['build', 'dist'],
     }),

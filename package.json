@@ -39,6 +39,7 @@
   "devDependencies": {
     "@commitlint/cli": "^7.5",
     "@commitlint/config-conventional": "^7.5",
+    "@hot-loader/react-dom": "^16.8",
     "@types/history": "^4.7",
     "@types/node": "^11.11",
     "@types/query-string": "^6.3",
@@ -47,7 +48,7 @@
     "@types/react-redux": "^7.0",
     "@types/react-router-dom": "^4.3",
     "@types/redux-actions": "^2.3",
-    "@types/styled-components": "^4.1",
+    "@types/styled-components": "4.1.8",
     "autoprefixer": "^9.5",
     "awesome-typescript-loader": "^5.2",
     "clean-webpack-plugin": "^2.0",

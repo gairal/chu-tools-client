@@ -22,5 +22,4 @@ debug:
 	npm run debug
 
 deploy:
-	make release
-	gcloud app deploy ./app.yaml --project com-gairal-chools
+	npm run deploy

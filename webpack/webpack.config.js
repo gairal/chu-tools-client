@@ -9,7 +9,7 @@ devConfig.devtool = 'source-map';
 devConfig.devServer = {
   contentBase: path.join(__dirname, '../build'),
   compress: true,
-  port: 3000,
+  port: 8181,
   hot: true,
   inline: true,
   headers: { 'Access-Control-Allow-Origin': '*' },
@@ -18,5 +18,7 @@ devConfig.devServer = {
 };
 devConfig.plugins.push(new webpack.NamedModulesPlugin());
 devConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
+
+devConfig.resolve.alias['react-dom'] = '@hot-loader/react-dom';
 
 module.exports = devConfig;
