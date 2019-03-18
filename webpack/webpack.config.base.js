@@ -20,10 +20,7 @@ module.exports = {
       template: './src/index.pug',
       inject: true,
     }),
-    new CopyWebpackPlugin([
-      { from: './src/img', to: 'img' },
-      { from: './src/root', to: '' },
-    ]),
+    new CopyWebpackPlugin([{ from: './src/root', to: '' }]),
     new WriteFilePlugin(),
   ],
   module: {

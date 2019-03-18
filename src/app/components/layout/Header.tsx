@@ -1,60 +1,21 @@
-import Commands from '@/components/Commands';
 import * as React from 'react';
 import styled from 'styled-components';
 
 interface IHeaderProps {
   title: string;
-  commandCounts: number;
 }
 
-interface IHeaderState {
-  opened: boolean;
-}
+type AllProps = IHeaderProps;
 
-export default class Header extends React.Component<
-  IHeaderProps,
-  IHeaderState
-> {
-  constructor(props: IHeaderProps) {
-    super(props);
-    this.state = {
-      opened: false,
-    };
-  }
+const Header: React.SFC<AllProps> = ({ title }) => (
+  <HeaderWrapper>
+    <HeaderHeader>
+      <Title>Tweet Factory - {title}</Title>
+    </HeaderHeader>
+  </HeaderWrapper>
+);
 
-  public toggle = (): void => {
-    this.setState((prev: IHeaderState) => ({
-      ...prev,
-      opened: !prev.opened,
-    }));
-  };
-
-  public render() {
-    const { title, commandCounts } = this.props;
-    const { opened } = this.state;
-    return (
-      <HeaderWrapper>
-        <Commands isOpened={opened} />
-        <HeaderHeader onClick={this.toggle}>
-          <Title>{title}</Title>
-          <span>{opened ? '▲' : '▼'}</span>
-          <Badge>{commandCounts}</Badge>
-        </HeaderHeader>
-      </HeaderWrapper>
-    );
-  }
-}
-
-const Badge = styled.span`
-  background-color: ${props => props.theme.colors.tealDarkest};
-  color: ${props => props.theme.colors.white};
-  border-radius: 50%;
-  padding: ${props => props.theme.lengths.l2};
-  font-size: ${props => props.theme.lengths.l2};
-  height: ${props => props.theme.lengths.l7};
-  width: ${props => props.theme.lengths.l7};
-  text-align: center;
-`;
+export default Header;
 
 const HeaderHeader = styled.div`
   display: flex;

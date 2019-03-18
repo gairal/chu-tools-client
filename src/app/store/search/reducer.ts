@@ -1,39 +1,39 @@
 import { Reducer } from 'redux';
 
-import Chat from '@/data/Chat';
-import { ChatActionTypes, IChatState } from './types';
+import Search from '@/data/Search';
+import { ISearchState, SearchActionTypes } from './types';
 
-const initialState: IChatState = {
+const initialState: ISearchState = {
   data: null,
-  dialog: [],
   errors: undefined,
   loading: false,
+  tweets: [],
 };
 
-const reducer: Reducer<IChatState> = (state = initialState, action) => {
+const reducer: Reducer<ISearchState> = (state = initialState, action) => {
   switch (action.type) {
-    case ChatActionTypes.CHAT_LOAD: {
+    case SearchActionTypes.SEARCH_LOAD: {
       // TODO: what are we doing with the idToken in Persistable ?
-      const data = state.data ? state.data : new Chat('');
+      const data = state.data ? state.data : new Search('');
       return {
         ...state,
         data,
-        dialog: data.load(),
+        tweets: data.load(),
       };
     }
-    case ChatActionTypes.CHAT_FLUSH: {
+    case SearchActionTypes.SEARCH_FLUSH: {
       state.data.flush();
       return {
         ...state,
-        dialog: [],
+        tweets: [],
       };
     }
-    case ChatActionTypes.REQUEST_SEND: {
+    case SearchActionTypes.REQUEST_SEND: {
       const newMessage = {
         content: {
           text: action.payload,
         },
-        id: state.dialog.length,
+        id: state.tweets.length,
         isBot: false,
         user: 'you',
       };
@@ -42,14 +42,14 @@ const reducer: Reducer<IChatState> = (state = initialState, action) => {
 
       return {
         ...state,
-        dialog: [...state.dialog, newMessage],
         loading: true,
+        tweets: [...state.tweets, newMessage],
       };
     }
-    case ChatActionTypes.REQUEST_SUCCESS: {
+    case SearchActionTypes.REQUEST_SUCCESS: {
       const newMessage = {
         content: action.payload,
-        id: state.dialog.length,
+        id: state.tweets.length,
         isBot: true,
         user: 'vc',
       };
@@ -57,11 +57,11 @@ const reducer: Reducer<IChatState> = (state = initialState, action) => {
       state.data.add(newMessage);
       return {
         ...state,
-        dialog: [...state.dialog, newMessage],
         loading: false,
+        tweets: [...state.tweets, newMessage],
       };
     }
-    case ChatActionTypes.REQUEST_ERROR: {
+    case SearchActionTypes.REQUEST_ERROR: {
       return { ...state, loading: false, errors: action.payload };
     }
     default: {
@@ -70,4 +70,4 @@ const reducer: Reducer<IChatState> = (state = initialState, action) => {
   }
 };
 
-export { reducer as chatReducer };
+export { reducer as searchReducer };

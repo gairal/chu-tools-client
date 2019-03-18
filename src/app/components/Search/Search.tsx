@@ -1,21 +1,20 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+import Result from '@/components/Search//Result';
+import Form from '@/components/Search/Form';
 import { IConnectedReduxProps } from '@/store';
 
-import Conversation from './Conversation';
-import Input from './Input';
-
-const ChatView: React.SFC<IConnectedReduxProps> = () => (
-  <Chat>
-    <Conversation />
-    <Input />
-  </Chat>
+const SearchView: React.SFC<IConnectedReduxProps> = () => (
+  <Search>
+    <Form />
+    <Result />
+  </Search>
 );
 
-export default ChatView;
+export default SearchView;
 
-const Chat = styled.div`
+const Search = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;

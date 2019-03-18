@@ -36,7 +36,7 @@ const routes: IRouteConf[] = [
   },
   {
     inNav: true,
-    label: 'chat',
+    label: 'search',
     navLinkProps: {
       to: '/',
     },

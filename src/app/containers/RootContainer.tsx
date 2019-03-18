@@ -9,7 +9,6 @@ import { IApplicationState } from '@/store';
 import { firebaseAuthCheck } from '@/store/firebase/actions';
 
 interface IPropsFromState {
-  commandCounts: number;
   isAuthenticated: boolean;
   idToken: string;
   name: string;
@@ -27,21 +26,18 @@ class RootContainer extends React.Component<AllProps> {
   }
 
   public render() {
-    const { isAuthenticated, name, commandCounts } = this.props;
+    const { isAuthenticated, name } = this.props;
 
     return (
       <Root>
-        {isAuthenticated ? (
-          <Header title={name} commandCounts={commandCounts} />
-        ) : null}
+        {isAuthenticated ? <Header title={name} /> : null}
         <RoutesContainer />
       </Root>
     );
   }
 }
 
-const mapStateToProps = ({ firebase, commands }: IApplicationState) => ({
-  commandCounts: commands.commands.length,
+const mapStateToProps = ({ firebase }: IApplicationState) => ({
   idToken: firebase.idToken,
   isAuthenticated: firebase.isAuthenticated,
   name: firebase.name,

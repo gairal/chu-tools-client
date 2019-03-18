@@ -8,7 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import createRootReducer, { IApplicationState, rootSaga } from './';
 
 const fbConfig = {
-  apiKey: '',
+  apiKey: 'AIzaSyD3hReu-JxMfbBgNX5jCDdkwUGwK9wlsXs',
   authDomain: 'com-gairal-chools.firebaseapp.com',
   projectId: 'com-gairal-chools',
 };
