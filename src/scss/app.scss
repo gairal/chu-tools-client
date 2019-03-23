@@ -1,0 +1,10 @@
+@tailwind preflight;
+@tailwind components;
+
+@import './mixins';
+
+/**************************************************
+ ******* Put you code here in subdirectories *******
+ *************************************************/
+@import './general';
+@tailwind utilities;

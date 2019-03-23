@@ -1,0 +1,23 @@
+body {
+  @apply bg-blue-lightest;
+}
+
+a {
+  @apply text-grey-darkest;
+}
+
+button {
+  @apply p-2 cursor-pointer rounded-sm;
+}
+
+button,
+a,
+input {
+  &:focus {
+    outline: none;
+  }
+}
+
+.root {
+  @apply h-screen;
+}
