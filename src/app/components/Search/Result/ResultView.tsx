@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Tweets from '@/components/Search/Result/Tweets';
-import { ITweet, sentiment } from '@/store/search/types';
+import { ITweet, Sentiment } from '@/store/search/types';
 
 interface IPropsFromState {
   tweets: ITweet[];
@@ -15,13 +15,13 @@ const ResultView: React.SFC<AllProps> = ({ tweets }) => {
   const { unordered, negative, neutral, positive } = tweets.reduce(
     (acc, t) => {
       switch (t.sentiment) {
-        case sentiment.Negative:
+        case Sentiment.Negative:
           acc.negative.push(t);
           break;
-        case sentiment.Neutral:
+        case Sentiment.Neutral:
           acc.neutral.push(t);
           break;
-        case sentiment.Positive:
+        case Sentiment.Positive:
           acc.positive.push(t);
           break;
         default:

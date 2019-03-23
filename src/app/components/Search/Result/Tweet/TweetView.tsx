@@ -1,58 +1,46 @@
 import * as React from 'react';
 
-import { setSentiment } from '@/store/search/actions';
-import { ITweet, sentiment } from '@/store/search/types';
+import SentimentActions from '@/components/Search/Result/Tweet/SentimentActions';
+import { setSentiment, setVisibility } from '@/store/search/actions';
+import { ITweet } from '@/store/search/types';
+import HideActions from './HideActions';
 
 interface IProps {
   setTheSentiment: typeof setSentiment;
+  setTheVisibility: typeof setVisibility;
   tweet: ITweet;
 }
 type AllProps = IProps;
 
-const TweetView: React.SFC<AllProps> = ({ tweet, setTheSentiment }) => {
-  const setNegativeSentiment = () =>
-    setTheSentiment(tweet.id, sentiment.Negative);
-  const setNeutralSentiment = () =>
-    setTheSentiment(tweet.id, sentiment.Neutral);
-  const setPositiveSentiment = () =>
-    setTheSentiment(tweet.id, sentiment.Positive);
-
-  const defaultActionClassNames = 'text-white m-2 w-full';
-
+const TweetView: React.SFC<AllProps> = ({
+  tweet,
+  setTheSentiment,
+  setTheVisibility,
+}) => {
   const date = new Date(tweet.created_at).toDateString();
   return (
-    <div className="flex flex-col p-4 my-2 border">
-      <div className="flex justify-between text-grey text-sm">
-        <a className="truncate" href={tweet.url}>
-          {tweet.url}
+    <li
+      className={`flex flex-col p-4 my-2 shadow-sm rounded bg-grey-lightest border ${tweet.hidden &&
+        'opacity-50'}`}
+    >
+      <div className="flex justify-between items-center text-grey text-sm mb-2">
+        <a
+          className="truncate border rounded-sm p-2"
+          href={tweet.url}
+          target="_blank"
+        >
+          link
         </a>
         {date}
+        {!tweet.sentiment && (
+          <HideActions tweet={tweet} setTheVisibility={setTheVisibility} />
+        )}
       </div>
       {tweet.text}
-      <div className="flex justify-between pt-2">
-        <button
-          className={`${defaultActionClassNames} bg-red`}
-          type="button"
-          onClick={setNegativeSentiment}
-        >
-          -
-        </button>
-        <button
-          className={`${defaultActionClassNames} bg-grey`}
-          type="button"
-          onClick={setNeutralSentiment}
-        >
-          ~
-        </button>
-        <button
-          className={`${defaultActionClassNames} bg-green`}
-          type="button"
-          onClick={setPositiveSentiment}
-        >
-          +
-        </button>
-      </div>
-    </div>
+      {!tweet.hidden && (
+        <SentimentActions id={tweet.id} setTheSentiment={setTheSentiment} />
+      )}
+    </li>
   );
 };
 

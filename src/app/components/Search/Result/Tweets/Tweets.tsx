@@ -12,13 +12,26 @@ interface IPropsFromState {
 type AllProps = IPropsFromState;
 
 const TweetsView: React.SFC<AllProps> = ({ tweets, title }) => (
-  <div className="flex flex-col w-1/4 border-r">
-    <h2 className="p-2 border-b">{title}</h2>
-    <div className="flex flex-col p-2">
-      {tweets.map(t => (
-        <Tweet key={t.id} tweet={t} />
-      ))}
-    </div>
+  <div className="flex flex-col w-1/4 mx-2">
+    <h2 className="p-2 border-b uppercase text-grey-darker text-center">
+      {title}
+    </h2>
+    <ul className="list-reset p-2">
+      {tweets
+        .sort((t1, t2) => {
+          if (t1.hidden && !t2.hidden) {
+            return 1;
+          }
+          if (!t1.hidden && t2.hidden) {
+            return -1;
+          }
+
+          return 0;
+        })
+        .map(t => (
+          <Tweet key={t.id} tweet={t} />
+        ))}
+    </ul>
   </div>
 );
 

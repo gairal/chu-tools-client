@@ -37,6 +37,16 @@ const reducer: Reducer<ISearchState> = (state = initialState, action) => {
 
       return { ...state, tweets: newTweets };
     }
+    case SearchActionTypes.TWEET_SET_VISIBILITY: {
+      const newTweets = [...state.tweets];
+      const idx = newTweets.findIndex(t => t.id === action.payload.id);
+      newTweets[idx] = {
+        ...newTweets[idx],
+        hidden: action.payload.hidden,
+      };
+
+      return { ...state, tweets: newTweets };
+    }
     default: {
       return state;
     }
