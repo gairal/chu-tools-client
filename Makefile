@@ -22,4 +22,5 @@ debug:
 	npm run debug
 
 deploy:
+	make release
 	npm run deploy

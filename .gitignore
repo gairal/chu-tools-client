@@ -3,6 +3,7 @@ _gh_pages
 _site
 .ruby-version
 .grunt
+.firebase
 
 # Numerous always-ignore extensions
 *.diff
