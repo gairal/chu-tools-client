@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import Header from '@/components/layout/Header';
-import Root from '@/components/layout/Root';
 import RoutesContainer from '@/containers/RoutesContainer';
 import { IApplicationState } from '@/store';
 import { firebaseAuthCheck } from '@/store/firebase/actions';
@@ -29,10 +28,10 @@ class RootContainer extends React.Component<AllProps> {
     const { isAuthenticated, name } = this.props;
 
     return (
-      <Root>
+      <React.Fragment>
         {isAuthenticated ? <Header title={name} /> : null}
         <RoutesContainer />
-      </Root>
+      </React.Fragment>
     );
   }
 }

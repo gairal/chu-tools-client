@@ -1,5 +1,4 @@
 import * as React from 'react';
-import styled from 'styled-components';
 
 import Tweets from '@/components/Search/Result/Tweets';
 import { ITweet, sentiment } from '@/store/search/types';
@@ -41,17 +40,13 @@ const ResultView: React.SFC<AllProps> = ({ tweets }) => {
   );
 
   return (
-    <Result>
+    <div className="flex">
       <Tweets tweets={unordered} title="Unordered" />
       <Tweets tweets={negative} title="Negative" />
       <Tweets tweets={neutral} title="Neutral" />
       <Tweets tweets={positive} title="Positive" />
-    </Result>
+    </div>
   );
 };
-
-const Result = styled.div`
-  display: flex;
-`;
 
 export default ResultView;

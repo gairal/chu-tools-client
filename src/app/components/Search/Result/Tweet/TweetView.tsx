@@ -1,5 +1,4 @@
 import * as React from 'react';
-import styled from 'styled-components';
 
 import { setSentiment } from '@/store/search/actions';
 import { ITweet, sentiment } from '@/store/search/types';
@@ -18,66 +17,43 @@ const TweetView: React.SFC<AllProps> = ({ tweet, setTheSentiment }) => {
   const setPositiveSentiment = () =>
     setTheSentiment(tweet.id, sentiment.Positive);
 
+  const defaultActionClassNames = 'text-white m-2 w-full';
+
   const date = new Date(tweet.created_at).toDateString();
   return (
-    <Tweet>
-      <Header>
-        <Link href={tweet.url}>{tweet.url}</Link>
+    <div className="flex flex-col p-4 my-2 border">
+      <div className="flex justify-between text-grey text-sm">
+        <a className="truncate" href={tweet.url}>
+          {tweet.url}
+        </a>
         {date}
-      </Header>
+      </div>
       {tweet.text}
-      <Actions>
-        <Negative onClick={setNegativeSentiment}>-</Negative>
-        <Neutral onClick={setNeutralSentiment}>~</Neutral>
-        <Positive onClick={setPositiveSentiment}>+</Positive>
-      </Actions>
-    </Tweet>
+      <div className="flex justify-between pt-2">
+        <button
+          className={`${defaultActionClassNames} bg-red`}
+          type="button"
+          onClick={setNegativeSentiment}
+        >
+          -
+        </button>
+        <button
+          className={`${defaultActionClassNames} bg-grey`}
+          type="button"
+          onClick={setNeutralSentiment}
+        >
+          ~
+        </button>
+        <button
+          className={`${defaultActionClassNames} bg-green`}
+          type="button"
+          onClick={setPositiveSentiment}
+        >
+          +
+        </button>
+      </div>
+    </div>
   );
 };
-
-const Tweet = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: ${props => props.theme.lengths.l4};
-  margin-bottom: ${props => props.theme.lengths.l2};
-  margin-top: ${props => props.theme.lengths.l2};
-  border: ${props => `solid 1px ${props.theme.colors.greyLight}`};
-`;
-
-const Header = styled.div`
-  margin-bottom: ${props => props.theme.lengths.l2};
-  display: flex;
-  justify-content: space-between;
-  color: ${props => props.theme.colors.grey};
-  font-size: ${props => props.theme.lengths.l3};
-`;
-
-const Link = styled.a`
-  word-break: break-all;
-`;
-
-const Actions = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-top: ${props => props.theme.lengths.l2};
-`;
-
-const Action = styled.button`
-  color: ${props => props.theme.colors.white};
-  margin: ${props => props.theme.lengths.l2};
-  width: 100%;
-`;
-
-const Negative = styled(Action)`
-  background-color: ${props => props.theme.colors.red};
-`;
-
-const Neutral = styled(Action)`
-  background-color: ${props => props.theme.colors.grey};
-`;
-
-const Positive = styled(Action)`
-  background-color: ${props => props.theme.colors.green};\
-`;
 
 export default TweetView;

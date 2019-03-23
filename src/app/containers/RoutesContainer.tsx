@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import styled from 'styled-components';
 
 import PrivateRoute from '@/components/PrivateRoute';
 import NotFound from '@/pages/notFound';
@@ -8,7 +7,7 @@ import routes from '@/routes';
 
 const RoutesContainer: React.SFC = () => {
   return (
-    <RoutesWrapper>
+    <div className="h-full pt-header">
       <Switch>
         {routes.map(route => {
           return route.private ? (
@@ -19,13 +18,8 @@ const RoutesContainer: React.SFC = () => {
         })}
         <Route component={NotFound} />
       </Switch>
-    </RoutesWrapper>
+    </div>
   );
 };
-
-const RoutesWrapper = styled.div`
-  height: ${props => props.theme.lengths.full};
-  padding-top: ${props => props.theme.lengths.header};
-`;
 
 export default RoutesContainer;

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import styled from 'styled-components';
 
 import { requestSend } from '@/store/search/actions';
 import { ITweet } from '@/store/search/types';
@@ -32,28 +31,17 @@ const FormView: React.SFC<AllProps> = ({ request }) => {
   };
 
   return (
-    <Form>
-      <Input
+    <form className="flex justify-between p-2 border-b">
+      <input
+        className="p-2 w-full"
         onChange={handleKeywordChange}
         onKeyUp={keyPress}
         placeholder="keyword"
         type="text"
         value={keyword}
       />
-    </Form>
+    </form>
   );
 };
 
 export default FormView;
-
-const Form = styled.form`
-  display: flex;
-  justify-content: space-between;
-  padding: ${props => props.theme.lengths.l2};
-  border-bottom: ${props => `solid 1px ${props.theme.colors.greyLight}`};
-`;
-
-const Input = styled.input`
-  padding: ${props => props.theme.lengths.l2};
-  width: 100%;
-`;

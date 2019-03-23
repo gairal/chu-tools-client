@@ -12,6 +12,8 @@ import { IWindow } from './window';
 const history = createHashHistory();
 const store = configure(history, (window as IWindow).INITIAL_STATE);
 
+import '../scss/app.scss';
+
 const App: React.SFC = () => {
   return (
     <AppContainer>
