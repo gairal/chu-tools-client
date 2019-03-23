@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import Result from '@/components/Search//Result';
 import Form from '@/components/Search/Form';
+import Result from '@/components/Search/Result';
 import { IConnectedReduxProps } from '@/store';
 
 const SearchView: React.SFC<IConnectedReduxProps> = () => (

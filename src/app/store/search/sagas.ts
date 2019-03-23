@@ -10,7 +10,7 @@ function* handleFetch(q: any) {
   try {
     if (!q.payload || '' === q.payload.trim()) return;
 
-    const query: IQuery = { term: `linkedin ${q.payload}` };
+    const query: IQuery = { term: `linkedin ${q.payload}`, count: 10 };
 
     const idToken = yield select(({ firebase }) => firebase.idToken);
 

@@ -49,7 +49,7 @@ export default FormView;
 const Form = styled.form`
   display: flex;
   justify-content: space-between;
-  padding: ${props => props.theme.lengths.l4};
+  padding: ${props => props.theme.lengths.l2};
   border-bottom: ${props => `solid 1px ${props.theme.colors.greyLight}`};
 `;
 

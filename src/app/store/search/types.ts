@@ -1,5 +1,6 @@
 export interface IQuery {
   term: string;
+  count: number;
 }
 
 export enum sentiment {
