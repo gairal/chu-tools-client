@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { setSentiment, setVisibility } from '@/store/search/actions';
-import { Sentiment } from '@/store/search/types';
+import { setSentiment, setVisibility } from '@/store/tweet/actions';
+import { Sentiment } from '@/store/tweet/types';
 import TweetView from './TweetView';
 
 const mapStateToProps = () => ({});

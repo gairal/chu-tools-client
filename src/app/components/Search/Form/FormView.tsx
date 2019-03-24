@@ -1,26 +1,22 @@
 import moment from 'moment';
 import * as React from 'react';
 
-import CountInput from '@/components/Search/Form//CountInput';
-import QueryInput from '@/components/Search/Form//QueryInput';
-import SaveButton from '@/components/Search/Form//SaveButton';
+import CountInput from '@/components/Search/Form/CountInput';
 import DatePicker from '@/components/Search/Form/DatePicker';
-import { requestSend, saveSend } from '@/store/search/actions';
-import { ITweet } from '@/store/search/types';
+import QueryInput from '@/components/Search/Form/QueryInput';
+import { requestSend } from '@/store/tweet/actions';
 
 interface IPropsFromState {
-  tweets: ITweet[];
   loading: boolean;
 }
 
 interface IPropsFromDispatch {
   request: typeof requestSend;
-  save: typeof saveSend;
 }
 
 type AllProps = IPropsFromState & IPropsFromDispatch;
 
-const FormView: React.SFC<AllProps> = ({ request, save, tweets, loading }) => {
+const FormView: React.SFC<AllProps> = ({ request, loading }) => {
   const [keyword, setKeyword] = React.useState('');
   const [start, setStart] = React.useState(moment().subtract(1, 'months'));
   const [end, setEnd] = React.useState(moment());
@@ -30,10 +26,9 @@ const FormView: React.SFC<AllProps> = ({ request, save, tweets, loading }) => {
     request(keyword, start, end, count);
   };
 
-  // TODO: REMOVE
   React.useEffect(() => {
-    request('group');
-  }, [false]);
+    request(keyword, start, end, count);
+  }, [count, start, end]);
 
   return (
     <form className="flex justify-between">
@@ -45,19 +40,12 @@ const FormView: React.SFC<AllProps> = ({ request, save, tweets, loading }) => {
       />
       <DatePicker
         loading={loading}
-        search={search}
         setStart={setStart}
         start={start}
         setEnd={setEnd}
         end={end}
       />
-      <CountInput
-        count={count}
-        loading={loading}
-        setCount={setCount}
-        search={search}
-      />
-      <SaveButton loading={loading} save={save} tweets={tweets} />
+      <CountInput count={count} loading={loading} setCount={setCount} />
     </form>
   );
 };

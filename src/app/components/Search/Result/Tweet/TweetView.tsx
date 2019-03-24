@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import SentimentActions from '@/components/Search/Result/Tweet/SentimentActions';
-import { setSentiment, setVisibility } from '@/store/search/actions';
-import { ITweet } from '@/store/search/types';
+import { setSentiment, setVisibility } from '@/store/tweet/actions';
+import { ITweet } from '@/store/tweet/types';
 import HideActions from './HideActions';
 
 interface IProps {
@@ -28,9 +28,7 @@ const TweetView: React.SFC<AllProps> = ({
           <i className="fas fa-external-link-alt" />
         </a>
         {date}
-        {!tweet.sentiment && (
-          <HideActions tweet={tweet} setTheVisibility={setTheVisibility} />
-        )}
+        <HideActions tweet={tweet} setTheVisibility={setTheVisibility} />
       </div>
       {!tweet.hidden && (
         <SentimentActions id={tweet.id} setTheSentiment={setTheSentiment} />

@@ -4,7 +4,6 @@ import { DateRangePicker, FocusedInputShape } from 'react-dates';
 
 interface IProps {
   loading: boolean;
-  search: () => void;
   setStart: React.Dispatch<React.SetStateAction<moment.Moment>>;
   setEnd: React.Dispatch<React.SetStateAction<moment.Moment>>;
   start: moment.Moment;

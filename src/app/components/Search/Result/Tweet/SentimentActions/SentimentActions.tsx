@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { setSentiment } from '@/store/search/actions';
-import { Sentiment } from '@/store/search/types';
+import { setSentiment } from '@/store/tweet/actions';
+import { Sentiment } from '@/store/tweet/types';
 
 interface IProps {
   setTheSentiment: typeof setSentiment;
@@ -9,7 +9,7 @@ interface IProps {
 }
 type AllProps = IProps;
 
-const TweetView: React.SFC<AllProps> = ({ id, setTheSentiment }) => {
+const SentimentActions: React.SFC<AllProps> = ({ id, setTheSentiment }) => {
   const setNegativeSentiment = () => setTheSentiment(id, Sentiment.Negative);
   const setNeutralSentiment = () => setTheSentiment(id, Sentiment.Neutral);
   const setPositiveSentiment = () => setTheSentiment(id, Sentiment.Positive);
@@ -43,4 +43,4 @@ const TweetView: React.SFC<AllProps> = ({ id, setTheSentiment }) => {
   );
 };
 
-export default TweetView;
+export default SentimentActions;

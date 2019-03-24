@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 
-import { ISearchState, SearchActionTypes } from './types';
+import { ISearchState, SearchActionTypes, Sentiment } from './types';
 
 const initialState: ISearchState = {
   errors: undefined,
@@ -40,9 +40,11 @@ const reducer: Reducer<ISearchState> = (state = initialState, action) => {
     case SearchActionTypes.TWEET_SET_VISIBILITY: {
       const newTweets = [...state.tweets];
       const idx = newTweets.findIndex(t => t.id === action.payload.id);
+
       newTweets[idx] = {
         ...newTweets[idx],
         hidden: action.payload.hidden,
+        sentiment: Sentiment.Unorder,
       };
 
       return { ...state, tweets: newTweets };

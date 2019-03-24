@@ -1,10 +1,10 @@
-import moment from 'moment';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import FormView from '@/components/Search/Form/FormView';
+import SaveFormView from '@/components/Search/Result/SaveForm/SaveFormView';
 import { IApplicationState } from '@/store';
-import { requestSend } from '@/store/tweet/actions';
+import { saveSend } from '@/store/sheet/actions';
+import { IOrderedTweetIds } from '@/store/tweet/types';
 
 const mapStateToProps = ({ tweet }: IApplicationState) => ({
   loading: tweet.loading,
@@ -12,15 +12,11 @@ const mapStateToProps = ({ tweet }: IApplicationState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  request: (
-    term: string,
-    start: moment.Moment,
-    end: moment.Moment,
-    count: number,
-  ) => dispatch(requestSend(term, start, end, count)),
+  save: (sheetId: string, ids: IOrderedTweetIds) =>
+    dispatch(saveSend(sheetId, ids)),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(FormView);
+)(SaveFormView);

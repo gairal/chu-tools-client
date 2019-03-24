@@ -7,12 +7,12 @@ import { firebaseReducer } from './firebase/reducer';
 import firebaseSaga from './firebase/sagas';
 import { IFirebaseState } from './firebase/types';
 
-import { searchReducer } from './search/reducer';
-import searchSaga from './search/sagas';
-import { ISearchState } from './search/types';
+import { tweetReducer } from './tweet/reducer';
+import tweetSaga from './tweet/sagas';
+import { ITweetState } from './tweet/types';
 
 export interface IApplicationState {
-  search: ISearchState;
+  tweet: ITweetState;
   firebase: IFirebaseState;
   router: RouterState;
 }
@@ -25,11 +25,11 @@ export const createRootReducer = (history: History) =>
   combineReducers<IApplicationState>({
     firebase: firebaseReducer,
     router: connectRouter(history),
-    search: searchReducer,
+    tweet: tweetReducer,
   });
 
 export function* rootSaga() {
-  yield all([fork(searchSaga), fork(firebaseSaga)]);
+  yield all([fork(tweetSaga), fork(firebaseSaga)]);
 }
 
 export default createRootReducer;

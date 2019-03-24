@@ -1,11 +1,10 @@
 import * as React from 'react';
 
-import { saveSend } from '@/store/search/actions';
-import { ITweet, Sentiment } from '@/store/search/types';
+import { IOrderedTweetIds, ITweet, Sentiment } from '@/store/tweet/types';
 
 interface IProps {
   loading: boolean;
-  save: typeof saveSend;
+  save: (ids: IOrderedTweetIds) => void;
   tweets: ITweet[];
 }
 

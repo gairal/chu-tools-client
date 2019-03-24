@@ -42,26 +42,15 @@ export interface ITweet {
   url: string;
 }
 
-export interface IOrderedTweetIds {
-  negative: string[];
-  positive: string[];
-  neutral: string[];
+export const enum TweetActionTypes {
+  REQUEST_SEND = '@@tweet/SEND_REQUEST',
+  REQUEST_SUCCESS = '@@tweet/REQUEST_SUCCESS',
+  REQUEST_ERROR = '@@tweet/REQUEST_ERROR',
+  TWEET_SET_SENTIMENT = '@@tweet/TWEET_SET_SENTIMENT',
+  TWEET_SET_VISIBILITY = '@@tweet/TWEET_SET_VISIBILITY',
 }
 
-export type ApiResponse = Record<string, any>;
-
-export const enum SearchActionTypes {
-  REQUEST_SEND = '@@search/SEND_REQUEST',
-  REQUEST_SUCCESS = '@@search/REQUEST_SUCCESS',
-  REQUEST_ERROR = '@@search/REQUEST_ERROR',
-  TWEET_SET_SENTIMENT = '@@search/TWEET_SET_SENTIMENT',
-  TWEET_SET_VISIBILITY = '@@search/TWEET_SET_VISIBILITY',
-  SAVE_SEND = '@@search/SAVE_SEND',
-  SAVE_SUCCESS = '@@search/SAVE_SUCCESS',
-  SAVE_ERROR = '@@search/SAVE_ERROR',
-}
-
-export interface ISearchState {
+export interface ITweetState {
   readonly loading: boolean;
   readonly tweets: ITweet[];
   readonly errors?: string;

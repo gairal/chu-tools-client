@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { setVisibility } from '@/store/search/actions';
-import { ITweet } from '@/store/search/types';
+import { setVisibility } from '@/store/tweet/actions';
+import { ITweet } from '@/store/tweet/types';
 
 interface IProps {
   setTheVisibility: typeof setVisibility;
@@ -9,13 +9,17 @@ interface IProps {
 }
 type AllProps = IProps;
 
-const TweetView: React.SFC<AllProps> = ({ tweet, setTheVisibility }) => {
+const HideActions: React.SFC<AllProps> = ({ tweet, setTheVisibility }) => {
   const hide = () => setTheVisibility(tweet.id, true);
   const show = () => setTheVisibility(tweet.id, false);
 
   return (
     <div>
       {tweet.hidden ? (
+        <button type="button" className={`text-grey`} onClick={show}>
+          <i className="fas fa-trash-restore" />
+        </button>
+      ) : tweet.sentiment ? (
         <button type="button" className={`text-grey`} onClick={show}>
           <i className="fas fa-undo" />
         </button>
@@ -28,4 +32,4 @@ const TweetView: React.SFC<AllProps> = ({ tweet, setTheVisibility }) => {
   );
 };
 
-export default TweetView;
+export default HideActions;

@@ -3,7 +3,6 @@ import * as React from 'react';
 interface IProps {
   count: number;
   loading: boolean;
-  search: () => void;
   setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
