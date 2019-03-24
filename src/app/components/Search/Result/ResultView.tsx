@@ -40,11 +40,13 @@ const ResultView: React.SFC<AllProps> = ({ tweets }) => {
   );
 
   return (
-    <div className="flex">
-      <Tweets tweets={unordered} title="Unordered" />
-      <Tweets tweets={negative} title="Negative" />
-      <Tweets tweets={neutral} title="Neutral" />
-      <Tweets tweets={positive} title="Positive" />
+    <div className="flex h-full">
+      <Tweets tweets={unordered} />
+      <div className="flex flex-3 shadow-sm">
+        <Tweets tweets={negative} title="Negative" />
+        <Tweets tweets={neutral} title="Neutral" />
+        <Tweets tweets={positive} title="Positive" />
+      </div>
     </div>
   );
 };

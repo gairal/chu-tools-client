@@ -14,10 +14,10 @@ const TweetView: React.SFC<AllProps> = ({ id, setTheSentiment }) => {
   const setNeutralSentiment = () => setTheSentiment(id, Sentiment.Neutral);
   const setPositiveSentiment = () => setTheSentiment(id, Sentiment.Positive);
 
-  const defaultActionClassNames = 'm-2 w-full';
+  const defaultActionClassNames = 'p-1 m-2 w-full';
 
   return (
-    <div className="flex justify-between pt-2">
+    <div className="flex justify-between">
       <button
         className={`${defaultActionClassNames} bg-red`}
         type="button"

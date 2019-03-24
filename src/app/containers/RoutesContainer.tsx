@@ -7,7 +7,7 @@ import routes from '@/routes';
 
 const RoutesContainer: React.SFC = () => {
   return (
-    <div className="h-full pt-header">
+    <div className="content">
       <Switch>
         {routes.map(route => {
           return route.private ? (

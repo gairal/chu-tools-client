@@ -1,3 +1,4 @@
+import Form from '@/components/Search/Form';
 import * as React from 'react';
 
 interface IHeaderProps {
@@ -7,9 +8,10 @@ interface IHeaderProps {
 type AllProps = IHeaderProps;
 
 const Header: React.SFC<AllProps> = ({ title }) => (
-  <div className="fixed pin-t pin-l pin-r flex flex-col items-center px-16 bg-grey-lightest border-b">
-    <div className="flex justify-between items-center cursor-pointer w-full min-h-12">
-      <h1 className="mr-4">Tweet Factory - {title}</h1>
+  <div className="flex flex-col items-center px-8 py-2 bg-grey-lightest border-b">
+    <div className="flex flex-col justify-between cursor-pointer w-full">
+      <h1 className="mr-4 text-sm text-grey pb-2">Tweet Factory - {title}</h1>
+      <Form />
     </div>
   </div>
 );

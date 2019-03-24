@@ -31,15 +31,18 @@ const FormView: React.SFC<AllProps> = ({ request }) => {
   };
 
   return (
-    <form className="flex justify-between p-2 border-b">
+    <form className="flex justify-between">
       <input
-        className="p-2 w-full"
+        className="p-2 w-full bg-grey-lighter"
         onChange={handleKeywordChange}
         onKeyUp={keyPress}
         placeholder="keyword"
         type="text"
         value={keyword}
       />
+      <button type="button" className="text-blue">
+        <i className="fas fa-file-import" />
+      </button>
     </form>
   );
 };

@@ -43,7 +43,7 @@ View the full documentation at https://tailwindcss.com.
 */
 
 const consts = {
-  headerHeight: '51px',
+  headerHeight: '75px',
 };
 
 let colors = {
@@ -677,6 +677,7 @@ module.exports = {
     '20': '5rem',
     '24': '6rem',
     '32': '8rem',
+    header: consts.headerHeight,
   },
 
   /*

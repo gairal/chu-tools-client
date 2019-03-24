@@ -4,18 +4,23 @@ import Tweet from '@/components/Search/Result/Tweet';
 import { ITweet } from '@/store/search/types';
 
 interface IPropsFromState {
-  tweets: ITweet[];
+  className?: string;
   loading?: boolean;
   title?: string;
+  tweets: ITweet[];
 }
 
 type AllProps = IPropsFromState;
 
-const TweetsView: React.SFC<AllProps> = ({ tweets, title }) => (
-  <div className="flex flex-col w-1/4 mx-2">
-    <h2 className="p-2 border-b uppercase text-grey-darker text-center">
-      {title}
-    </h2>
+const TweetsView: React.SFC<AllProps> = ({ tweets, title, className }) => (
+  <div
+    className={`flex flex-col mx-2 flex-1 h-full overflow-auto ${className}`}
+  >
+    {title && (
+      <h2 className="p-2 border-b uppercase text-grey-darker text-center text-lg">
+        {title}
+      </h2>
+    )}
     <ul className="list-reset p-2">
       {tweets
         .sort((t1, t2) => {
