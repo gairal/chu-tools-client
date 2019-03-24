@@ -1,7 +1,12 @@
+import moment from 'moment';
 import * as React from 'react';
 
+import CountInput from '@/components/Search/Form//CountInput';
+import QueryInput from '@/components/Search/Form//QueryInput';
+import SaveButton from '@/components/Search/Form//SaveButton';
+import DatePicker from '@/components/Search/Form/DatePicker';
 import { requestSend, saveSend } from '@/store/search/actions';
-import { ITweet, Sentiment } from '@/store/search/types';
+import { ITweet } from '@/store/search/types';
 
 interface IPropsFromState {
   tweets: ITweet[];
@@ -17,61 +22,42 @@ type AllProps = IPropsFromState & IPropsFromDispatch;
 
 const FormView: React.SFC<AllProps> = ({ request, save, tweets, loading }) => {
   const [keyword, setKeyword] = React.useState('');
+  const [start, setStart] = React.useState(moment().subtract(1, 'months'));
+  const [end, setEnd] = React.useState(moment());
+  const [count, setCount] = React.useState(50);
+
+  const search = () => {
+    request(keyword, start, end, count);
+  };
 
   // TODO: REMOVE
-  // React.useEffect(() => {
-  //   request('group');
-  // }, [false]);
-
-  const keyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.keyCode === 13) request(keyword);
-  };
-
-  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
-  };
-
-  const handleSave = () => {
-    const orderedTweets = tweets.reduce(
-      (twits, tweet) => {
-        if (tweet.sentiment === Sentiment.Negative) {
-          twits.negative.push(tweet.id);
-        } else if (tweet.sentiment === Sentiment.Positive) {
-          twits.positive.push(tweet.id);
-        } else if (tweet.sentiment === Sentiment.Neutral) {
-          twits.neutral.push(tweet.id);
-        }
-
-        return twits;
-      },
-      {
-        negative: [],
-        neutral: [],
-        positive: [],
-      },
-    );
-
-    save(orderedTweets);
-  };
+  React.useEffect(() => {
+    request('group');
+  }, [false]);
 
   return (
     <form className="flex justify-between">
-      <input
-        className="p-2 w-full bg-grey-lighter"
-        onChange={handleKeywordChange}
-        onKeyUp={keyPress}
-        placeholder="keyword"
-        type="text"
-        value={keyword}
+      <QueryInput
+        loading={loading}
+        search={search}
+        setKeyword={setKeyword}
+        keyword={keyword}
       />
-      <button
-        type="button"
-        className="text-blue"
-        onClick={handleSave}
-        disabled={loading}
-      >
-        <i className="fas fa-file-import" />
-      </button>
+      <DatePicker
+        loading={loading}
+        search={search}
+        setStart={setStart}
+        start={start}
+        setEnd={setEnd}
+        end={end}
+      />
+      <CountInput
+        count={count}
+        loading={loading}
+        setCount={setCount}
+        search={search}
+      />
+      <SaveButton loading={loading} save={save} tweets={tweets} />
     </form>
   );
 };

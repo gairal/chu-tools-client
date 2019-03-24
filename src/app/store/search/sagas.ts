@@ -25,10 +25,19 @@ function* customFetch(query: string) {
 }
 
 function* handleFetch(q: any) {
-  if (!q.payload || '' === q.payload.trim()) return;
+  if (!q.payload || '' === q.payload.term.trim()) {
+    yield put(requestError('wrong parameters'));
+  }
+
+  const { term, start, end, count } = q.payload;
+  const startDate = start.format('YYYY-MM-DD');
+  const endDate = end.format('YYYY-MM-DD');
 
   try {
-    const query: ISearchQuery = { term: `linkedin ${q.payload}`, count: 50 };
+    const query: ISearchQuery = {
+      count,
+      term: `linkedin ${term} since:${startDate} until:${endDate}`,
+    };
 
     const { res, json } = yield customFetch(
       `${config.API_SEARCH_ENDPOINT}?${qs.stringify(query)}`,

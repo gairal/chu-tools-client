@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -12,7 +13,12 @@ const mapStateToProps = ({ search }: IApplicationState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  request: (message: string) => dispatch(requestSend(message)),
+  request: (
+    term: string,
+    start: moment.Moment,
+    end: moment.Moment,
+    count: number,
+  ) => dispatch(requestSend(term, start, end, count)),
   save: (ids: IOrderedTweetIds) => dispatch(saveSend(ids)),
 });
 

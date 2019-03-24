@@ -45,7 +45,7 @@ module.exports = {
         include: path.join(__dirname, '../src'),
       },
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.(sa|sc)ss$/,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
@@ -53,6 +53,10 @@ module.exports = {
           'sass-loader',
         ],
         include: path.join(__dirname, '../src/scss'),
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,

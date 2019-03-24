@@ -1,4 +1,5 @@
 import 'es6-promise/auto';
+import 'react-dates/initialize';
 import 'whatwg-fetch';
 
 import * as React from 'react';

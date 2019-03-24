@@ -12,6 +12,7 @@ import { IWindow } from './window';
 const history = createHashHistory();
 const store = configure(history, (window as IWindow).INITIAL_STATE);
 
+import 'react-dates/lib/css/_datepicker.css';
 import '../scss/app.scss';
 
 const App: React.SFC = () => {

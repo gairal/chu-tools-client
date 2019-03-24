@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { action } from 'typesafe-actions';
 
 import {
@@ -7,8 +8,14 @@ import {
   Sentiment,
 } from './types';
 
-export const requestSend = (q: string) =>
-  action(SearchActionTypes.REQUEST_SEND, q);
+export const requestSend = (
+  q: string,
+  start: moment.Moment = moment().subtract(1, 'months'),
+  end: moment.Moment = moment(),
+  count: number = 50,
+) => {
+  return action(SearchActionTypes.REQUEST_SEND, { term: q, start, end, count });
+};
 export const requestSuccess = (data: ITweet[]) =>
   action(SearchActionTypes.REQUEST_SUCCESS, data);
 export const requestError = (message: string) =>

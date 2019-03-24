@@ -18,6 +18,17 @@ input {
   }
 }
 
+input {
+  &[type='text'],
+  &[type='number'] {
+    @apply p-2 w-full bg-grey-lighter;
+  }
+}
+
+button:disabled {
+  @apply opacity-50;
+}
+
 .root {
   @apply h-screen;
 }
@@ -32,8 +43,4 @@ input {
 
 .content {
   height: calc(100% - 75px);
-}
-
-button:disabled {
-  @apply opacity-50;
 }
