@@ -14,7 +14,7 @@ button,
 a,
 input {
   &:focus {
-    outline: none;
+    @apply outline-none;
   }
 }
 
@@ -32,4 +32,8 @@ input {
 
 .content {
   height: calc(100% - 75px);
+}
+
+button:disabled {
+  @apply opacity-50;
 }

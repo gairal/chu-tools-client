@@ -19,21 +19,21 @@ const TweetView: React.SFC<AllProps> = ({ id, setTheSentiment }) => {
   return (
     <div className="flex justify-between">
       <button
-        className={`${defaultActionClassNames} bg-red`}
+        className={`${defaultActionClassNames} bg-red hover:bg-red-dark`}
         type="button"
         onClick={setNegativeSentiment}
       >
         -
       </button>
       <button
-        className={`${defaultActionClassNames} bg-grey`}
+        className={`${defaultActionClassNames} bg-grey hover:bg-grey-dark`}
         type="button"
         onClick={setNeutralSentiment}
       >
         ~
       </button>
       <button
-        className={`${defaultActionClassNames} bg-green`}
+        className={`${defaultActionClassNames} bg-green hover:bg-green-dark`}
         type="button"
         onClick={setPositiveSentiment}
       >

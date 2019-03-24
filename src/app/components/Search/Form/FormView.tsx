@@ -15,7 +15,7 @@ interface IPropsFromDispatch {
 
 type AllProps = IPropsFromState & IPropsFromDispatch;
 
-const FormView: React.SFC<AllProps> = ({ request, save, tweets }) => {
+const FormView: React.SFC<AllProps> = ({ request, save, tweets, loading }) => {
   const [keyword, setKeyword] = React.useState('');
 
   // TODO: REMOVE
@@ -64,7 +64,12 @@ const FormView: React.SFC<AllProps> = ({ request, save, tweets }) => {
         type="text"
         value={keyword}
       />
-      <button type="button" className="text-blue" onClick={handleSave}>
+      <button
+        type="button"
+        className="text-blue"
+        onClick={handleSave}
+        disabled={loading}
+      >
         <i className="fas fa-file-import" />
       </button>
     </form>
