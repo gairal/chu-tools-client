@@ -74,10 +74,7 @@ export default class Persistable<T> implements IPersistable<T> {
   }
 
   public persist(objects: any) {
-    // TODO
-    // tslint:disable-next-line:no-console
-    console.log(objects);
-    return this.idToken;
+    return `${this.idToken} | ${objects}`;
   }
 
   public load() {

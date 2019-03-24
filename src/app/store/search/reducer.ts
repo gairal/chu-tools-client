@@ -47,6 +47,24 @@ const reducer: Reducer<ISearchState> = (state = initialState, action) => {
 
       return { ...state, tweets: newTweets };
     }
+    case SearchActionTypes.SAVE_SEND: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case SearchActionTypes.SAVE_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    case SearchActionTypes.SAVE_ERROR: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
     default: {
       return state;
     }

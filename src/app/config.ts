@@ -5,5 +5,6 @@ const API_ENDPOINT =
 
 export default {
   API_AUTH_ENDPOINT: `${API_ENDPOINT}/auth`,
+  API_SAVE_ENDPOINT: `${API_ENDPOINT}/sheets`,
   API_SEARCH_ENDPOINT: `${API_ENDPOINT}/tweets`,
 };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { requestSend } from '@/store/search/actions';
-import { ITweet } from '@/store/search/types';
+import { requestSend, saveSend } from '@/store/search/actions';
+import { ITweet, Sentiment } from '@/store/search/types';
 
 interface IPropsFromState {
   tweets: ITweet[];
@@ -10,17 +10,18 @@ interface IPropsFromState {
 
 interface IPropsFromDispatch {
   request: typeof requestSend;
+  save: typeof saveSend;
 }
 
 type AllProps = IPropsFromState & IPropsFromDispatch;
 
-const FormView: React.SFC<AllProps> = ({ request }) => {
+const FormView: React.SFC<AllProps> = ({ request, save, tweets }) => {
   const [keyword, setKeyword] = React.useState('');
 
   // TODO: REMOVE
-  React.useEffect(() => {
-    request('group');
-  }, [false]);
+  // React.useEffect(() => {
+  //   request('group');
+  // }, [false]);
 
   const keyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) request(keyword);
@@ -28,6 +29,29 @@ const FormView: React.SFC<AllProps> = ({ request }) => {
 
   const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
+  };
+
+  const handleSave = () => {
+    const orderedTweets = tweets.reduce(
+      (twits, tweet) => {
+        if (tweet.sentiment === Sentiment.Negative) {
+          twits.negative.push(tweet.id);
+        } else if (tweet.sentiment === Sentiment.Positive) {
+          twits.positive.push(tweet.id);
+        } else if (tweet.sentiment === Sentiment.Neutral) {
+          twits.neutral.push(tweet.id);
+        }
+
+        return twits;
+      },
+      {
+        negative: [],
+        neutral: [],
+        positive: [],
+      },
+    );
+
+    save(orderedTweets);
   };
 
   return (
@@ -40,7 +64,7 @@ const FormView: React.SFC<AllProps> = ({ request }) => {
         type="text"
         value={keyword}
       />
-      <button type="button" className="text-blue">
+      <button type="button" className="text-blue" onClick={handleSave}>
         <i className="fas fa-file-import" />
       </button>
     </form>

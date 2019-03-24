@@ -1,6 +1,12 @@
-export interface IQuery {
+export interface ISearchQuery {
   term: string;
   count: number;
+}
+
+export interface ISheetQuery {
+  negative: string;
+  positive: string;
+  neutral: string;
 }
 
 export enum Sentiment {
@@ -36,6 +42,12 @@ export interface ITweet {
   url: string;
 }
 
+export interface IOrderedTweetIds {
+  negative: string[];
+  positive: string[];
+  neutral: string[];
+}
+
 export type ApiResponse = Record<string, any>;
 
 export const enum SearchActionTypes {
@@ -44,6 +56,9 @@ export const enum SearchActionTypes {
   REQUEST_ERROR = '@@search/REQUEST_ERROR',
   TWEET_SET_SENTIMENT = '@@search/TWEET_SET_SENTIMENT',
   TWEET_SET_VISIBILITY = '@@search/TWEET_SET_VISIBILITY',
+  SAVE_SEND = '@@search/SAVE_SEND',
+  SAVE_SUCCESS = '@@search/SAVE_SUCCESS',
+  SAVE_ERROR = '@@search/SAVE_ERROR',
 }
 
 export interface ISearchState {
