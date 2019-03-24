@@ -13,7 +13,7 @@ const SheetSelector: React.SFC<IProps> = ({ sheets, setSheetId }) => {
   };
 
   return (
-    <select onChange={handleChange}>
+    <select className="flex-1" onChange={handleChange}>
       {sheets.map(s => (
         <option key={s.id} value={s.id}>
           {s.title}

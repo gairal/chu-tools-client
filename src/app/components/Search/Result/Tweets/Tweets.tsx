@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Tweet from '@/components/Search/Result/Tweet';
-import { ITweet } from '@/store/search/types';
+import { ITweet } from '@/store/tweet/types';
 
 interface IPropsFromState {
   className?: string;

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { IOrderedTweetIds, ITweet, Sentiment } from '@/store/tweet/types';
+import { IOrderedTweetIds } from '@/store/sheet/types';
+import { ITweet, Sentiment } from '@/store/tweet/types';
 
 interface IProps {
   loading: boolean;
@@ -35,7 +36,7 @@ const SaveButton: React.SFC<IProps> = ({ loading, save, tweets }) => {
   return (
     <button
       type="button"
-      className="text-blue"
+      className="text-blue hover:text-blue-dark px-8"
       onClick={handleSave}
       disabled={loading}
     >

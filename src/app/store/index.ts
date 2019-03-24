@@ -7,12 +7,15 @@ import { firebaseReducer } from './firebase/reducer';
 import firebaseSaga from './firebase/sagas';
 import { IFirebaseState } from './firebase/types';
 
+import { sheetReducer } from './sheet/reducer';
+import { ISheetState } from './sheet/types';
 import { tweetReducer } from './tweet/reducer';
 import tweetSaga from './tweet/sagas';
 import { ITweetState } from './tweet/types';
 
 export interface IApplicationState {
   tweet: ITweetState;
+  sheet: ISheetState;
   firebase: IFirebaseState;
   router: RouterState;
 }
@@ -25,6 +28,7 @@ export const createRootReducer = (history: History) =>
   combineReducers<IApplicationState>({
     firebase: firebaseReducer,
     router: connectRouter(history),
+    sheet: sheetReducer,
     tweet: tweetReducer,
   });
 
