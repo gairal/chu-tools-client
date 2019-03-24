@@ -28,7 +28,7 @@ function* handleFetch(q: any) {
   if (!q.payload || '' === q.payload.trim()) return;
 
   try {
-    const query: ISearchQuery = { term: `linkedin ${q.payload}`, count: 10 };
+    const query: ISearchQuery = { term: `linkedin ${q.payload}`, count: 50 };
 
     const { res, json } = yield customFetch(
       `${config.API_SEARCH_ENDPOINT}?${qs.stringify(query)}`,
