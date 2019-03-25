@@ -30,6 +30,7 @@ export interface ITweet {
   entities: ITweetEntities;
   id: string;
   hidden?: boolean;
+  lang: string;
   retweet_count: number;
   sentiment?: string;
   text: string;

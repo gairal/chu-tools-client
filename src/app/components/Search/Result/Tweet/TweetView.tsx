@@ -12,6 +12,7 @@ import {
 import { ITweet } from '@/store/tweet/types';
 import Category from './Category';
 import HideActions from './HideActions';
+import Translate from './Translate';
 
 interface IProps {
   setTheCategory: typeof setCategory;
@@ -56,14 +57,14 @@ const TweetView: React.SFC<AllProps> = ({
         />
       )}
       {tweet.text}
-
-      {tweet.sentiment && (
+      <div className="flex justify-between items-center mt-2">
         <Category
-          id={tweet.id}
+          tweet={tweet}
           categories={categories}
           setTheCategory={setTheCategory}
         />
-      )}
+        <Translate tweet={tweet} />
+      </div>
     </li>
   );
 };

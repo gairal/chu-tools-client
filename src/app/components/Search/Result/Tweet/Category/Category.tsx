@@ -2,21 +2,26 @@ import * as React from 'react';
 
 import { ICategory } from '@/store/category/types';
 import { setCategory } from '@/store/tweet/actions';
+import { ITweet } from '@/store/tweet/types';
 
 interface IProps {
   categories: ICategory[];
-  id: string;
+  tweet: ITweet;
   setTheCategory: typeof setCategory;
 }
 type AllProps = IProps;
 
-const Category: React.SFC<AllProps> = ({ categories, id, setTheCategory }) => {
+const Category: React.SFC<AllProps> = ({
+  categories,
+  tweet,
+  setTheCategory,
+}) => {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setTheCategory(id, e.target.value);
+    setTheCategory(tweet.id, e.target.value);
   };
 
-  return (
-    <select className="mt-2" onChange={handleChange}>
+  return tweet.sentiment ? (
+    <select className="flex-1" onChange={handleChange}>
       <option value="">category</option>
       {categories.map(c => (
         <option key={c.label} value={c.label}>
@@ -24,6 +29,8 @@ const Category: React.SFC<AllProps> = ({ categories, id, setTheCategory }) => {
         </option>
       ))}
     </select>
+  ) : (
+    <div className="flex-1" />
   );
 };
 
