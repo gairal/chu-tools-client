@@ -3,12 +3,17 @@ import * as React from 'react';
 
 import SentimentActions from '@/components/Search/Result/Tweet/SentimentActions';
 import { ICategory } from '@/store/category/types';
-import { setSentiment, setVisibility } from '@/store/tweet/actions';
+import {
+  setCategory,
+  setSentiment,
+  setVisibility,
+} from '@/store/tweet/actions';
 import { ITweet } from '@/store/tweet/types';
 import Category from './Category';
 import HideActions from './HideActions';
 
 interface IProps {
+  setTheCategory: typeof setCategory;
   setTheSentiment: typeof setSentiment;
   setTheVisibility: typeof setVisibility;
   tweet: ITweet;
@@ -18,6 +23,7 @@ type AllProps = IProps;
 
 const TweetView: React.SFC<AllProps> = ({
   categories,
+  setTheCategory,
   setTheSentiment,
   setTheVisibility,
   tweet,
@@ -44,7 +50,13 @@ const TweetView: React.SFC<AllProps> = ({
       )}
       {tweet.text}
 
-      {tweet.sentiment && <Category categories={categories} />}
+      {tweet.sentiment && (
+        <Category
+          id={tweet.id}
+          categories={categories}
+          setTheCategory={setTheCategory}
+        />
+      )}
     </li>
   );
 };

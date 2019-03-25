@@ -5,7 +5,7 @@ import { Sentiment } from '@/store/tweet/types';
 
 interface IProps {
   setTheSentiment: typeof setSentiment;
-  id: number;
+  id: string;
 }
 type AllProps = IProps;
 

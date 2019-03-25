@@ -1,10 +1,13 @@
 import { select } from 'redux-saga/effects';
 
-export function* customFetch(query: string) {
+export function* customFetch(query: string, requestInit: RequestInit = {}) {
   const idToken = yield select(({ firebase }) => firebase.idToken);
 
   const res = yield fetch(query, {
+    ...requestInit,
     headers: {
+      'Content-Type': 'application/json',
+      ...requestInit.headers,
       Authorization: `Bearer ${idToken}`,
     },
   });

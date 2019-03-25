@@ -11,9 +11,11 @@ export interface ISheetQuery {
 
 export enum Sentiment {
   Unorder,
-  Positive,
-  Negative,
-  Neutral,
+  Positive = 'positive',
+  Negative = 'negative',
+  Neutral = 'neutral',
+  Funny = 'funny',
+  Mixed = 'mixed',
 }
 
 interface ITweeturls {
@@ -35,7 +37,7 @@ interface ITweetEntities {
 export interface ITweet {
   created_at: Date;
   entities: ITweetEntities;
-  id: number;
+  id: string;
   hidden?: boolean;
   retweet_count: number;
   sentiment?: Sentiment;
@@ -50,6 +52,7 @@ export const enum TweetActionTypes {
   REQUEST_ERROR = '@@tweet/REQUEST_ERROR',
   TWEET_SET_SENTIMENT = '@@tweet/TWEET_SET_SENTIMENT',
   TWEET_SET_VISIBILITY = '@@tweet/TWEET_SET_VISIBILITY',
+  TWEET_SET_CATEGORY = '@@tweet/TWEET_SET_CATEGORY',
 }
 
 export interface ITweetState {

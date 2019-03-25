@@ -17,18 +17,18 @@ function* handleSave(q: any) {
   if (!q.payload) return;
 
   try {
-    const { ids, sheetId } = q.payload;
-    const { negative, neutral, positive } = ids;
+    const { tweets, sheetId } = q.payload;
 
     const query: ISheetQuery = {
-      negative: negative.join(','),
-      neutral: neutral.join(','),
-      positive: positive.join(','),
       spreadsheetId: sheetId,
     };
 
     const { res, json } = yield customFetch(
       `${config.API_SAVE_ENDPOINT}?${qs.stringify(query)}`,
+      {
+        body: JSON.stringify(tweets),
+        method: 'POST',
+      },
     );
 
     if (res.error) {

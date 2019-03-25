@@ -1,9 +1,10 @@
 import { action } from 'typesafe-actions';
 
-import { IOrderedTweetIds, ISheet, SheetActionTypes } from './types';
+import { ITweet } from '../tweet/types';
+import { ISheet, SheetActionTypes } from './types';
 
-export const saveSend = (sheetId: string, ids: IOrderedTweetIds) =>
-  action(SheetActionTypes.SAVE_SEND, { ids, sheetId });
+export const saveSend = (sheetId: string, tweets: ITweet[]) =>
+  action(SheetActionTypes.SAVE_SEND, { sheetId, tweets });
 export const saveSuccess = () => action(SheetActionTypes.SAVE_SUCCESS);
 export const saveError = (message: string) =>
   action(SheetActionTypes.SAVE_ERROR, message);

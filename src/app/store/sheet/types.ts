@@ -1,14 +1,5 @@
 export interface ISheetQuery {
-  negative: string;
-  positive: string;
-  neutral: string;
   spreadsheetId: string;
-}
-
-export interface IOrderedTweetIds {
-  negative: string[];
-  positive: string[];
-  neutral: string[];
 }
 
 export interface ISheet {

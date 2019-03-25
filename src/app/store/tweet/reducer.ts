@@ -49,6 +49,17 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
 
       return { ...state, tweets: newTweets };
     }
+    case TweetActionTypes.TWEET_SET_CATEGORY: {
+      const newTweets = [...state.tweets];
+      const idx = newTweets.findIndex(t => t.id === action.payload.id);
+
+      newTweets[idx] = {
+        ...newTweets[idx],
+        category: action.payload.category,
+      };
+
+      return { ...state, tweets: newTweets };
+    }
     default: {
       return state;
     }
