@@ -44,9 +44,9 @@ const ResultView: React.SFC<AllProps> = ({ tweets, sentiments }) => {
   return (
     <div className="flex h-full">
       <Tweets tweets={orderedTweets.unordered} style={{ flex: '0 0 25vw' }} />
-      <div className="shadow-sm flex-1 w-0">
+      <div className="shadow-sm flex-1 w-0 flex flex-col">
         {shouldSave && <SaveForm />}
-        <div className="flex overflow-x-auto h-full">
+        <div className="flex overflow-x-auto flex-1">
           {sentiments.map(s => (
             <Tweets
               key={s.id}
