@@ -2,55 +2,58 @@ import * as React from 'react';
 
 import SaveForm from '@/components/Search/Result/SaveForm';
 import Tweets from '@/components/Search/Result/Tweets';
-import { ITweet, Sentiment } from '@/store/tweet/types';
+import { ISentiment } from '@/store/sentiment/types';
+import { ITweet } from '@/store/tweet/types';
 
 interface IPropsFromState {
   tweets: ITweet[];
   loading?: boolean;
+  sentiments: ISentiment[];
   title?: string;
+}
+
+interface IOrderedTweets {
+  unordered: ITweet[];
+  [key: string]: ITweet[];
 }
 
 type AllProps = IPropsFromState;
 
-const ResultView: React.SFC<AllProps> = ({ tweets }) => {
-  const { unordered, negative, neutral, positive } = tweets.reduce(
-    (acc, t) => {
-      switch (t.sentiment) {
-        case Sentiment.Negative:
-          acc.negative.push(t);
-          break;
-        case Sentiment.Neutral:
-          acc.neutral.push(t);
-          break;
-        case Sentiment.Positive:
-          acc.positive.push(t);
-          break;
-        default:
-          acc.unordered.push(t);
-          break;
-      }
+const ResultView: React.SFC<AllProps> = ({ tweets, sentiments }) => {
+  const sentimentLabels = sentiments.map(s => s.label);
+  const orderedTweets: IOrderedTweets = tweets.reduce(
+    (acc: IOrderedTweets, t) => {
+      if (!t.sentiment) {
+        acc.unordered.push(t);
+      } else if (sentimentLabels.includes(t.sentiment)) {
+        if (!acc[t.sentiment]) {
+          acc[t.sentiment] = [];
+        }
 
+        acc[t.sentiment].push(t);
+      }
       return acc;
     },
     {
-      negative: [],
-      neutral: [],
-      positive: [],
       unordered: [],
     },
   );
 
+  const shouldSave = Object.keys(orderedTweets).length > 1;
+
   return (
     <div className="flex h-full">
-      <Tweets tweets={unordered} />
+      <Tweets tweets={orderedTweets.unordered} />
       <div className="flex flex-col flex-3 shadow-sm">
-        {(negative.length > 0 || neutral.length > 0 || positive.length > 0) && (
-          <SaveForm />
-        )}
+        {shouldSave && <SaveForm />}
         <div className="flex">
-          <Tweets tweets={negative} title="Negative" />
-          <Tweets tweets={neutral} title="Neutral" />
-          <Tweets tweets={positive} title="Positive" />
+          {sentiments.map(s => (
+            <Tweets
+              key={s.id}
+              tweets={orderedTweets[s.label] || []}
+              sentiment={s}
+            />
+          ))}
         </div>
       </div>
     </div>

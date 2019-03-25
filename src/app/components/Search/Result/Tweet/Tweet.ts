@@ -7,16 +7,16 @@ import {
   setSentiment,
   setVisibility,
 } from '@/store/tweet/actions';
-import { Sentiment } from '@/store/tweet/types';
 import TweetView from './TweetView';
 
-const mapStateToProps = ({ category }: IApplicationState) => ({
+const mapStateToProps = ({ category, sentiment }: IApplicationState) => ({
   categories: category.categories,
+  sentiments: sentiment.sentiments,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   setTheCategory: (i: string, c: string) => dispatch(setCategory(i, c)),
-  setTheSentiment: (i: string, s: Sentiment) => dispatch(setSentiment(i, s)),
+  setTheSentiment: (i: string, s: string) => dispatch(setSentiment(i, s)),
   setTheVisibility: (i: string, v: boolean) => dispatch(setVisibility(i, v)),
 });
 

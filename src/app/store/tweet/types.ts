@@ -9,15 +9,6 @@ export interface ISheetQuery {
   neutral: string;
 }
 
-export enum Sentiment {
-  Unorder,
-  Positive = 'positive',
-  Negative = 'negative',
-  Neutral = 'neutral',
-  Funny = 'funny',
-  Mixed = 'mixed',
-}
-
 interface ITweeturls {
   url: string;
   expanded_url: string;
@@ -40,7 +31,7 @@ export interface ITweet {
   id: string;
   hidden?: boolean;
   retweet_count: number;
-  sentiment?: Sentiment;
+  sentiment?: string;
   text: string;
   url: string;
   category?: string;

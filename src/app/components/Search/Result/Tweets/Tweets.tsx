@@ -1,24 +1,30 @@
 import * as React from 'react';
 
 import Tweet from '@/components/Search/Result/Tweet';
+import { ISentiment } from '@/store/sentiment/types';
 import { ITweet } from '@/store/tweet/types';
 
 interface IPropsFromState {
   className?: string;
   loading?: boolean;
-  title?: string;
+  sentiment?: ISentiment;
   tweets: ITweet[];
 }
 
 type AllProps = IPropsFromState;
 
-const TweetsView: React.SFC<AllProps> = ({ tweets, title, className }) => (
+const TweetsView: React.SFC<AllProps> = ({ tweets, sentiment, className }) => (
   <div
     className={`flex flex-col mx-2 flex-1 h-full overflow-auto ${className}`}
   >
-    {title && (
-      <h2 className="p-2 border-b uppercase text-grey-darker text-center text-lg">
-        {title}
+    {sentiment && (
+      <h2
+        className={`p-2 border-b uppercase text-${
+          sentiment.color
+        } text-center text-lg`}
+      >
+        {sentiment.label}
+        <i className={`fas fa-${sentiment.icon} ml-2`} />
       </h2>
     )}
     <ul className="list-reset p-2">

@@ -2,20 +2,16 @@ import * as React from 'react';
 
 import Result from '@/components/Search/Result';
 import { IConnectedReduxProps } from '@/store';
-import { requestCategories } from '@/store/category/actions';
-import { requestSheets } from '@/store/sheet/actions';
 
 interface IPropsFromDispatch {
-  getSheets: typeof requestSheets;
-  getCategories: typeof requestCategories;
+  init: () => void;
 }
 
 type AllProps = IConnectedReduxProps & IPropsFromDispatch;
 
-const SearchView: React.SFC<AllProps> = ({ getSheets, getCategories }) => {
+const SearchView: React.SFC<AllProps> = ({ init }) => {
   React.useEffect(() => {
-    getSheets();
-    getCategories();
+    init();
   }, [false]);
 
   return (

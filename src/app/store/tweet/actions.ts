@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { action } from 'typesafe-actions';
 
-import { ITweet, Sentiment, TweetActionTypes } from './types';
+import { ITweet, TweetActionTypes } from './types';
 
 export const requestSend = (
   q: string,
@@ -16,7 +16,7 @@ export const requestSuccess = (data: ITweet[]) =>
 export const requestError = (message: string) =>
   action(TweetActionTypes.REQUEST_ERROR, message);
 
-export const setSentiment = (id: string, sentiment: Sentiment) =>
+export const setSentiment = (id: string, sentiment: string) =>
   action(TweetActionTypes.TWEET_SET_SENTIMENT, { id, sentiment });
 export const setVisibility = (id: string, hidden: boolean) =>
   action(TweetActionTypes.TWEET_SET_VISIBILITY, { id, hidden });

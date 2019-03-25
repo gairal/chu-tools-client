@@ -12,7 +12,7 @@ function* handleGetCategories() {
     const categories: ICategory[] = [];
     querySnapshot.forEach((doc: firebase.firestore.QueryDocumentSnapshot) => {
       const category: ICategory = doc.data() as ICategory;
-      categories.push(category);
+      categories.push({ id: doc.id, ...category });
     });
 
     yield put(requestCategoriesSuccess(categories));

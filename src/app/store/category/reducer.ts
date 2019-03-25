@@ -24,7 +24,7 @@ const reducer: Reducer<ICategoryState> = (state = initialState, action) => {
         loading: false,
       };
     }
-    case CategoryActionTypes.CATEGORIES_GET_SUCCESS: {
+    case CategoryActionTypes.CATEGORIES_GET_ERROR: {
       return {
         ...state,
         errors: action.payload,

@@ -3,13 +3,15 @@ import { History } from 'history';
 import { Action, AnyAction, combineReducers, Dispatch } from 'redux';
 import { all, fork } from 'redux-saga/effects';
 
-import { firebaseReducer } from './firebase/reducer';
-import firebaseSaga from './firebase/sagas';
-import { IFirebaseState } from './firebase/types';
-
 import { categoryReducer } from './category/reducer';
 import categorySaga from './category/sagas';
 import { ICategoryState } from './category/types';
+import { firebaseReducer } from './firebase/reducer';
+import firebaseSaga from './firebase/sagas';
+import { IFirebaseState } from './firebase/types';
+import { sentimentReducer } from './sentiment/reducer';
+import sentimentSaga from './sentiment/sagas';
+import { ISentimentState } from './sentiment/types';
 import { sheetReducer } from './sheet/reducer';
 import sheetSaga from './sheet/sagas';
 import { ISheetState } from './sheet/types';
@@ -21,8 +23,9 @@ export interface IApplicationState {
   category: ICategoryState;
   firebase: IFirebaseState;
   router: RouterState;
-  tweet: ITweetState;
+  sentiment: ISentimentState;
   sheet: ISheetState;
+  tweet: ITweetState;
 }
 
 export interface IConnectedReduxProps<A extends Action = AnyAction> {
@@ -34,6 +37,7 @@ export const createRootReducer = (history: History) =>
     category: categoryReducer,
     firebase: firebaseReducer,
     router: connectRouter(history),
+    sentiment: sentimentReducer,
     sheet: sheetReducer,
     tweet: tweetReducer,
   });
@@ -41,6 +45,7 @@ export const createRootReducer = (history: History) =>
 export function* rootSaga() {
   yield all([
     fork(categorySaga),
+    fork(sentimentSaga),
     fork(sheetSaga),
     fork(tweetSaga),
     fork(firebaseSaga),

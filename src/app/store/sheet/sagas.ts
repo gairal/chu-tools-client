@@ -59,7 +59,7 @@ function* handleGetSheets() {
     const sheets: ISheet[] = [];
     querySnapshot.forEach((doc: firebase.firestore.QueryDocumentSnapshot) => {
       const sheet: ISheet = doc.data() as ISheet;
-      sheets.push(sheet);
+      sheets.push({ id: doc.id, ...sheet });
     });
 
     yield put(requestSheetsSuccess(sheets));

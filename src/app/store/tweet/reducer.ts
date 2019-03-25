@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 
-import { ITweetState, Sentiment, TweetActionTypes } from './types';
+import { ITweetState, TweetActionTypes } from './types';
 
 const initialState: ITweetState = {
   errors: undefined,
@@ -44,7 +44,7 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
       newTweets[idx] = {
         ...newTweets[idx],
         hidden: action.payload.hidden,
-        sentiment: Sentiment.Unorder,
+        sentiment: null,
       };
 
       return { ...state, tweets: newTweets };
