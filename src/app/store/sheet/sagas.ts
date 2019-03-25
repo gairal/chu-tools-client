@@ -1,5 +1,4 @@
 import * as firebase from 'firebase';
-import 'firebase/firestore';
 import qs from 'query-string';
 import { all, fork, put, takeEvery } from 'redux-saga/effects';
 
@@ -77,8 +76,8 @@ function* watchGetRequest() {
   yield takeEvery(SheetActionTypes.SHEETS_GET, handleGetSheets);
 }
 
-function* searchSaga() {
+function* sheetSaga() {
   yield all([fork(watchSaveRequest), fork(watchGetRequest)]);
 }
 
-export default searchSaga;
+export default sheetSaga;

@@ -1,4 +1,5 @@
 import 'es6-promise/auto';
+import 'firebase/firestore';
 import 'react-dates/initialize';
 import 'whatwg-fetch';
 

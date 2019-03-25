@@ -41,6 +41,7 @@ export interface ITweet {
   sentiment?: Sentiment;
   text: string;
   url: string;
+  category?: string;
 }
 
 export const enum TweetActionTypes {

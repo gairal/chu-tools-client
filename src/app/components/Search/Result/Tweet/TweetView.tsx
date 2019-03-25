@@ -2,21 +2,25 @@ import moment from 'moment';
 import * as React from 'react';
 
 import SentimentActions from '@/components/Search/Result/Tweet/SentimentActions';
+import { ICategory } from '@/store/category/types';
 import { setSentiment, setVisibility } from '@/store/tweet/actions';
 import { ITweet } from '@/store/tweet/types';
+import Category from './Category';
 import HideActions from './HideActions';
 
 interface IProps {
   setTheSentiment: typeof setSentiment;
   setTheVisibility: typeof setVisibility;
   tweet: ITweet;
+  categories: ICategory[];
 }
 type AllProps = IProps;
 
 const TweetView: React.SFC<AllProps> = ({
-  tweet,
+  categories,
   setTheSentiment,
   setTheVisibility,
+  tweet,
 }) => {
   const date = moment(new Date(tweet.created_at)).format('MMM Do YY');
   return (
@@ -39,6 +43,8 @@ const TweetView: React.SFC<AllProps> = ({
         <SentimentActions id={tweet.id} setTheSentiment={setTheSentiment} />
       )}
       {tweet.text}
+
+      {tweet.sentiment && <Category categories={categories} />}
     </li>
   );
 };
