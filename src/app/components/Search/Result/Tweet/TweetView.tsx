@@ -56,7 +56,9 @@ const TweetView: React.SFC<AllProps> = ({
           sentiments={sentiments}
         />
       )}
-      {tweet.text}
+      <p className="p-1 pl-2 text-grey-darkest border-l-4 border-blue-dark">
+        {tweet.text}
+      </p>
       <div className="flex justify-between items-center mt-2">
         <Category
           tweet={tweet}
