@@ -3,10 +3,6 @@ export interface ISearchQuery {
   count: number;
 }
 
-export interface ISaved {
-  id: string;
-}
-
 export interface ISheetQuery {
   negative: string;
   positive: string;

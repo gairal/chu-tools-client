@@ -4,6 +4,7 @@ import { all, fork, put, takeEvery } from 'redux-saga/effects';
 
 import config from '@/config';
 import { firebaseAuthError } from '../firebase/actions';
+import { requestSaved } from '../tweet/actions';
 import { customFetch } from '../utils';
 import {
   requestSheetsError,
@@ -37,6 +38,7 @@ function* handleSave(q: any) {
       yield put(firebaseAuthError(json.message));
     } else {
       yield put(saveSuccess());
+      yield put(requestSaved());
     }
   } catch (err) {
     if (err instanceof Error) {

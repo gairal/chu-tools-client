@@ -11,7 +11,7 @@ import {
   requestSavedSuccess,
   requestSuccess,
 } from './actions';
-import { ISaved, ISearchQuery, TweetActionTypes } from './types';
+import { ISearchQuery, TweetActionTypes } from './types';
 
 function* handleFetch(q: any) {
   if (!q.payload || '' === q.payload.term.trim()) {
@@ -59,8 +59,7 @@ function* handleGetSaved() {
 
     const saveds: string[] = [];
     querySnapshot.forEach((doc: firebase.firestore.QueryDocumentSnapshot) => {
-      const saved: ISaved = doc.data() as ISaved;
-      saveds.push(saved.id);
+      saveds.push(doc.id);
     });
 
     yield put(requestSavedSuccess(saveds));
