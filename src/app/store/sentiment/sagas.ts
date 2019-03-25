@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import { all, fork, put, takeEvery } from 'redux-saga/effects';
 
 import { requestSentimentsError, requestSentimentsSuccess } from './actions';
