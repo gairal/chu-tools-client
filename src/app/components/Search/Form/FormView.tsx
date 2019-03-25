@@ -27,7 +27,7 @@ const FormView: React.SFC<AllProps> = ({ request, loading }) => {
   };
 
   React.useEffect(() => {
-    request(keyword, start, end, count);
+    search();
   }, [count, start, end]);
 
   return (

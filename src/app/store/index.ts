@@ -8,6 +8,7 @@ import firebaseSaga from './firebase/sagas';
 import { IFirebaseState } from './firebase/types';
 
 import { sheetReducer } from './sheet/reducer';
+import sheetSaga from './sheet/sagas';
 import { ISheetState } from './sheet/types';
 import { tweetReducer } from './tweet/reducer';
 import tweetSaga from './tweet/sagas';
@@ -33,7 +34,7 @@ export const createRootReducer = (history: History) =>
   });
 
 export function* rootSaga() {
-  yield all([fork(tweetSaga), fork(firebaseSaga)]);
+  yield all([fork(sheetSaga), fork(tweetSaga), fork(firebaseSaga)]);
 }
 
 export default createRootReducer;

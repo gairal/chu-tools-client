@@ -8,6 +8,12 @@ interface IProps {
 }
 
 const SheetSelector: React.SFC<IProps> = ({ sheets, setSheetId }) => {
+  React.useEffect(() => {
+    if (sheets.length) {
+      setSheetId(sheets[0].id);
+    }
+  }, [sheets]);
+
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSheetId(e.target.value);
   };

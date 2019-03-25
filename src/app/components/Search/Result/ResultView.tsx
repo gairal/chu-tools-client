@@ -44,7 +44,9 @@ const ResultView: React.SFC<AllProps> = ({ tweets }) => {
     <div className="flex h-full">
       <Tweets tweets={unordered} />
       <div className="flex flex-col flex-3 shadow-sm">
-        <SaveForm />
+        {(negative.length > 0 || neutral.length > 0 || positive.length > 0) && (
+          <SaveForm />
+        )}
         <div className="flex">
           <Tweets tweets={negative} title="Negative" />
           <Tweets tweets={neutral} title="Neutral" />

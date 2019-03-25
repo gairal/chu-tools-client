@@ -37,6 +37,7 @@ export interface ITweet {
   entities: ITweetEntities;
   id: number;
   hidden?: boolean;
+  retweet_count: number;
   sentiment?: Sentiment;
   text: string;
   url: string;

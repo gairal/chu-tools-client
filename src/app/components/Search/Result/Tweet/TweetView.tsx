@@ -1,3 +1,4 @@
+import moment from 'moment';
 import * as React from 'react';
 
 import SentimentActions from '@/components/Search/Result/Tweet/SentimentActions';
@@ -17,7 +18,7 @@ const TweetView: React.SFC<AllProps> = ({
   setTheSentiment,
   setTheVisibility,
 }) => {
-  const date = new Date(tweet.created_at).toDateString();
+  const date = moment(new Date(tweet.created_at)).format('MMM Do YY');
   return (
     <li
       className={`flex flex-col p-4 my-2 shadow-sm rounded bg-grey-lightest border ${tweet.hidden &&
@@ -27,6 +28,10 @@ const TweetView: React.SFC<AllProps> = ({
         <a className="p-2" href={tweet.url} target="_blank">
           <i className="fas fa-external-link-alt" />
         </a>
+        <div>
+          <i className="fas fa-retweet mr-1" />
+          {tweet.retweet_count}
+        </div>
         {date}
         <HideActions tweet={tweet} setTheVisibility={setTheVisibility} />
       </div>

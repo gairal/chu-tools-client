@@ -19,12 +19,35 @@ const reducer: Reducer<ISheetState> = (state = initialState, action) => {
     case SheetActionTypes.SAVE_SUCCESS: {
       return {
         ...state,
+        errors: undefined,
         loading: false,
       };
     }
     case SheetActionTypes.SAVE_ERROR: {
       return {
         ...state,
+        errors: action.payload,
+        loading: false,
+      };
+    }
+    case SheetActionTypes.SHEETS_GET: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case SheetActionTypes.SHEETS_GET_SUCCESS: {
+      return {
+        ...state,
+        errors: undefined,
+        loading: false,
+        sheets: action.payload,
+      };
+    }
+    case SheetActionTypes.SHEETS_GET_ERROR: {
+      return {
+        ...state,
+        errors: action.payload,
         loading: false,
       };
     }

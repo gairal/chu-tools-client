@@ -12,7 +12,8 @@ button {
 
 button,
 a,
-input {
+input,
+select {
   &:focus {
     @apply outline-none;
   }
