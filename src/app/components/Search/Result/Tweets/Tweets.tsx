@@ -9,13 +9,20 @@ interface IPropsFromState {
   loading?: boolean;
   sentiment?: ISentiment;
   tweets: ITweet[];
+  style?: React.CSSProperties;
 }
 
 type AllProps = IPropsFromState;
 
-const TweetsView: React.SFC<AllProps> = ({ tweets, sentiment, className }) => (
+const TweetsView: React.SFC<AllProps> = ({
+  tweets,
+  sentiment,
+  style,
+  className,
+}) => (
   <div
-    className={`flex flex-col mx-2 flex-1 h-full overflow-auto ${className}`}
+    className={`flex flex-col mx-2 h-full overflow-y-auto ${className}`}
+    style={style}
   >
     {sentiment && (
       <h2
