@@ -43,7 +43,7 @@ View the full documentation at https://tailwindcss.com.
 */
 
 const consts = {
-  headerHeight: '75px',
+  headerHeight: '85px',
 };
 
 let colors = {
