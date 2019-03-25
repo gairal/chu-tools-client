@@ -18,7 +18,7 @@ const QueryInput: React.SFC<IProps> = ({ keyword, search, setKeyword }) => {
 
   return (
     <input
-      className="flex-2 mr-2"
+      className="flex-2 mr-2 input"
       onChange={handleKeywordChange}
       onKeyUp={keyPress}
       placeholder="keyword"

@@ -19,11 +19,8 @@ select {
   }
 }
 
-input {
-  &[type='text'],
-  &[type='number'] {
-    @apply p-2 w-full bg-grey-lighter;
-  }
+.input {
+  @apply p-2 w-full bg-grey-lighter;
 }
 
 button:disabled {

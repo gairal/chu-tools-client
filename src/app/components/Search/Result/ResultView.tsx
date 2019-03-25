@@ -6,6 +6,7 @@ import { ISentiment } from '@/store/sentiment/types';
 import { ITweet } from '@/store/tweet/types';
 
 interface IPropsFromState {
+  saved: string[];
   tweets: ITweet[];
   loading?: boolean;
   sentiments: ISentiment[];
@@ -19,25 +20,28 @@ interface IOrderedTweets {
 
 type AllProps = IPropsFromState;
 
-const ResultView: React.SFC<AllProps> = ({ tweets, sentiments }) => {
+const ResultView: React.SFC<AllProps> = ({ saved, tweets, sentiments }) => {
   const sentimentLabels = sentiments.map(s => s.label);
-  const orderedTweets: IOrderedTweets = tweets.reduce(
-    (acc: IOrderedTweets, t) => {
-      if (!t.sentiment) {
-        acc.unordered.push(t);
-      } else if (sentimentLabels.includes(t.sentiment)) {
-        if (!acc[t.sentiment]) {
-          acc[t.sentiment] = [];
-        }
 
-        acc[t.sentiment].push(t);
-      }
-      return acc;
-    },
-    {
-      unordered: [],
-    },
-  );
+  const orderedTweets: IOrderedTweets = tweets
+    .filter(t => !saved.includes(t.id))
+    .reduce(
+      (acc: IOrderedTweets, t) => {
+        if (!t.sentiment) {
+          acc.unordered.push(t);
+        } else if (sentimentLabels.includes(t.sentiment)) {
+          if (!acc[t.sentiment]) {
+            acc[t.sentiment] = [];
+          }
+
+          acc[t.sentiment].push(t);
+        }
+        return acc;
+      },
+      {
+        unordered: [],
+      },
+    );
 
   const shouldSave = Object.keys(orderedTweets).length > 1;
 

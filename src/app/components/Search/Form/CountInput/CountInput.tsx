@@ -13,7 +13,7 @@ const CountInput: React.SFC<IProps> = ({ count, setCount }) => {
 
   return (
     <input
-      className="flex-1 ml-2"
+      className="flex-1 ml-2 input"
       type="number"
       value={count}
       onChange={handleChange}

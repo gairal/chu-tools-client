@@ -5,6 +5,7 @@ import ResultView from './ResultView';
 
 const mapStateToProps = ({ tweet, sentiment }: IApplicationState) => ({
   loading: tweet.loading,
+  saved: tweet.saved,
   sentiments: sentiment.sentiments,
   tweets: tweet.tweets,
 });

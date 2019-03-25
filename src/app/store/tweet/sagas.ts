@@ -1,11 +1,17 @@
+import * as firebase from 'firebase';
 import qs from 'query-string';
 import { all, fork, put, takeEvery } from 'redux-saga/effects';
 
 import config from '@/config';
 import { firebaseAuthError } from '../firebase/actions';
 import { customFetch } from '../utils';
-import { requestError, requestSuccess } from './actions';
-import { ISearchQuery, TweetActionTypes } from './types';
+import {
+  requestError,
+  requestSavedError,
+  requestSavedSuccess,
+  requestSuccess,
+} from './actions';
+import { ISaved, ISearchQuery, TweetActionTypes } from './types';
 
 function* handleFetch(q: any) {
   if (!q.payload || '' === q.payload.term.trim()) {
@@ -46,8 +52,33 @@ function* watchFetchRequest() {
   yield takeEvery(TweetActionTypes.REQUEST_SEND, handleFetch);
 }
 
+function* handleGetSaved() {
+  try {
+    const db = firebase.firestore();
+    const querySnapshot = yield db.collection('savedTweets').get();
+
+    const saveds: string[] = [];
+    querySnapshot.forEach((doc: firebase.firestore.QueryDocumentSnapshot) => {
+      const saved: ISaved = doc.data() as ISaved;
+      saveds.push(saved.id);
+    });
+
+    yield put(requestSavedSuccess(saveds));
+  } catch (err) {
+    if (err instanceof Error) {
+      yield put(requestSavedError(err.stack!));
+    } else {
+      yield put(requestSavedError('An unknown error occured.'));
+    }
+  }
+}
+
+function* watchGetSaved() {
+  yield takeEvery(TweetActionTypes.SAVED_GET, handleGetSaved);
+}
+
 function* tweetSaga() {
-  yield all([fork(watchFetchRequest)]);
+  yield all([fork(watchFetchRequest), fork(watchGetSaved)]);
 }
 
 export default tweetSaga;

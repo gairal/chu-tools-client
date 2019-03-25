@@ -22,3 +22,11 @@ export const setVisibility = (id: string, hidden: boolean) =>
   action(TweetActionTypes.TWEET_SET_VISIBILITY, { id, hidden });
 export const setCategory = (id: string, category: string) =>
   action(TweetActionTypes.TWEET_SET_CATEGORY, { id, category });
+
+export const requestSaved = () => {
+  return action(TweetActionTypes.SAVED_GET);
+};
+export const requestSavedSuccess = (data: string[]) =>
+  action(TweetActionTypes.SAVED_GET_SUCCESS, data);
+export const requestSavedError = (message: string) =>
+  action(TweetActionTypes.SAVED_GET_ERROR, message);

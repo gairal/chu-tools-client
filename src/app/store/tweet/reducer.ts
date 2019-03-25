@@ -5,6 +5,7 @@ import { ITweetState, TweetActionTypes } from './types';
 const initialState: ITweetState = {
   errors: undefined,
   loading: false,
+  saved: [],
   tweets: [],
 };
 
@@ -59,6 +60,23 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
       };
 
       return { ...state, tweets: newTweets };
+    }
+    case TweetActionTypes.SAVED_GET: {
+      return {
+        ...state,
+        loading: true,
+        saved: [],
+      };
+    }
+    case TweetActionTypes.SAVED_GET_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        saved: action.payload,
+      };
+    }
+    case TweetActionTypes.SAVED_GET_ERROR: {
+      return { ...state, errors: action.payload, loading: false };
     }
     default: {
       return state;
