@@ -9,8 +9,10 @@ type AllProps = IProps;
 
 const Translate: React.SFC<AllProps> = ({ tweet }) => {
   return (
-    tweet.lang !== 'en' && (
-      <i className="fas fa-language fa-lg text-grey ml-2" />
+    !['en', 'und'].includes(tweet.lang) && (
+      <button type="button" className="text-grey hover:text-grey-dark ml-2">
+        <i className="fas fa-language fa-lg" />
+      </button>
     )
   );
 };
