@@ -7,7 +7,7 @@ import routes from '@/routes';
 
 const RoutesContainer: React.SFC = () => {
   return (
-    <div className="content">
+    <div className="content flex justify-center items-center">
       <Switch>
         {routes.map(route => {
           return route.private ? (
