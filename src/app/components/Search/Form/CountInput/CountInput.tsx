@@ -17,6 +17,8 @@ const CountInput: React.SFC<IProps> = ({ count, setCount }) => {
       type="number"
       value={count}
       onChange={handleChange}
+      min="1"
+      max="100"
     />
   );
 };

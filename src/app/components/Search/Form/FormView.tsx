@@ -23,7 +23,7 @@ type AllProps = IPropsFromState & IPropsFromDispatch;
 
 const FormView: React.SFC<AllProps> = ({ request, loading, load, flush }) => {
   const [keyword, setKeyword] = React.useState('');
-  const [start, setStart] = React.useState(moment().subtract(1, 'months'));
+  const [start, setStart] = React.useState(moment().subtract(5, 'days'));
   const [end, setEnd] = React.useState(moment());
   const [count, setCount] = React.useState(50);
   const [isInit, setIsInit] = React.useState(false);

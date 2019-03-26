@@ -26,7 +26,10 @@ const DatePicker: React.SFC<IProps> = ({ setStart, start, setEnd, end }) => {
 
   const onFocus = (focusedInput: FocusedInputShape) => setFocused(focusedInput);
 
-  const isOutsideRange = (day: moment.Moment) => moment().diff(day) < 0;
+  const isOutsideRange = (day: moment.Moment) => {
+    const diff = moment().diff(day, 'days');
+    return diff < 0 || diff > 9;
+  };
 
   return (
     <DateRangePicker
