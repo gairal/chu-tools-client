@@ -39,7 +39,7 @@ const TweetView: React.SFC<AllProps> = ({
         'opacity-50'}`}
     >
       <div className="flex justify-between items-center text-grey text-sm">
-        <a className="p-2" href={tweet.url} target="_blank">
+        <a className="p-2 hover:text-grey" href={tweet.url} target="_blank">
           <i className="fas fa-external-link-alt" />
         </a>
         <div>
@@ -56,7 +56,7 @@ const TweetView: React.SFC<AllProps> = ({
           sentiments={sentiments}
         />
       )}
-      <p className="p-1 pl-2 text-grey-darkest border-l-4 border-blue-dark">
+      <p className="p-1 pl-2 text-grey-darkest border-l-4 border-blue-dark break-words">
         {tweet.text}
       </p>
       <div className="flex justify-between items-center mt-2">

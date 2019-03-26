@@ -1,3 +1,5 @@
+import Search from '@/data/Search';
+
 export interface ISearchQuery {
   term: string;
   count: number;
@@ -39,12 +41,17 @@ export interface ITweet {
 }
 
 export const enum TweetActionTypes {
+  TWEETS_LOAD = '@@tweet/TWEETS_LOAD',
+  TWEETS_FLUSH = '@@tweet/TWEETS_FLUSH',
+
   REQUEST_SEND = '@@tweet/SEND_REQUEST',
   REQUEST_SUCCESS = '@@tweet/REQUEST_SUCCESS',
   REQUEST_ERROR = '@@tweet/REQUEST_ERROR',
+
   TWEET_SET_SENTIMENT = '@@tweet/TWEET_SET_SENTIMENT',
   TWEET_SET_VISIBILITY = '@@tweet/TWEET_SET_VISIBILITY',
   TWEET_SET_CATEGORY = '@@tweet/TWEET_SET_CATEGORY',
+
   SAVED_GET = '@@tweet/SAVED_GET',
   SAVED_GET_SUCCESS = '@@tweet/SAVED_GET_SUCCESS',
   SAVED_GET_ERROR = '@@tweet/SAVED_GET_ERROR',
@@ -55,4 +62,5 @@ export interface ITweetState {
   readonly tweets: ITweet[];
   readonly errors?: string;
   readonly saved: string[];
+  readonly data: Search;
 }

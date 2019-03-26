@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 
 import FormView from '@/components/Search/Form/FormView';
 import { IApplicationState } from '@/store';
-import { requestSend } from '@/store/tweet/actions';
+import { requestSend, tweetsFlush, tweetsLoad } from '@/store/tweet/actions';
 
 const mapStateToProps = ({ tweet }: IApplicationState) => ({
   loading: tweet.loading,
@@ -12,6 +12,8 @@ const mapStateToProps = ({ tweet }: IApplicationState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
+  flush: () => dispatch(tweetsFlush()),
+  load: () => dispatch(tweetsLoad()),
   request: (
     term: string,
     start: moment.Moment,

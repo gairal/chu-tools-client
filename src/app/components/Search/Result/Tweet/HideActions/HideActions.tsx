@@ -16,15 +16,27 @@ const HideActions: React.SFC<AllProps> = ({ tweet, setTheVisibility }) => {
   return (
     <div>
       {tweet.hidden ? (
-        <button type="button" className={`text-grey`} onClick={show}>
+        <button
+          type="button"
+          className="text-grey hover:text-grey-dark"
+          onClick={show}
+        >
           <i className="fas fa-trash-restore" />
         </button>
       ) : tweet.sentiment ? (
-        <button type="button" className={`text-grey`} onClick={show}>
+        <button
+          type="button"
+          className="text-grey hover:text-grey-dark"
+          onClick={show}
+        >
           <i className="fas fa-undo" />
         </button>
       ) : (
-        <button type="button" className={`text-red`} onClick={hide}>
+        <button
+          type="button"
+          className="text-red hover:text-red-dark"
+          onClick={hide}
+        >
           <i className="fas fa-trash" />
         </button>
       )}

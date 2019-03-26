@@ -1,7 +1,6 @@
 interface IPersistable<T> {
   add(message: T): boolean;
   flush(): boolean;
-  persist(messages: T[]): void;
   load(): T[];
 }
 
@@ -18,12 +17,10 @@ export default class Persistable<T> implements IPersistable<T> {
     }
   }
 
-  private idToken = '';
   private key = '';
   private hasLocalStorage = false;
-  constructor(key: string, idToken?: string) {
+  constructor(key: string) {
     this.hasLocalStorage = Persistable.hasLocalStorage();
-    this.idToken = idToken;
     this.key = key;
   }
 
@@ -71,10 +68,6 @@ export default class Persistable<T> implements IPersistable<T> {
     } catch (error) {
       return false;
     }
-  }
-
-  public persist(objects: any) {
-    return `${this.idToken} | ${objects}`;
   }
 
   public load() {

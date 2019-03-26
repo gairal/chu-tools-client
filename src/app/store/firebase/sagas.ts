@@ -9,7 +9,7 @@ import {
 } from './actions';
 import { FirebaseActionTypes, IAuthData, IAuthResult } from './types';
 
-const authKey = 'VC_AUTH';
+const authKey = 'CHOOLS_AUTH';
 
 function* authorize({ payload }: any) {
   if (!payload) return;

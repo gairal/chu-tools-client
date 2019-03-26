@@ -3,6 +3,9 @@ import { action } from 'typesafe-actions';
 
 import { ITweet, TweetActionTypes } from './types';
 
+export const tweetsLoad = () => action(TweetActionTypes.TWEETS_LOAD);
+export const tweetsFlush = () => action(TweetActionTypes.TWEETS_FLUSH);
+
 export const requestSend = (
   q: string,
   start: moment.Moment = moment().subtract(1, 'months'),

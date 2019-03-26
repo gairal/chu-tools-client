@@ -1,8 +1,10 @@
 import { Reducer } from 'redux';
 
+import Search from '@/data/Search';
 import { ITweetState, TweetActionTypes } from './types';
 
 const initialState: ITweetState = {
+  data: new Search(),
   errors: undefined,
   loading: false,
   saved: [],
@@ -11,7 +13,21 @@ const initialState: ITweetState = {
 
 const reducer: Reducer<ITweetState> = (state = initialState, action) => {
   switch (action.type) {
+    case TweetActionTypes.TWEETS_LOAD: {
+      return {
+        ...state,
+        tweets: state.data.load(),
+      };
+    }
+    case TweetActionTypes.TWEETS_FLUSH: {
+      state.data.flush();
+      return {
+        ...state,
+        tweets: [],
+      };
+    }
     case TweetActionTypes.REQUEST_SEND: {
+      state.data.flush();
       return {
         ...state,
         loading: true,
@@ -19,6 +35,7 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
       };
     }
     case TweetActionTypes.REQUEST_SUCCESS: {
+      state.data.value = action.payload;
       return {
         ...state,
         loading: false,
@@ -35,6 +52,7 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
         ...newTweets[idx],
         sentiment: action.payload.sentiment,
       };
+      state.data.value = newTweets;
 
       return { ...state, tweets: newTweets };
     }
@@ -47,6 +65,7 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
         hidden: action.payload.hidden,
         sentiment: null,
       };
+      state.data.value = newTweets;
 
       return { ...state, tweets: newTweets };
     }
@@ -58,6 +77,7 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
         ...newTweets[idx],
         category: action.payload.category,
       };
+      state.data.value = newTweets;
 
       return { ...state, tweets: newTweets };
     }
