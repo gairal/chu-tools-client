@@ -1,4 +1,4 @@
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import qs from 'query-string';
 import { all, fork, put, takeEvery } from 'redux-saga/effects';
 

@@ -3,15 +3,16 @@ import moment from 'moment';
 import Search from '@/data/Search';
 
 export interface ISearchQuery {
-  term: string;
   count: number;
+  max_id?: number;
+  term: string;
 }
 
 export interface ISearchParams {
   end: moment.Moment;
   start: moment.Moment;
   term: string;
-  max_id?: string;
+  max_id?: number;
 }
 
 export interface ISheetQuery {
@@ -44,7 +45,8 @@ interface ITweetEntities {
 export interface ITweet {
   created_at: Date;
   entities: ITweetEntities;
-  id: string;
+  id: number;
+  id_str: string;
   hidden?: boolean;
   lang: string;
   retweet_count: number;

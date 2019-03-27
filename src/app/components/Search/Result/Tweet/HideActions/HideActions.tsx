@@ -10,8 +10,8 @@ interface IProps {
 type AllProps = IProps;
 
 const HideActions: React.SFC<AllProps> = ({ tweet, setTheVisibility }) => {
-  const hide = () => setTheVisibility(tweet.id, true);
-  const show = () => setTheVisibility(tweet.id, false);
+  const hide = () => setTheVisibility(tweet.id_str, true);
+  const show = () => setTheVisibility(tweet.id_str, false);
 
   return (
     <div>

@@ -14,7 +14,7 @@ const initialState: ITweetState = {
 
 const copyTweetsAndGetIDX = (state: ITweetState, action: AnyAction) => {
   const newTweets = [...state.tweets];
-  const idx = newTweets.findIndex(t => t.id === action.payload.id);
+  const idx = newTweets.findIndex(t => t.id_str === action.payload.id);
 
   return { newTweets, idx };
 };
@@ -57,21 +57,30 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
         loading: false,
       };
 
-      if (!action.payload.tweets.length) {
+      const newTweets = action.payload.tweets;
+      if (!newTweets.length) {
         state.data.flush();
         return baseState;
       }
 
-      const newTweets = [...state.tweets, ...action.payload.tweets];
-      state.data.value = newTweets;
+      const currTweets = state.tweets;
+      if (
+        state.tweets.length &&
+        currTweets[currTweets.length - 1].id === newTweets[0].id
+      ) {
+        newTweets.shift();
+      }
+
+      const tweets = [...currTweets, ...newTweets];
+      state.data.value = tweets;
 
       return {
         ...baseState,
+        tweets,
         currentSearch: {
           ...action.payload.params,
-          max_id: newTweets[newTweets.length - 1].id,
+          max_id: tweets[tweets.length - 1].id,
         },
-        tweets: newTweets,
       };
     }
     case TweetActionTypes.REQUEST_ERROR: {

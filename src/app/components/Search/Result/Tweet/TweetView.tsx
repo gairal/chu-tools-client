@@ -65,7 +65,7 @@ const TweetView: React.SFC<AllProps> = ({
       </div>
       {!tweet.hidden && (
         <SentimentActions
-          id={tweet.id}
+          id={tweet.id_str}
           setTheSentiment={setTheSentiment}
           sentiments={sentiments}
         />

@@ -1,6 +1,6 @@
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import qs from 'query-string';
-import { all, fork, put, takeEvery } from 'redux-saga/effects';
+import { all, fork, put, select, takeEvery } from 'redux-saga/effects';
 
 import config from '@/config';
 import { firebaseAuthError } from '../firebase/actions';
@@ -20,12 +20,13 @@ import {
   TweetActionTypes,
 } from './types';
 
-function* fethTweets(params: ISearchParams) {
+function* fetchTweets(params: ISearchParams) {
   try {
-    const { term, start, end } = params;
+    const { term, start, end, max_id } = params;
 
     const query: ISearchQuery = {
-      count: 100,
+      max_id,
+      count: 10,
       term: `linkedin ${term} since:${start.format(
         'YYYY-MM-DD',
       )} until:${end.format('YYYY-MM-DD')}`,
@@ -51,14 +52,23 @@ function* fethTweets(params: ISearchParams) {
 }
 
 function* handleFetch(q: any) {
-  const { term = '', start, end } = q.payload;
-
-  const json = yield fethTweets({ term, start, end });
-  yield put(loadTweetsSuccess({ term, start, end }, json));
+  const json = yield fetchTweets(q.payload);
+  yield put(loadTweetsSuccess(q.payload, json));
 }
 
 function* watchFetchRequest() {
   yield takeEvery(TweetActionTypes.REQUEST_SEND, handleFetch);
+}
+
+function* handleMore() {
+  const currentSearch = yield select(state => state.tweet.currentSearch);
+
+  const json = yield fetchTweets(currentSearch);
+  yield put(loadTweetsSuccess(currentSearch, json));
+}
+
+function* watchMoreRequest() {
+  yield takeEvery(TweetActionTypes.REQUEST_MORE, handleMore);
 }
 
 function* handleGetSaved() {
@@ -135,6 +145,7 @@ function* watchTranslate() {
 function* tweetSaga() {
   yield all([
     fork(watchFetchRequest),
+    fork(watchMoreRequest),
     fork(watchGetSaved),
     fork(watchTranslate),
   ]);
