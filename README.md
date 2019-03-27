@@ -2,7 +2,7 @@
 
 ---
 
-> A handy Twitter tool build with [TypeScript](https://www.typescriptlang.org/),
+> A handy Twitter tool built with [TypeScript](https://www.typescriptlang.org/),
 > [React](https://reactjs.org/), [Prettier](https://prettier.io/), [eslint](https://eslint.org/), and ❤️
 
 ## Motivations
