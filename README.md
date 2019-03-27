@@ -13,7 +13,7 @@ Building a tool to help my wife search product feedbacks on Twitter.
 
 The tools uses Twitter Standard API and allows to search and filter tweets, classify them by sentiments and categories, auto translate the ones written in foreign languages and save them in a Google Sheet.
 
-The backend (https://github.com/gairal/chu-tools-server) uses 3 different RESTful endpoints built on Firebase Functions (gCloud functions) serverless architecture:
+The backend [chu-tools-server](https://github.com/gairal/chu-tools-server) uses 3 different RESTful endpoints built on Firebase Functions (gCloud functions) serverless architecture:
 
 - /tweets => search for tweets
 - /sheets => save tweets to a google sheet
