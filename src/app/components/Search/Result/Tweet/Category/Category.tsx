@@ -21,7 +21,7 @@ const Category: React.SFC<AllProps> = ({
   };
 
   return tweet.sentiment ? (
-    <select className="flex-1" onChange={handleChange}>
+    <select className="flex-1" onChange={handleChange} value={tweet.category}>
       <option value="">category</option>
       {categories.map(c => (
         <option key={c.label} value={c.label}>
