@@ -10,7 +10,7 @@ export const requestSend = (
   q: string,
   start: moment.Moment = moment().subtract(1, 'months'),
   end: moment.Moment = moment(),
-  count: number = 50,
+  count: number = 100,
 ) => {
   return action(TweetActionTypes.REQUEST_SEND, { term: q, start, end, count });
 };
