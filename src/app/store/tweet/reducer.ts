@@ -1,4 +1,4 @@
-import { Reducer } from 'redux';
+import { AnyAction, Reducer } from 'redux';
 
 import Search from '@/data/Search';
 import { ITweetState, TweetActionTypes } from './types';
@@ -9,6 +9,13 @@ const initialState: ITweetState = {
   loading: false,
   saved: [],
   tweets: [],
+};
+
+const copyTweetsAndGetIDX = (state: ITweetState, action: AnyAction) => {
+  const newTweets = [...state.tweets];
+  const idx = newTweets.findIndex(t => t.id === action.payload.id);
+
+  return { newTweets, idx };
 };
 
 const reducer: Reducer<ITweetState> = (state = initialState, action) => {
@@ -46,8 +53,8 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
       return { ...state, errors: action.payload, loading: false };
     }
     case TweetActionTypes.TWEET_SET_SENTIMENT: {
-      const newTweets = [...state.tweets];
-      const idx = newTweets.findIndex(t => t.id === action.payload.id);
+      const { newTweets, idx } = copyTweetsAndGetIDX(state, action);
+
       newTweets[idx] = {
         ...newTweets[idx],
         sentiment: action.payload.sentiment,
@@ -57,8 +64,7 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
       return { ...state, tweets: newTweets };
     }
     case TweetActionTypes.TWEET_SET_VISIBILITY: {
-      const newTweets = [...state.tweets];
-      const idx = newTweets.findIndex(t => t.id === action.payload.id);
+      const { newTweets, idx } = copyTweetsAndGetIDX(state, action);
 
       newTweets[idx] = {
         ...newTweets[idx],
@@ -70,8 +76,7 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
       return { ...state, tweets: newTweets };
     }
     case TweetActionTypes.TWEET_SET_CATEGORY: {
-      const newTweets = [...state.tweets];
-      const idx = newTweets.findIndex(t => t.id === action.payload.id);
+      const { newTweets, idx } = copyTweetsAndGetIDX(state, action);
 
       newTweets[idx] = {
         ...newTweets[idx],
@@ -96,6 +101,26 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
       };
     }
     case TweetActionTypes.SAVED_GET_ERROR: {
+      return { ...state, errors: action.payload, loading: false };
+    }
+    case TweetActionTypes.TRANSLATE_GET: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case TweetActionTypes.TRANSLATE_GET_SUCCESS: {
+      const { newTweets, idx } = copyTweetsAndGetIDX(state, action);
+
+      newTweets[idx] = {
+        ...newTweets[idx],
+        translation: action.payload.translation.translatedText,
+      };
+      state.data.value = newTweets;
+
+      return { ...state, loading: false, tweets: newTweets };
+    }
+    case TweetActionTypes.TRANSLATE_GET_ERROR: {
       return { ...state, errors: action.payload, loading: false };
     }
     default: {

@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { action } from 'typesafe-actions';
 
-import { ITweet, TweetActionTypes } from './types';
+import { ITranslation, ITweet, TweetActionTypes } from './types';
 
 export const tweetsLoad = () => action(TweetActionTypes.TWEETS_LOAD);
 export const tweetsFlush = () => action(TweetActionTypes.TWEETS_FLUSH);
@@ -33,3 +33,13 @@ export const requestSavedSuccess = (data: string[]) =>
   action(TweetActionTypes.SAVED_GET_SUCCESS, data);
 export const requestSavedError = (message: string) =>
   action(TweetActionTypes.SAVED_GET_ERROR, message);
+
+export const requestTranslate = (id: string, source: string, q: string) => {
+  return action(TweetActionTypes.TRANSLATE_GET, { id, source, q });
+};
+export const requestTranslateSuccess = (
+  id: string,
+  translation: ITranslation,
+) => action(TweetActionTypes.TRANSLATE_GET_SUCCESS, { id, translation });
+export const requestTranslateError = (message: string) =>
+  action(TweetActionTypes.TRANSLATE_GET_ERROR, message);

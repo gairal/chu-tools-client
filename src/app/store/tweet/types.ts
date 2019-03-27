@@ -11,6 +11,11 @@ export interface ISheetQuery {
   neutral: string;
 }
 
+export interface ITranslateQuery {
+  q: string;
+  source: number;
+}
+
 interface ITweeturls {
   url: string;
   expanded_url: string;
@@ -38,6 +43,11 @@ export interface ITweet {
   text: string;
   url: string;
   category?: string;
+  translation?: string;
+}
+
+export interface ITranslation {
+  translatedText: string;
 }
 
 export const enum TweetActionTypes {
@@ -55,6 +65,10 @@ export const enum TweetActionTypes {
   SAVED_GET = '@@tweet/SAVED_GET',
   SAVED_GET_SUCCESS = '@@tweet/SAVED_GET_SUCCESS',
   SAVED_GET_ERROR = '@@tweet/SAVED_GET_ERROR',
+
+  TRANSLATE_GET = '@@tweet/TRANSLATE_GET',
+  TRANSLATE_GET_SUCCESS = '@@tweet/TRANSLATE_GET_SUCCESS',
+  TRANSLATE_GET_ERROR = '@@tweet/TRANSLATE_GET_ERROR',
 }
 
 export interface ITweetState {

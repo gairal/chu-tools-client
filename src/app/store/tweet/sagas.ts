@@ -10,8 +10,10 @@ import {
   requestSavedError,
   requestSavedSuccess,
   requestSuccess,
+  requestTranslateError,
+  requestTranslateSuccess,
 } from './actions';
-import { ISearchQuery, TweetActionTypes } from './types';
+import { ISearchQuery, ITranslateQuery, TweetActionTypes } from './types';
 
 function* handleFetch(q: any) {
   if (!q.payload || '' === q.payload.term.trim()) {
@@ -76,8 +78,59 @@ function* watchGetSaved() {
   yield takeEvery(TweetActionTypes.SAVED_GET, handleGetSaved);
 }
 
+function* handleTranslate(data: any) {
+  if (!data.payload) {
+    yield put(requestError('wrong parameters'));
+  }
+
+  const { q, source, id } = data.payload;
+
+  if (
+    !id ||
+    !q ||
+    '' === q.trim() ||
+    !source ||
+    ['en', 'und'].includes(source)
+  ) {
+    yield put(requestError('wrong parameters'));
+  }
+
+  try {
+    const query: ITranslateQuery = {
+      q,
+      source,
+    };
+
+    const { res, json } = yield customFetch(
+      `${config.API_TRANSLATE_ENDPOINT}?${qs.stringify(query)}`,
+    );
+
+    if (res.error) {
+      yield put(requestTranslateError(json.error));
+    } else if (json.status && json.status === 403) {
+      yield put(firebaseAuthError(json.message));
+    } else {
+      yield put(requestTranslateSuccess(id, json));
+    }
+  } catch (err) {
+    if (err instanceof Error) {
+      yield put(requestTranslateError(err.stack!));
+    } else {
+      yield put(requestTranslateError('An unknown error occured.'));
+    }
+  }
+}
+
+function* watchTranslate() {
+  yield takeEvery(TweetActionTypes.TRANSLATE_GET, handleTranslate);
+}
+
 function* tweetSaga() {
-  yield all([fork(watchFetchRequest), fork(watchGetSaved)]);
+  yield all([
+    fork(watchFetchRequest),
+    fork(watchGetSaved),
+    fork(watchTranslate),
+  ]);
 }
 
 export default tweetSaga;

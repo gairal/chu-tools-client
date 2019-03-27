@@ -5,6 +5,7 @@ import SentimentActions from '@/components/Search/Result/Tweet/SentimentActions'
 import { ICategory } from '@/store/category/types';
 import { ISentiment } from '@/store/sentiment/types';
 import {
+  requestTranslate,
   setCategory,
   setSentiment,
   setVisibility,
@@ -15,14 +16,19 @@ import HideActions from './HideActions';
 import Translate from './Translate';
 
 interface IProps {
-  setTheCategory: typeof setCategory;
-  setTheSentiment: typeof setSentiment;
-  setTheVisibility: typeof setVisibility;
   tweet: ITweet;
   categories: ICategory[];
   sentiments: ISentiment[];
 }
-type AllProps = IProps;
+
+interface IPropsFromDispatch {
+  setTheCategory: typeof setCategory;
+  setTheSentiment: typeof setSentiment;
+  setTheVisibility: typeof setVisibility;
+  translate: typeof requestTranslate;
+}
+
+type AllProps = IProps & IPropsFromDispatch;
 
 const TweetView: React.SFC<AllProps> = ({
   categories,
@@ -30,6 +36,7 @@ const TweetView: React.SFC<AllProps> = ({
   setTheSentiment,
   setTheVisibility,
   sentiments,
+  translate,
   tweet,
 }) => {
   const date = moment(new Date(tweet.created_at)).format('MMM Do YY');
@@ -57,7 +64,7 @@ const TweetView: React.SFC<AllProps> = ({
         />
       )}
       <p className="p-1 pl-2 text-grey-darkest border-l-4 border-blue-dark break-words">
-        {tweet.text}
+        {tweet.translation || tweet.text}
       </p>
       <div className="flex justify-between items-center mt-2">
         <Category
@@ -65,7 +72,7 @@ const TweetView: React.SFC<AllProps> = ({
           categories={categories}
           setTheCategory={setTheCategory}
         />
-        <Translate tweet={tweet} />
+        <Translate tweet={tweet} translate={translate} />
       </div>
     </li>
   );
