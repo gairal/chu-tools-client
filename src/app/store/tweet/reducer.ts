@@ -45,13 +45,33 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
         tweets: [],
       };
     }
-    case TweetActionTypes.REQUEST_SUCCESS: {
-      state.data.value = action.payload;
+    case TweetActionTypes.REQUEST_MORE: {
       return {
         ...state,
-        currentSearch: action.payload.params,
+        loading: true,
+      };
+    }
+    case TweetActionTypes.REQUEST_SUCCESS: {
+      const baseState = {
+        ...state,
         loading: false,
-        tweets: action.payload.tweets,
+      };
+
+      if (!action.payload.tweets.length) {
+        state.data.flush();
+        return baseState;
+      }
+
+      const newTweets = [...state.tweets, ...action.payload.tweets];
+      state.data.value = newTweets;
+
+      return {
+        ...baseState,
+        currentSearch: {
+          ...action.payload.params,
+          max_id: newTweets[newTweets.length - 1].id,
+        },
+        tweets: newTweets,
       };
     }
     case TweetActionTypes.REQUEST_ERROR: {

@@ -13,13 +13,11 @@ export const loadTweets = (
 ) => {
   return action(TweetActionTypes.REQUEST_SEND, { term: q, start, end });
 };
-// export const loadMoreTweets = (
-//   q: string,
-//   start: moment.Moment = moment().subtract(1, 'months'),
-//   end: moment.Moment = moment(),
-// ) => {
-//   return action(TweetActionTypes.REQUEST_SEND, { term: q, start, end, count });
-// };
+
+export const loadMoreTweets = () => {
+  return action(TweetActionTypes.REQUEST_MORE);
+};
+
 export const loadTweetsSuccess = (params: ISearchParams, tweets: ITweet[]) =>
   action(TweetActionTypes.REQUEST_SUCCESS, { params, tweets });
 export const loadTweetsError = (message: string) =>

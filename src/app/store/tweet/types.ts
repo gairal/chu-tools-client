@@ -11,6 +11,7 @@ export interface ISearchParams {
   end: moment.Moment;
   start: moment.Moment;
   term: string;
+  max_id?: string;
 }
 
 export interface ISheetQuery {
@@ -65,6 +66,7 @@ export const enum TweetActionTypes {
   REQUEST_SEND = '@@tweet/SEND_REQUEST',
   REQUEST_SUCCESS = '@@tweet/REQUEST_SUCCESS',
   REQUEST_ERROR = '@@tweet/REQUEST_ERROR',
+  REQUEST_MORE = '@@tweet/REQUEST_MORE',
 
   TWEET_SET_SENTIMENT = '@@tweet/TWEET_SET_SENTIMENT',
   TWEET_SET_VISIBILITY = '@@tweet/TWEET_SET_VISIBILITY',

@@ -2,38 +2,42 @@ import * as React from 'react';
 
 import Tweet from '@/components/Search/Result/Tweet';
 import { ISentiment } from '@/store/sentiment/types';
+import { loadMoreTweets } from '@/store/tweet/actions';
 import { ITweet } from '@/store/tweet/types';
 
-interface IPropsFromState {
+interface IProps {
   className?: string;
   loading?: boolean;
   sentiment?: ISentiment;
   tweets: ITweet[];
   style?: React.CSSProperties;
+  loadMore?: typeof loadMoreTweets;
 }
 
-type AllProps = IPropsFromState;
+type AllProps = IProps;
 
 const TweetsView: React.SFC<AllProps> = ({
   tweets,
   sentiment,
   style,
   className,
+  loadMore,
 }) => {
   const infiniteListRef: React.RefObject<HTMLDivElement> = React.useRef(null);
 
-  React.useEffect(() => {
-    infiniteListRef.current.addEventListener('scroll', () => {
-      if (
-        infiniteListRef.current.scrollTop +
-          infiniteListRef.current.clientHeight >=
-        infiniteListRef.current.scrollHeight
-      ) {
-        // tslint:disable-next-line:no-console
-        console.info('LOAD MORE');
-      }
-    });
-  }, [false]);
+  if (loadMore) {
+    React.useEffect(() => {
+      infiniteListRef.current.addEventListener('scroll', () => {
+        if (
+          infiniteListRef.current.scrollTop +
+            infiniteListRef.current.clientHeight >=
+          infiniteListRef.current.scrollHeight
+        ) {
+          loadMore();
+        }
+      });
+    }, [false]);
+  }
 
   return (
     <div
