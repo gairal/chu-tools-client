@@ -1,10 +1,12 @@
 import { AnyAction, Reducer } from 'redux';
 
 import Search from '@/data/Search';
+import SearchParams from '@/data/SearchParams';
 import { ITweetState, TweetActionTypes } from './types';
 
 const initialState: ITweetState = {
   currentSearch: null,
+  currentSearchData: new SearchParams(),
   data: new Search(),
   errors: undefined,
   loading: false,
@@ -21,15 +23,17 @@ const copyTweetsAndGetIDX = (state: ITweetState, action: AnyAction) => {
 
 const reducer: Reducer<ITweetState> = (state = initialState, action) => {
   switch (action.type) {
-    // TODO: need to get currentSearch in this case too
     case TweetActionTypes.TWEETS_LOAD: {
       return {
         ...state,
+        currentSearch: state.currentSearchData.load(),
         tweets: state.data.load(),
       };
     }
     case TweetActionTypes.TWEETS_FLUSH: {
       state.data.flush();
+      state.currentSearchData.flush();
+
       return {
         ...state,
         currentSearch: null,
@@ -38,6 +42,8 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
     }
     case TweetActionTypes.REQUEST_SEND: {
       state.data.flush();
+      state.currentSearchData.flush();
+
       return {
         ...state,
         currentSearch: null,
@@ -58,8 +64,9 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
       };
 
       const newTweets = action.payload.tweets;
-      if (!newTweets.length) {
+      if (!newTweets || !newTweets.length) {
         state.data.flush();
+        state.currentSearchData.flush();
         return baseState;
       }
 
@@ -72,15 +79,17 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
       }
 
       const tweets = [...currTweets, ...newTweets];
+      const currentSearch = {
+        ...action.payload.params,
+        max_id: tweets[tweets.length - 1].id,
+      };
       state.data.value = tweets;
+      state.currentSearchData.value = currentSearch;
 
       return {
         ...baseState,
+        currentSearch,
         tweets,
-        currentSearch: {
-          ...action.payload.params,
-          max_id: tweets[tweets.length - 1].id,
-        },
       };
     }
     case TweetActionTypes.REQUEST_ERROR: {

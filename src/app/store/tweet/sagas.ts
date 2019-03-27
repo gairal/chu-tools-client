@@ -26,10 +26,8 @@ function* fetchTweets(params: ISearchParams) {
 
     const query: ISearchQuery = {
       max_id,
-      count: 10,
-      term: `linkedin ${term} since:${start.format(
-        'YYYY-MM-DD',
-      )} until:${end.format('YYYY-MM-DD')}`,
+      count: 100,
+      term: `linkedin ${term} since:${start} until:${end}`,
     };
     const { res, json } = yield customFetch(
       `${config.API_SEARCH_ENDPOINT}?${qs.stringify(query)}`,

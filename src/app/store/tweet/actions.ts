@@ -8,8 +8,10 @@ export const tweetsFlush = () => action(TweetActionTypes.TWEETS_FLUSH);
 
 export const loadTweets = (
   q: string = '',
-  start: moment.Moment = moment().subtract(1, 'months'),
-  end: moment.Moment = moment(),
+  start: string = moment()
+    .subtract(1, 'months')
+    .format('YYYY-MM-DD'),
+  end: string = moment().format('YYYY-MM-DD'),
 ) => {
   return action(TweetActionTypes.REQUEST_SEND, { term: q, start, end });
 };

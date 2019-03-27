@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import DatePicker from '@/components/Search/Form/DatePicker';
 import QueryInput from '@/components/Search/Form/QueryInput';
-import { loadTweets, tweetsFlush, tweetsLoad } from '@/store/tweet/actions';
+import { tweetsFlush, tweetsLoad } from '@/store/tweet/actions';
 import { ITweet } from '@/store/tweet/types';
 import FlushCache from './FlushCache';
 
@@ -15,7 +15,7 @@ interface IPropsFromState {
 interface IPropsFromDispatch {
   flush: typeof tweetsFlush;
   load: typeof tweetsLoad;
-  request: typeof loadTweets;
+  request: (term: string, start: moment.Moment, end: moment.Moment) => void;
 }
 
 type AllProps = IPropsFromState & IPropsFromDispatch;
