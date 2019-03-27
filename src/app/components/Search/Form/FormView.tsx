@@ -1,7 +1,6 @@
 import moment from 'moment';
 import * as React from 'react';
 
-import CountInput from '@/components/Search/Form/CountInput';
 import DatePicker from '@/components/Search/Form/DatePicker';
 import QueryInput from '@/components/Search/Form/QueryInput';
 import { requestSend, tweetsFlush, tweetsLoad } from '@/store/tweet/actions';
@@ -25,18 +24,17 @@ const FormView: React.SFC<AllProps> = ({ request, loading, load, flush }) => {
   const [keyword, setKeyword] = React.useState('');
   const [start, setStart] = React.useState(moment().subtract(5, 'days'));
   const [end, setEnd] = React.useState(moment());
-  const [count, setCount] = React.useState(50);
   const [isInit, setIsInit] = React.useState(false);
 
   const search = () => {
-    request(keyword, start, end, count);
+    request(keyword, start, end);
   };
 
   React.useEffect(() => {
     if (isInit) {
       search();
     }
-  }, [count, start, end]);
+  }, [start, end]);
 
   React.useEffect(() => {
     load();
@@ -58,7 +56,6 @@ const FormView: React.SFC<AllProps> = ({ request, loading, load, flush }) => {
         setEnd={setEnd}
         end={end}
       />
-      <CountInput count={count} loading={loading} setCount={setCount} />
       <FlushCache flush={flush} />
     </form>
   );
