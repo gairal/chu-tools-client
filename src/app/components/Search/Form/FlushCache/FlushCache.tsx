@@ -13,7 +13,7 @@ const CountInput: React.SFC<IProps> = ({ flush }) => {
       className="text-grey hover:text-grey-dark mx-2"
       onClick={flush}
     >
-      <i className="fas fa-toilet" />
+      <i className="fas fa-toilet fa-2x" />
     </button>
   );
 };

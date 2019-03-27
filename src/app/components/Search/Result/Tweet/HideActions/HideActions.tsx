@@ -34,7 +34,7 @@ const HideActions: React.SFC<AllProps> = ({ tweet, setTheVisibility }) => {
       ) : (
         <button
           type="button"
-          className="text-red hover:text-red-dark"
+          className="text-red-light hover:text-red-dark"
           onClick={hide}
         >
           <i className="fas fa-trash" />
