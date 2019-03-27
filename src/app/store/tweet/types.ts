@@ -1,8 +1,16 @@
+import moment from 'moment';
+
 import Search from '@/data/Search';
 
 export interface ISearchQuery {
   term: string;
   count: number;
+}
+
+export interface ISearchParams {
+  end: moment.Moment;
+  start: moment.Moment;
+  term: string;
 }
 
 export interface ISheetQuery {
@@ -72,6 +80,7 @@ export const enum TweetActionTypes {
 }
 
 export interface ITweetState {
+  readonly currentSearch: ISearchParams;
   readonly loading: boolean;
   readonly tweets: ITweet[];
   readonly errors?: string;

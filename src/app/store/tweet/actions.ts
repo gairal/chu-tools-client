@@ -1,22 +1,28 @@
 import moment from 'moment';
 import { action } from 'typesafe-actions';
 
-import { ITranslation, ITweet, TweetActionTypes } from './types';
+import { ISearchParams, ITranslation, ITweet, TweetActionTypes } from './types';
 
 export const tweetsLoad = () => action(TweetActionTypes.TWEETS_LOAD);
 export const tweetsFlush = () => action(TweetActionTypes.TWEETS_FLUSH);
 
-export const requestSend = (
-  q: string,
+export const loadTweets = (
+  q: string = '',
   start: moment.Moment = moment().subtract(1, 'months'),
   end: moment.Moment = moment(),
-  count: number = 100,
 ) => {
-  return action(TweetActionTypes.REQUEST_SEND, { term: q, start, end, count });
+  return action(TweetActionTypes.REQUEST_SEND, { term: q, start, end });
 };
-export const requestSuccess = (data: ITweet[]) =>
-  action(TweetActionTypes.REQUEST_SUCCESS, data);
-export const requestError = (message: string) =>
+// export const loadMoreTweets = (
+//   q: string,
+//   start: moment.Moment = moment().subtract(1, 'months'),
+//   end: moment.Moment = moment(),
+// ) => {
+//   return action(TweetActionTypes.REQUEST_SEND, { term: q, start, end, count });
+// };
+export const loadTweetsSuccess = (params: ISearchParams, tweets: ITweet[]) =>
+  action(TweetActionTypes.REQUEST_SUCCESS, { params, tweets });
+export const loadTweetsError = (message: string) =>
   action(TweetActionTypes.REQUEST_ERROR, message);
 
 export const setSentiment = (id: string, sentiment: string) =>

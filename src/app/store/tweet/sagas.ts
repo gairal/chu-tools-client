@@ -6,48 +6,55 @@ import config from '@/config';
 import { firebaseAuthError } from '../firebase/actions';
 import { customFetch } from '../utils';
 import {
-  requestError,
+  loadTweetsError,
+  loadTweetsSuccess,
   requestSavedError,
   requestSavedSuccess,
-  requestSuccess,
   requestTranslateError,
   requestTranslateSuccess,
 } from './actions';
-import { ISearchQuery, ITranslateQuery, TweetActionTypes } from './types';
+import {
+  ISearchParams,
+  ISearchQuery,
+  ITranslateQuery,
+  TweetActionTypes,
+} from './types';
 
-function* handleFetch(q: any) {
-  if (!q.payload || '' === q.payload.term.trim()) {
-    yield put(requestError('wrong parameters'));
-  }
-
-  const { term, start, end, count } = q.payload;
-  const startDate = start.format('YYYY-MM-DD');
-  const endDate = end.format('YYYY-MM-DD');
-
+function* fethTweets(params: ISearchParams) {
   try {
-    const query: ISearchQuery = {
-      count,
-      term: `linkedin ${term} since:${startDate} until:${endDate}`,
-    };
+    const { term, start, end } = params;
 
+    const query: ISearchQuery = {
+      count: 100,
+      term: `linkedin ${term} since:${start.format(
+        'YYYY-MM-DD',
+      )} until:${end.format('YYYY-MM-DD')}`,
+    };
     const { res, json } = yield customFetch(
       `${config.API_SEARCH_ENDPOINT}?${qs.stringify(query)}`,
     );
 
     if (res.error) {
-      yield put(requestError(json.error));
+      yield put(loadTweetsError(json.error));
     } else if (json.status && json.status === 403) {
       yield put(firebaseAuthError(json.message));
-    } else {
-      yield put(requestSuccess(json));
     }
-  } catch (err) {
-    if (err instanceof Error) {
-      yield put(requestError(err.stack!));
+
+    return json;
+  } catch (e) {
+    if (e instanceof Error) {
+      yield put(loadTweetsError(e.stack!));
     } else {
-      yield put(requestError('An unknown error occured.'));
+      yield put(loadTweetsError('An unknown error occured.'));
     }
   }
+}
+
+function* handleFetch(q: any) {
+  const { term = '', start, end } = q.payload;
+
+  const json = yield fethTweets({ term, start, end });
+  yield put(loadTweetsSuccess({ term, start, end }, json));
 }
 
 function* watchFetchRequest() {
@@ -80,7 +87,7 @@ function* watchGetSaved() {
 
 function* handleTranslate(data: any) {
   if (!data.payload) {
-    yield put(requestError('wrong parameters'));
+    yield put(loadTweetsError('wrong parameters'));
   }
 
   const { q, source, id } = data.payload;
@@ -92,7 +99,7 @@ function* handleTranslate(data: any) {
     !source ||
     ['en', 'und'].includes(source)
   ) {
-    yield put(requestError('wrong parameters'));
+    yield put(loadTweetsError('wrong parameters'));
   }
 
   try {

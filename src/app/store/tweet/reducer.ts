@@ -4,6 +4,7 @@ import Search from '@/data/Search';
 import { ITweetState, TweetActionTypes } from './types';
 
 const initialState: ITweetState = {
+  currentSearch: null,
   data: new Search(),
   errors: undefined,
   loading: false,
@@ -20,6 +21,7 @@ const copyTweetsAndGetIDX = (state: ITweetState, action: AnyAction) => {
 
 const reducer: Reducer<ITweetState> = (state = initialState, action) => {
   switch (action.type) {
+    // TODO: need to get currentSearch in this case too
     case TweetActionTypes.TWEETS_LOAD: {
       return {
         ...state,
@@ -30,6 +32,7 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
       state.data.flush();
       return {
         ...state,
+        currentSearch: null,
         tweets: [],
       };
     }
@@ -37,6 +40,7 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
       state.data.flush();
       return {
         ...state,
+        currentSearch: null,
         loading: true,
         tweets: [],
       };
@@ -45,12 +49,18 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
       state.data.value = action.payload;
       return {
         ...state,
+        currentSearch: action.payload.params,
         loading: false,
-        tweets: action.payload,
+        tweets: action.payload.tweets,
       };
     }
     case TweetActionTypes.REQUEST_ERROR: {
-      return { ...state, errors: action.payload, loading: false };
+      return {
+        ...state,
+        currentSearch: null,
+        errors: action.payload,
+        loading: false,
+      };
     }
     case TweetActionTypes.TWEET_SET_SENTIMENT: {
       const { newTweets, idx } = copyTweetsAndGetIDX(state, action);

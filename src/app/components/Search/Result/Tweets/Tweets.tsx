@@ -37,7 +37,7 @@ const TweetsView: React.SFC<AllProps> = ({
 
   return (
     <div
-      className={`flex flex-col mx-2 h-full overflow-y-auto ${className}`}
+      className={`flex flex-col px-2 h-full overflow-y-auto ${className}`}
       style={style}
       ref={infiniteListRef}
     >
