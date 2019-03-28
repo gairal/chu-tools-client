@@ -56,15 +56,15 @@ const ResultView: React.SFC<AllProps> = ({
   const shouldSave = Object.keys(orderedTweets).length > 1;
 
   return (
-    <div className="flex h-full">
+    <div className="flex flex-col-reverse md:flex-row h-full flex-no-grow flex-no-shrink">
       <Tweets
         tweets={orderedTweets.unordered}
-        style={{ flex: '0 0 25vw' }}
         loadMore={loadMore}
+        className="tweets__unordered"
       />
-      <div className="shadow-sm flex-1 w-0 flex flex-col">
+      <div className="shadow-sm flex-1 w-0 flex flex-col w-full p-2">
         {shouldSave && <SaveForm />}
-        <div className="flex overflow-x-auto flex-1">
+        <div className="hidden md:flex overflow-x-auto flex-1">
           {sentiments.map(s => (
             <Tweets
               key={s.id}

@@ -43,7 +43,7 @@ const TweetView: React.SFC<AllProps> = ({
   const date = moment(new Date(tweet.created_at)).format('MMM Do YY');
   return (
     <li
-      className={`flex flex-col p-4 my-2 shadow-sm rounded bg-${
+      className={`flex flex-col p-4 my-2 shadow-sm rounded overflow-hidden bg-${
         theme.tweetBg
       } border ${tweet.hidden && 'opacity-50'}`}
     >

@@ -42,21 +42,23 @@ const FormView: React.SFC<AllProps> = ({ request, loading, load, flush }) => {
   }, [false]);
 
   return (
-    <form className="flex justify-between">
+    <form className="flex flex-col md:flex-row justify-between">
       <QueryInput
         loading={loading}
         search={search}
         setKeyword={setKeyword}
         keyword={keyword}
       />
-      <DatePicker
-        loading={loading}
-        setStart={setStart}
-        start={start}
-        setEnd={setEnd}
-        end={end}
-      />
-      <FlushCache flush={flush} />
+      <div className="flex items-center justify-between">
+        <DatePicker
+          loading={loading}
+          setStart={setStart}
+          start={start}
+          setEnd={setEnd}
+          end={end}
+        />
+        <FlushCache flush={flush} />
+      </div>
     </form>
   );
 };
