@@ -8,4 +8,5 @@ export default {
   API_SAVE_ENDPOINT: `${API_ENDPOINT}/sheets`,
   API_SEARCH_ENDPOINT: `${API_ENDPOINT}/tweets`,
   API_TRANSLATE_ENDPOINT: `${API_ENDPOINT}/translates`,
+  API_TRASH_ENDPOINT: `${API_ENDPOINT}/trashes`,
 };

@@ -69,6 +69,31 @@ function* watchMoreRequest() {
   yield takeEvery(TweetActionTypes.REQUEST_MORE, handleMore);
 }
 
+function* trash(q: any) {
+  const { id, hidden } = q.payload;
+
+  try {
+    const { json } = yield customFetch(
+      `${config.API_TRASH_ENDPOINT}?${qs.stringify({ id, untrash: !hidden })}`,
+      {
+        method: 'POST',
+      },
+    );
+
+    if (json.status && json.status === 403) {
+      yield put(firebaseAuthError(json.message));
+    }
+
+    return json;
+  } catch (e) {
+    // nothing to do here
+  }
+}
+
+function* watchTrash() {
+  yield takeEvery(TweetActionTypes.TWEET_SET_VISIBILITY, trash);
+}
+
 function* handleGetSaved() {
   try {
     const db = firebase.firestore();
@@ -146,6 +171,7 @@ function* tweetSaga() {
     fork(watchMoreRequest),
     fork(watchGetSaved),
     fork(watchTranslate),
+    fork(watchTrash),
   ]);
 }
 
