@@ -4,7 +4,7 @@ import { IPost } from '@/store/types';
 
 interface IProps {
   loading: boolean;
-  save: (tweets: IPost[]) => void;
+  save: (posts: IPost[]) => void;
   posts: IPost[];
 }
 

@@ -16,8 +16,8 @@ interface IProps {
 const SaveForm: React.SFC<IProps> = ({ loading, sheets, save, posts }) => {
   const [sheetId, setSheetId] = React.useState();
 
-  const saveSheet = (twits: IPost[]) => {
-    save(sheetId, twits);
+  const saveSheet = (localPosts: IPost[]) => {
+    save(sheetId, localPosts);
   };
 
   return (

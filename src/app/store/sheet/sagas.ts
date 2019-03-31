@@ -18,7 +18,7 @@ function* handleSave(q: any) {
   if (!q.payload) return;
 
   try {
-    const { tweets, sheetId } = q.payload;
+    const { posts, sheetId } = q.payload;
 
     const query: ISheetQuery = {
       spreadsheetId: sheetId,
@@ -27,7 +27,7 @@ function* handleSave(q: any) {
     const { res, json } = yield customFetch(
       `${config.API_SAVE_ENDPOINT}?${qs.stringify(query)}`,
       {
-        body: JSON.stringify(tweets),
+        body: JSON.stringify(posts),
         method: 'POST',
       },
     );
