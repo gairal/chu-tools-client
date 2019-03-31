@@ -6,22 +6,22 @@ import { IPost } from '@/store/types';
 
 interface IProps {
   categories: ICategory[];
-  tweet: IPost;
+  post: IPost;
   setTheCategory: typeof setCategory;
 }
 type AllProps = IProps;
 
 const Category: React.SFC<AllProps> = ({
   categories,
-  tweet,
+  post,
   setTheCategory,
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setTheCategory(tweet.id, e.target.value);
+    setTheCategory(post.id, e.target.value);
   };
 
-  return tweet.sentiment ? (
-    <select className="flex-1" onChange={handleChange} value={tweet.category}>
+  return post.sentiment ? (
+    <select className="flex-1" onChange={handleChange} value={post.category}>
       <option value="">category</option>
       {categories.map(c => (
         <option key={c.label} value={c.label}>

@@ -1,7 +1,7 @@
 import moment from 'moment';
 import * as React from 'react';
 
-import SentimentActions from '@/components/Search/Result/Tweet/SentimentActions';
+import SentimentActions from '@/components/Search/Result/Post/SentimentActions';
 import theme from '@/components/theme';
 import { ICategory } from '@/store/category/types';
 import { ISentiment } from '@/store/sentiment/types';
@@ -17,7 +17,7 @@ import HideActions from './HideActions';
 import Translate from './Translate';
 
 interface IProps {
-  tweet: IPost;
+  post: IPost;
   categories: ICategory[];
   sentiments: ISentiment[];
 }
@@ -31,41 +31,41 @@ interface IPropsFromDispatch {
 
 type AllProps = IProps & IPropsFromDispatch;
 
-const TweetView: React.SFC<AllProps> = ({
+const PostView: React.SFC<AllProps> = ({
   categories,
   setTheCategory,
   setTheSentiment,
   setTheVisibility,
   sentiments,
   translate,
-  tweet,
+  post,
 }) => {
-  const date = moment(new Date(tweet.created)).format('MMM Do YY');
+  const date = moment(new Date(post.created)).format('MMM Do YY');
   return (
     <li
       className={`flex flex-col p-4 my-2 shadow-sm rounded overflow-hidden bg-${
-        theme.tweetBg
-      } border ${tweet.hidden && 'opacity-50'}`}
+        theme.postBg
+      } border ${post.hidden && 'opacity-50'}`}
     >
       <div
         className={`flex justify-between items-center text-${
-          theme.tweetHeaderText
+          theme.postHeaderText
         } text-sm`}
       >
-        <a className="p-2 hover:text-grey" href={tweet.url} target="_blank">
+        <a className="p-2 hover:text-grey" href={post.url} target="_blank">
           <i className="fas fa-external-link-alt" />
         </a>
         <div>
           <i className="fas fa-retweet mr-1" />
-          {tweet.likes}
+          {post.likes}
         </div>
-        <span className={`text-${theme.tweetHeaderText}`}>{date}</span>
+        <span className={`text-${theme.postHeaderText}`}>{date}</span>
 
-        <HideActions tweet={tweet} setTheVisibility={setTheVisibility} />
+        <HideActions post={post} setTheVisibility={setTheVisibility} />
       </div>
-      {!tweet.hidden && (
+      {!post.hidden && (
         <SentimentActions
-          id={tweet.id}
+          id={post.id}
           setTheSentiment={setTheSentiment}
           sentiments={sentiments}
         />
@@ -75,18 +75,18 @@ const TweetView: React.SFC<AllProps> = ({
           theme.color
         } border-l-4 border-blue-light break-words`}
       >
-        {tweet.translation || tweet.text}
+        {post.translation || post.text}
       </p>
       <div className="flex justify-between items-center mt-2">
         <Category
-          tweet={tweet}
+          post={post}
           categories={categories}
           setTheCategory={setTheCategory}
         />
-        <Translate tweet={tweet} translate={translate} />
+        <Translate post={post} translate={translate} />
       </div>
     </li>
   );
 };
 
-export default TweetView;
+export default PostView;

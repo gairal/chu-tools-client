@@ -1,14 +1,14 @@
 import * as React from 'react';
 
+import Posts from '@/components/Search/Result/Posts';
 import SaveForm from '@/components/Search/Result/SaveForm';
-import Tweets from '@/components/Search/Result/Tweets';
 import { ISentiment } from '@/store/sentiment/types';
 import { loadMoreTweets } from '@/store/tweet/actions';
 import { IPost } from '@/store/types';
 
 interface IPropsFromState {
   saved: string[];
-  tweets: IPost[];
+  posts: IPost[];
   loading?: boolean;
   sentiments: ISentiment[];
   title?: string;
@@ -27,13 +27,13 @@ type AllProps = IPropsFromState & IPropsFromDispatch;
 
 const ResultView: React.SFC<AllProps> = ({
   saved,
-  tweets,
+  posts,
   sentiments,
   loadMore,
 }) => {
   const sentimentLabels = sentiments.map(s => s.label);
 
-  const orderedTweets: IOrderedTweets = tweets
+  const orderedTweets: IOrderedTweets = posts
     .filter(t => !saved.includes(t.id))
     .reduce(
       (acc: IOrderedTweets, t) => {
@@ -57,8 +57,8 @@ const ResultView: React.SFC<AllProps> = ({
 
   return (
     <div className="flex flex-col-reverse md:flex-row h-full flex-no-grow flex-no-shrink">
-      <Tweets
-        tweets={orderedTweets.unordered}
+      <Posts
+        posts={orderedTweets.unordered}
         loadMore={loadMore}
         className="tweets__unordered"
       />
@@ -66,9 +66,9 @@ const ResultView: React.SFC<AllProps> = ({
         {shouldSave && <SaveForm />}
         <div className="hidden md:flex overflow-x-auto flex-1">
           {sentiments.map(s => (
-            <Tweets
+            <Posts
               key={s.id}
-              tweets={orderedTweets[s.label] || []}
+              posts={orderedTweets[s.label] || []}
               sentiment={s}
               style={{ flex: '0 0 25vw' }}
             />

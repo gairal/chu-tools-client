@@ -4,16 +4,17 @@ import { requestTranslate } from '@/store/tweet/actions';
 import { IPost } from '@/store/types';
 
 interface IProps {
-  tweet: IPost;
+  post: IPost;
   translate: typeof requestTranslate;
 }
 type AllProps = IProps;
 
-const Translate: React.SFC<AllProps> = ({ tweet, translate }) => {
-  const handleClick = () => translate(tweet.id, tweet.lang, tweet.text);
+const Translate: React.SFC<AllProps> = ({ post, translate }) => {
+  const handleClick = () => translate(post.id, post.lang, post.text);
 
   return (
-    !['en', 'und'].includes(tweet.lang) && (
+    !!post.lang &&
+    !['en', 'und'].includes(post.lang) && (
       <button
         type="button"
         className="text-grey hover:text-grey-dark ml-2"

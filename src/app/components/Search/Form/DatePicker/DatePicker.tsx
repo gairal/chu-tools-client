@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import * as React from 'react';
 import { DateRangePicker, FocusedInputShape } from 'react-dates';
 
@@ -34,9 +34,9 @@ const DatePicker: React.SFC<IProps> = ({ setStart, start, setEnd, end }) => {
   return (
     <DateRangePicker
       startDate={start}
-      startDateId="tweetStartDate"
+      startDateId="postStartDate"
       endDate={end}
-      endDateId="tweetStartDate"
+      endDateId="postStartDate"
       onDatesChange={handleChange}
       focusedInput={focused}
       onFocusChange={onFocus}

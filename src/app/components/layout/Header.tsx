@@ -18,7 +18,7 @@ const Header: React.SFC<AllProps> = ({ title }) => (
   >
     <div className="flex flex-col justify-between cursor-pointer w-full">
       <h1 className={`mr-4 text-sm text-${theme.headerText} pb-2`}>
-        Tweet Factory - {title}
+        Posts Factory - {title}
       </h1>
       <Form />
     </div>

@@ -7,9 +7,9 @@ import ResultView from './ResultView';
 
 const mapStateToProps = ({ tweet, sentiment }: IApplicationState) => ({
   loading: tweet.loading,
+  posts: tweet.tweets,
   saved: tweet.saved,
   sentiments: sentiment.sentiments,
-  tweets: tweet.tweets,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

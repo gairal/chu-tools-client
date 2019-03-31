@@ -3,6 +3,6 @@ export default {
   color: 'grey-lightest',
   headerBg: 'grey-darker',
   headerText: 'grey-light',
-  tweetBg: 'grey-darker',
-  tweetHeaderText: 'grey-light',
+  postBg: 'grey-darker',
+  postHeaderText: 'grey-light',
 };

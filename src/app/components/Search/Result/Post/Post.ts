@@ -8,7 +8,7 @@ import {
   setSentiment,
   setVisibility,
 } from '@/store/tweet/actions';
-import TweetView from './TweetView';
+import PostView from './PostView';
 
 const mapStateToProps = ({ category, sentiment }: IApplicationState) => ({
   categories: category.categories,
@@ -26,4 +26,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(TweetView);
+)(PostView);

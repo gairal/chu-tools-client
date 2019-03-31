@@ -5,17 +5,17 @@ import { IPost } from '@/store/types';
 
 interface IProps {
   setTheVisibility: typeof setVisibility;
-  tweet: IPost;
+  post: IPost;
 }
 type AllProps = IProps;
 
-const HideActions: React.SFC<AllProps> = ({ tweet, setTheVisibility }) => {
-  const hide = () => setTheVisibility(tweet.id, true);
-  const show = () => setTheVisibility(tweet.id, false);
+const HideActions: React.SFC<AllProps> = ({ post, setTheVisibility }) => {
+  const hide = () => setTheVisibility(post.id, true);
+  const show = () => setTheVisibility(post.id, false);
 
   return (
     <div>
-      {tweet.hidden ? (
+      {post.hidden ? (
         <button
           type="button"
           className="text-grey hover:text-grey-dark"
@@ -23,7 +23,7 @@ const HideActions: React.SFC<AllProps> = ({ tweet, setTheVisibility }) => {
         >
           <i className="fas fa-trash-restore" />
         </button>
-      ) : tweet.sentiment ? (
+      ) : post.sentiment ? (
         <button
           type="button"
           className="text-grey hover:text-grey-dark"

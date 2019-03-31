@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Tweet from '@/components/Search/Result/Tweet';
+import Post from '@/components/Search/Result/Post';
 import { ISentiment } from '@/store/sentiment/types';
 import { loadMoreTweets } from '@/store/tweet/actions';
 import { IPost } from '@/store/types';
@@ -9,15 +9,15 @@ interface IProps {
   className?: string;
   loading?: boolean;
   sentiment?: ISentiment;
-  tweets: IPost[];
+  posts: IPost[];
   style?: React.CSSProperties;
   loadMore?: typeof loadMoreTweets;
 }
 
 type AllProps = IProps;
 
-const TweetsView: React.SFC<AllProps> = ({
-  tweets,
+const PostsView: React.SFC<AllProps> = ({
+  posts,
   sentiment,
   style,
   className,
@@ -56,7 +56,7 @@ const TweetsView: React.SFC<AllProps> = ({
         </h2>
       )}
       <ul className="list-reset p-2">
-        {tweets
+        {posts
           .sort((t1, t2) => {
             if (t1.hidden && !t2.hidden) {
               return 1;
@@ -68,11 +68,11 @@ const TweetsView: React.SFC<AllProps> = ({
             return 0;
           })
           .map(t => (
-            <Tweet key={t.id} tweet={t} />
+            <Post key={t.id} post={t} />
           ))}
       </ul>
     </div>
   );
 };
 
-export default TweetsView;
+export default PostsView;
