@@ -10,10 +10,10 @@ interface IProps {
   loading: boolean;
   save: typeof saveSend;
   sheets: ISheet[];
-  tweets: IPost[];
+  posts: IPost[];
 }
 
-const SaveForm: React.SFC<IProps> = ({ loading, sheets, save, tweets }) => {
+const SaveForm: React.SFC<IProps> = ({ loading, sheets, save, posts }) => {
   const [sheetId, setSheetId] = React.useState();
 
   const saveSheet = (twits: IPost[]) => {
@@ -23,7 +23,7 @@ const SaveForm: React.SFC<IProps> = ({ loading, sheets, save, tweets }) => {
   return (
     <form className="flex p-2">
       <SheetSelector sheets={sheets} setSheetId={setSheetId} />
-      <SaveButton loading={loading} save={saveSheet} tweets={tweets} />
+      <SaveButton loading={loading} save={saveSheet} posts={posts} />
     </form>
   );
 };

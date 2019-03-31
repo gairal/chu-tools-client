@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import Posts from '@/components/Search/Result/Posts';
 import SaveForm from '@/components/Search/Result/SaveForm';
+import { loadMorePosts } from '@/store/post/actions';
 import { ISentiment } from '@/store/sentiment/types';
-import { loadMoreTweets } from '@/store/tweet/actions';
 import { IPost } from '@/store/types';
 
 interface IPropsFromState {
@@ -15,10 +15,10 @@ interface IPropsFromState {
 }
 
 interface IPropsFromDispatch {
-  loadMore: typeof loadMoreTweets;
+  loadMore: typeof loadMorePosts;
 }
 
-interface IOrderedTweets {
+interface IOrderedPosts {
   unordered: IPost[];
   [key: string]: IPost[];
 }
@@ -33,10 +33,10 @@ const ResultView: React.SFC<AllProps> = ({
 }) => {
   const sentimentLabels = sentiments.map(s => s.label);
 
-  const orderedTweets: IOrderedTweets = posts
+  const orderedPosts: IOrderedPosts = posts
     .filter(t => !saved.includes(t.id))
     .reduce(
-      (acc: IOrderedTweets, t) => {
+      (acc: IOrderedPosts, t) => {
         if (!t.sentiment) {
           acc.unordered.push(t);
         } else if (sentimentLabels.includes(t.sentiment)) {
@@ -53,12 +53,12 @@ const ResultView: React.SFC<AllProps> = ({
       },
     );
 
-  const shouldSave = Object.keys(orderedTweets).length > 1;
+  const shouldSave = Object.keys(orderedPosts).length > 1;
 
   return (
     <div className="flex flex-col-reverse md:flex-row h-full flex-no-grow flex-no-shrink">
       <Posts
-        posts={orderedTweets.unordered}
+        posts={orderedPosts.unordered}
         loadMore={loadMore}
         className="tweets__unordered"
       />
@@ -68,7 +68,7 @@ const ResultView: React.SFC<AllProps> = ({
           {sentiments.map(s => (
             <Posts
               key={s.id}
-              posts={orderedTweets[s.label] || []}
+              posts={orderedPosts[s.label] || []}
               sentiment={s}
               style={{ flex: '0 0 25vw' }}
             />

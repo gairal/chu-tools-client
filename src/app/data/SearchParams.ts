@@ -1,4 +1,4 @@
-import { ISearchParams } from '@/store/tweet/types';
+import { ISearchParams } from '@/store/post/types';
 import Persistable from './Persistable';
 
 export default class SearchParams extends Persistable<ISearchParams> {

@@ -3,7 +3,7 @@ import { select } from 'redux-saga/effects';
 export function* customFetch(query: string, requestInit: RequestInit = {}) {
   const idToken = yield select(({ firebase }) => firebase.idToken);
 
-  const res = yield fetch(query, {
+  const res: Response = yield fetch(query, {
     ...requestInit,
     headers: {
       'Content-Type': 'application/json',
@@ -13,5 +13,5 @@ export function* customFetch(query: string, requestInit: RequestInit = {}) {
   });
   const json = yield res.json();
 
-  return { json, res };
+  return json;
 }

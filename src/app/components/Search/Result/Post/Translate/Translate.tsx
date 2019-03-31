@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { requestTranslate } from '@/store/tweet/actions';
+import { requestTranslate } from '@/store/post/actions';
 import { IPost } from '@/store/types';
 
 interface IProps {

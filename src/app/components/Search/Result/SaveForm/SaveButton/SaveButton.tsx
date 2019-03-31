@@ -5,13 +5,13 @@ import { IPost } from '@/store/types';
 interface IProps {
   loading: boolean;
   save: (tweets: IPost[]) => void;
-  tweets: IPost[];
+  posts: IPost[];
 }
 
-const SaveButton: React.SFC<IProps> = ({ loading, save, tweets }) => {
+const SaveButton: React.SFC<IProps> = ({ loading, save, posts }) => {
   const handleSave = () => {
-    const filteredTweets = tweets.filter(t => !!t.sentiment);
-    save(filteredTweets);
+    const filteredPosts = posts.filter(p => !!p.sentiment);
+    save(filteredPosts);
   };
 
   return (

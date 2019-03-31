@@ -4,13 +4,13 @@ import * as React from 'react';
 import SentimentActions from '@/components/Search/Result/Post/SentimentActions';
 import theme from '@/components/theme';
 import { ICategory } from '@/store/category/types';
-import { ISentiment } from '@/store/sentiment/types';
 import {
   requestTranslate,
   setCategory,
   setSentiment,
   setVisibility,
-} from '@/store/tweet/actions';
+} from '@/store/post/actions';
+import { ISentiment } from '@/store/sentiment/types';
 import { IPost } from '@/store/types';
 import Category from './Category';
 import HideActions from './HideActions';

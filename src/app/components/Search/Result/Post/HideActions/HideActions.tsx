@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { setVisibility } from '@/store/tweet/actions';
+import { setVisibility } from '@/store/post/actions';
 import { IPost } from '@/store/types';
 
 interface IProps {

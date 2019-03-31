@@ -4,12 +4,12 @@ import { Dispatch } from 'redux';
 import SearchView from '@/components/Search/SearchView';
 import { IApplicationState } from '@/store';
 import { requestCategories } from '@/store/category/actions';
+import { requestSaved } from '@/store/post/actions';
 import { requestSentiments } from '@/store/sentiment/actions';
 import { requestSheets } from '@/store/sheet/actions';
-import { requestSaved } from '@/store/tweet/actions';
 
-const mapStateToProps = ({ tweet }: IApplicationState) => ({
-  loading: tweet.loading,
+const mapStateToProps = ({ post }: IApplicationState) => ({
+  loading: post.loading,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

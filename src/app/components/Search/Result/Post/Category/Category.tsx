@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { ICategory } from '@/store/category/types';
-import { setCategory } from '@/store/tweet/actions';
+import { setCategory } from '@/store/post/actions';
 import { IPost } from '@/store/types';
 
 interface IProps {

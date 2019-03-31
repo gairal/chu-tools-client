@@ -4,19 +4,25 @@ import { Dispatch } from 'redux';
 
 import FormView from '@/components/Search/Form/FormView';
 import { IApplicationState } from '@/store';
-import { loadTweets, tweetsFlush, tweetsLoad } from '@/store/tweet/actions';
+import { loadPosts, postsFlush, postsLoad } from '@/store/post/actions';
+import { PostType } from '@/store/types';
 
-const mapStateToProps = ({ tweet }: IApplicationState) => ({
-  loading: tweet.loading,
-  tweets: tweet.tweets,
+const mapStateToProps = ({ post }: IApplicationState) => ({
+  loading: post.loading,
+  posts: post.posts,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  flush: () => dispatch(tweetsFlush()),
-  load: () => dispatch(tweetsLoad()),
-  request: (term: string, start: moment.Moment, end: moment.Moment) =>
+  flush: () => dispatch(postsFlush()),
+  load: () => dispatch(postsLoad()),
+  request: (
+    q: string,
+    start: moment.Moment,
+    end: moment.Moment,
+    type: PostType,
+  ) =>
     dispatch(
-      loadTweets(term, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD')),
+      loadPosts(q, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'), type),
     ),
 });
 

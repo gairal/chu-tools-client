@@ -3,19 +3,24 @@ import * as React from 'react';
 
 import DatePicker from '@/components/Search/Form/DatePicker';
 import QueryInput from '@/components/Search/Form/QueryInput';
-import { tweetsFlush, tweetsLoad } from '@/store/tweet/actions';
-import { IPost } from '@/store/types';
+import { postsFlush, postsLoad } from '@/store/post/actions';
+import { IPost, PostType } from '@/store/types';
 import FlushCache from './FlushCache';
 
 interface IPropsFromState {
   loading: boolean;
-  tweets: IPost[];
+  posts: IPost[];
 }
 
 interface IPropsFromDispatch {
-  flush: typeof tweetsFlush;
-  load: typeof tweetsLoad;
-  request: (term: string, start: moment.Moment, end: moment.Moment) => void;
+  flush: typeof postsFlush;
+  load: typeof postsLoad;
+  request: (
+    term: string,
+    start: moment.Moment,
+    end: moment.Moment,
+    type: PostType,
+  ) => void;
 }
 
 type AllProps = IPropsFromState & IPropsFromDispatch;
@@ -27,7 +32,7 @@ const FormView: React.SFC<AllProps> = ({ request, loading, load, flush }) => {
   const [isInit, setIsInit] = React.useState(false);
 
   const search = () => {
-    request(keyword, start, end);
+    request(keyword, start, end, PostType.Twitter);
   };
 
   React.useEffect(() => {

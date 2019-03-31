@@ -2,45 +2,45 @@ import { AnyAction, Reducer } from 'redux';
 
 import Search from '@/data/Search';
 import SearchParams from '@/data/SearchParams';
-import { ITweetState, TweetActionTypes } from './types';
+import { IPostState, PostActionTypes } from './types';
 
-const initialState: ITweetState = {
+const initialState: IPostState = {
   currentSearch: null,
   currentSearchData: new SearchParams(),
   data: new Search(),
   errors: undefined,
   loading: false,
+  posts: [],
   saved: [],
-  tweets: [],
 };
 
-const copyTweetsAndGetIDX = (state: ITweetState, action: AnyAction) => {
-  const newTweets = [...state.tweets];
-  const idx = newTweets.findIndex(t => t.id === action.payload.id);
+const copyPostsAndGetIDX = (state: IPostState, action: AnyAction) => {
+  const newPosts = [...state.posts];
+  const idx = newPosts.findIndex(t => t.id === action.payload.id);
 
-  return { newTweets, idx };
+  return { newPosts, idx };
 };
 
-const reducer: Reducer<ITweetState> = (state = initialState, action) => {
+const reducer: Reducer<IPostState> = (state = initialState, action) => {
   switch (action.type) {
-    case TweetActionTypes.TWEETS_LOAD: {
+    case PostActionTypes.POSTS_LOAD: {
       return {
         ...state,
         currentSearch: state.currentSearchData.load(),
-        tweets: state.data.load(),
+        posts: state.data.load(),
       };
     }
-    case TweetActionTypes.TWEETS_FLUSH: {
+    case PostActionTypes.POSTS_FLUSH: {
       state.data.flush();
       state.currentSearchData.flush();
 
       return {
         ...state,
         currentSearch: null,
-        tweets: [],
+        posts: [],
       };
     }
-    case TweetActionTypes.REQUEST_SEND: {
+    case PostActionTypes.REQUEST_SEND: {
       state.data.flush();
       state.currentSearchData.flush();
 
@@ -48,127 +48,128 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
         ...state,
         currentSearch: null,
         loading: true,
-        tweets: [],
+        posts: [],
       };
     }
-    case TweetActionTypes.REQUEST_MORE: {
+    case PostActionTypes.REQUEST_MORE: {
       return {
         ...state,
         loading: true,
       };
     }
-    case TweetActionTypes.REQUEST_SUCCESS: {
+    case PostActionTypes.REQUEST_SUCCESS: {
       const baseState = {
         ...state,
         loading: false,
       };
 
-      const newTweets = action.payload.tweets;
-      if (!newTweets || !newTweets.length) {
+      const newPosts = action.payload.posts;
+      if (!newPosts || !newPosts.length) {
         state.data.flush();
         state.currentSearchData.flush();
         return baseState;
       }
 
-      const currTweets = state.tweets;
+      const currPosts = state.posts;
       if (
-        state.tweets.length &&
-        currTweets[currTweets.length - 1].id === newTweets[0].id
+        state.posts.length &&
+        currPosts[currPosts.length - 1].id === newPosts[0].id
       ) {
-        newTweets.shift();
+        newPosts.shift();
       }
 
-      const tweets = [...currTweets, ...newTweets];
+      const posts = [...currPosts, ...newPosts];
       const currentSearch = {
         ...action.payload.params,
-        max_id: tweets[tweets.length - 1].id,
+        max_id: posts[posts.length - 1].id,
       };
-      state.data.value = tweets;
+      state.data.value = posts;
       state.currentSearchData.value = currentSearch;
 
       return {
         ...baseState,
         currentSearch,
-        tweets,
+        posts,
       };
     }
-    case TweetActionTypes.REQUEST_ERROR: {
+    case PostActionTypes.REQUEST_ERROR: {
       return {
         ...state,
         currentSearch: null,
         errors: action.payload,
         loading: false,
+        posts: [],
       };
     }
-    case TweetActionTypes.TWEET_SET_SENTIMENT: {
-      const { newTweets, idx } = copyTweetsAndGetIDX(state, action);
+    case PostActionTypes.POST_SET_SENTIMENT: {
+      const { newPosts, idx } = copyPostsAndGetIDX(state, action);
 
-      newTweets[idx] = {
-        ...newTweets[idx],
+      newPosts[idx] = {
+        ...newPosts[idx],
         sentiment: action.payload.sentiment,
       };
-      state.data.value = newTweets;
+      state.data.value = newPosts;
 
-      return { ...state, tweets: newTweets };
+      return { ...state, posts: newPosts };
     }
-    case TweetActionTypes.TWEET_SET_VISIBILITY: {
-      const { newTweets, idx } = copyTweetsAndGetIDX(state, action);
+    case PostActionTypes.POST_SET_VISIBILITY: {
+      const { newPosts, idx } = copyPostsAndGetIDX(state, action);
 
-      newTweets[idx] = {
-        ...newTweets[idx],
+      newPosts[idx] = {
+        ...newPosts[idx],
         hidden: action.payload.hidden,
         sentiment: null,
       };
-      state.data.value = newTweets;
+      state.data.value = newPosts;
 
-      return { ...state, tweets: newTweets };
+      return { ...state, posts: newPosts };
     }
-    case TweetActionTypes.TWEET_SET_CATEGORY: {
-      const { newTweets, idx } = copyTweetsAndGetIDX(state, action);
+    case PostActionTypes.POST_SET_CATEGORY: {
+      const { newPosts, idx } = copyPostsAndGetIDX(state, action);
 
-      newTweets[idx] = {
-        ...newTweets[idx],
+      newPosts[idx] = {
+        ...newPosts[idx],
         category: action.payload.category,
       };
-      state.data.value = newTweets;
+      state.data.value = newPosts;
 
-      return { ...state, tweets: newTweets };
+      return { ...state, posts: newPosts };
     }
-    case TweetActionTypes.SAVED_GET: {
+    case PostActionTypes.SAVED_GET: {
       return {
         ...state,
         loading: true,
         saved: [],
       };
     }
-    case TweetActionTypes.SAVED_GET_SUCCESS: {
+    case PostActionTypes.SAVED_GET_SUCCESS: {
       return {
         ...state,
         loading: false,
         saved: action.payload,
       };
     }
-    case TweetActionTypes.SAVED_GET_ERROR: {
+    case PostActionTypes.SAVED_GET_ERROR: {
       return { ...state, errors: action.payload, loading: false };
     }
-    case TweetActionTypes.TRANSLATE_GET: {
+    case PostActionTypes.TRANSLATE_GET: {
       return {
         ...state,
         loading: true,
       };
     }
-    case TweetActionTypes.TRANSLATE_GET_SUCCESS: {
-      const { newTweets, idx } = copyTweetsAndGetIDX(state, action);
+    case PostActionTypes.TRANSLATE_GET_SUCCESS: {
+      const { newPosts, idx } = copyPostsAndGetIDX(state, action);
 
-      newTweets[idx] = {
-        ...newTweets[idx],
+      newPosts[idx] = {
+        ...newPosts[idx],
         translation: action.payload.translation.translatedText,
       };
-      state.data.value = newTweets;
+      state.data.value = newPosts;
 
-      return { ...state, loading: false, tweets: newTweets };
+      return { ...state, loading: false, posts: newPosts };
     }
-    case TweetActionTypes.TRANSLATE_GET_ERROR: {
+    case PostActionTypes.TRANSLATE_GET_ERROR: {
       return { ...state, errors: action.payload, loading: false };
     }
     default: {
@@ -177,4 +178,4 @@ const reducer: Reducer<ITweetState> = (state = initialState, action) => {
   }
 };
 
-export { reducer as tweetReducer };
+export { reducer as postReducer };

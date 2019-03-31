@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { tweetsFlush } from '@/store/tweet/actions';
+import { postsFlush } from '@/store/post/actions';
 
 interface IProps {
-  flush: typeof tweetsFlush;
+  flush: typeof postsFlush;
 }
 
 const CountInput: React.SFC<IProps> = ({ flush }) => {

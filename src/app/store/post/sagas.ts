@@ -1,72 +1,67 @@
+import { fetchTweets } from '@/store/tweet/fetch';
 import firebase from 'firebase/app';
 import qs from 'query-string';
 import { all, fork, put, select, takeEvery } from 'redux-saga/effects';
 
 import config from '@/config';
 import { firebaseAuthError } from '../firebase/actions';
+import { PostType } from '../types';
 import { customFetch } from '../utils';
 import {
-  loadTweetsError,
-  loadTweetsSuccess,
+  loadPostsError,
+  loadPostsSuccess,
   requestSavedError,
   requestSavedSuccess,
   requestTranslateError,
   requestTranslateSuccess,
 } from './actions';
 import {
+  IPostResult,
   ISearchParams,
-  ISearchQuery,
   ITranslateQuery,
-  TweetActionTypes,
+  PostActionTypes,
 } from './types';
 
-function* fetchTweets(params: ISearchParams) {
-  try {
-    const { term, start, end, max_id } = params;
+function* fetchPosts(params: ISearchParams) {
+  const { type }: ISearchParams = params;
+  let json: IPostResult;
+  switch (type) {
+    case PostType.Twitter:
+      json = yield fetchTweets(params);
+      break;
+    default:
+      break;
+  }
 
-    const query: ISearchQuery = {
-      max_id,
-      count: 100,
-      term: `linkedin ${term} since:${start} until:${end}`,
-    };
-    const { res, json } = yield customFetch(
-      `${config.API_SEARCH_ENDPOINT}?${qs.stringify(query)}`,
-    );
-
-    if (res.error) {
-      yield put(loadTweetsError(json.error));
-    } else if (json.status && json.status === 403) {
-      yield put(firebaseAuthError(json.message));
-    }
-
-    return json;
-  } catch (e) {
-    if (e instanceof Error) {
-      yield put(loadTweetsError(e.stack!));
+  if (json.error) {
+    if (json.isAuthError) {
+      yield put(firebaseAuthError(json.error));
     } else {
-      yield put(loadTweetsError('An unknown error occured.'));
+      yield put(loadPostsError(json.error.stack));
     }
+  } else {
+    return json.posts;
   }
 }
 
 function* handleFetch(q: any) {
-  const json = yield fetchTweets(q.payload);
-  yield put(loadTweetsSuccess(q.payload, json));
+  const json = yield fetchPosts(q.payload);
+  yield put(loadPostsSuccess(q.payload, json));
 }
 
 function* watchFetchRequest() {
-  yield takeEvery(TweetActionTypes.REQUEST_SEND, handleFetch);
+  yield takeEvery(PostActionTypes.REQUEST_SEND, handleFetch);
 }
 
 function* handleMore() {
-  const currentSearch = yield select(state => state.tweet.currentSearch);
+  const currentSearch = yield select(state => state.post.currentSearch);
 
-  const json = yield fetchTweets(currentSearch);
-  yield put(loadTweetsSuccess(currentSearch, json));
+  const json = yield fetchPosts(currentSearch);
+  yield put(loadPostsSuccess(currentSearch, json));
 }
 
 function* watchMoreRequest() {
-  yield takeEvery(TweetActionTypes.REQUEST_MORE, handleMore);
+  yield takeEvery(PostActionTypes.REQUEST_MORE, handleMore);
 }
 
 function* trash(q: any) {
@@ -91,7 +86,7 @@ function* trash(q: any) {
 }
 
 function* watchTrash() {
-  yield takeEvery(TweetActionTypes.TWEET_SET_VISIBILITY, trash);
+  yield takeEvery(PostActionTypes.POST_SET_VISIBILITY, trash);
 }
 
 function* handleGetSaved() {
@@ -115,12 +110,12 @@ function* handleGetSaved() {
 }
 
 function* watchGetSaved() {
-  yield takeEvery(TweetActionTypes.SAVED_GET, handleGetSaved);
+  yield takeEvery(PostActionTypes.SAVED_GET, handleGetSaved);
 }
 
 function* handleTranslate(data: any) {
   if (!data.payload) {
-    yield put(loadTweetsError('wrong parameters'));
+    yield put(loadPostsError('wrong parameters'));
   }
 
   const { q, source, id } = data.payload;
@@ -132,7 +127,7 @@ function* handleTranslate(data: any) {
     !source ||
     ['en', 'und'].includes(source)
   ) {
-    yield put(loadTweetsError('wrong parameters'));
+    yield put(loadPostsError('wrong parameters'));
   }
 
   try {
@@ -162,10 +157,10 @@ function* handleTranslate(data: any) {
 }
 
 function* watchTranslate() {
-  yield takeEvery(TweetActionTypes.TRANSLATE_GET, handleTranslate);
+  yield takeEvery(PostActionTypes.TRANSLATE_GET, handleTranslate);
 }
 
-function* tweetSaga() {
+function* postSaga() {
   yield all([
     fork(watchFetchRequest),
     fork(watchMoreRequest),
@@ -175,4 +170,4 @@ function* tweetSaga() {
   ]);
 }
 
-export default tweetSaga;
+export default postSaga;

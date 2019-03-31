@@ -7,7 +7,7 @@ import {
   setCategory,
   setSentiment,
   setVisibility,
-} from '@/store/tweet/actions';
+} from '@/store/post/actions';
 import PostView from './PostView';
 
 const mapStateToProps = ({ category, sentiment }: IApplicationState) => ({

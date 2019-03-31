@@ -1,6 +1,6 @@
 import Search from '@/data/Search';
 import SearchParams from '@/data/SearchParams';
-import { IPost } from '../types';
+import { IPost, PostType } from '../types';
 
 export interface ISearchQuery {
   count: number;
@@ -10,9 +10,10 @@ export interface ISearchQuery {
 
 export interface ISearchParams {
   end: string;
-  start: string;
-  term: string;
   max_id?: number;
+  q: string;
+  type: PostType;
+  start: string;
 }
 
 export interface ISheetQuery {
@@ -30,33 +31,39 @@ export interface ITranslation {
   translatedText: string;
 }
 
-export const enum TweetActionTypes {
-  TWEETS_LOAD = '@@tweet/TWEETS_LOAD',
-  TWEETS_FLUSH = '@@tweet/TWEETS_FLUSH',
-
-  REQUEST_SEND = '@@tweet/SEND_REQUEST',
-  REQUEST_SUCCESS = '@@tweet/REQUEST_SUCCESS',
-  REQUEST_ERROR = '@@tweet/REQUEST_ERROR',
-  REQUEST_MORE = '@@tweet/REQUEST_MORE',
-
-  TWEET_SET_SENTIMENT = '@@tweet/TWEET_SET_SENTIMENT',
-  TWEET_SET_VISIBILITY = '@@tweet/TWEET_SET_VISIBILITY',
-  TWEET_SET_CATEGORY = '@@tweet/TWEET_SET_CATEGORY',
-
-  SAVED_GET = '@@tweet/SAVED_GET',
-  SAVED_GET_SUCCESS = '@@tweet/SAVED_GET_SUCCESS',
-  SAVED_GET_ERROR = '@@tweet/SAVED_GET_ERROR',
-
-  TRANSLATE_GET = '@@tweet/TRANSLATE_GET',
-  TRANSLATE_GET_SUCCESS = '@@tweet/TRANSLATE_GET_SUCCESS',
-  TRANSLATE_GET_ERROR = '@@tweet/TRANSLATE_GET_ERROR',
+export interface IPostResult {
+  posts?: IPost[];
+  error?: Error;
+  isAuthError?: boolean;
 }
 
-export interface ITweetState {
+export const enum PostActionTypes {
+  REQUEST_SEND = '@@post/SEND_REQUEST',
+  REQUEST_SUCCESS = '@@post/REQUEST_SUCCESS',
+  REQUEST_ERROR = '@@post/REQUEST_ERROR',
+  REQUEST_MORE = '@@post/REQUEST_MORE',
+
+  POSTS_LOAD = '@@post/POSTS_LOAD',
+  POSTS_FLUSH = '@@post/POSTS_FLUSH',
+
+  POST_SET_SENTIMENT = '@@post/POST_SET_SENTIMENT',
+  POST_SET_VISIBILITY = '@@post/POST_SET_VISIBILITY',
+  POST_SET_CATEGORY = '@@post/POST_SET_CATEGORY',
+
+  SAVED_GET = '@@post/SAVED_GET',
+  SAVED_GET_SUCCESS = '@@post/SAVED_GET_SUCCESS',
+  SAVED_GET_ERROR = '@@post/SAVED_GET_ERROR',
+
+  TRANSLATE_GET = '@@post/TRANSLATE_GET',
+  TRANSLATE_GET_SUCCESS = '@@post/TRANSLATE_GET_SUCCESS',
+  TRANSLATE_GET_ERROR = '@@post/TRANSLATE_GET_ERROR',
+}
+
+export interface IPostState {
   readonly currentSearch: ISearchParams;
   readonly currentSearchData: SearchParams;
   readonly loading: boolean;
-  readonly tweets: IPost[];
+  readonly posts: IPost[];
   readonly errors?: string;
   readonly saved: string[];
   readonly data: Search;

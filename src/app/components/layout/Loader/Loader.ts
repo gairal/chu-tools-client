@@ -4,15 +4,15 @@ import { IApplicationState } from '@/store';
 import LoaderView from './LoaderView';
 
 const mapStateToProps = ({
-  tweet,
+  post,
   sheet,
   sentiment,
   category,
 }: IApplicationState) => ({
   categoryLoading: category.loading,
+  postLoading: post.loading,
   sentimentLoading: sentiment.loading,
   sheetLoading: sheet.loading,
-  tweetLoading: tweet.loading,
 });
 
 export default connect(mapStateToProps)(LoaderView);

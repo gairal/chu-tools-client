@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import Post from '@/components/Search/Result/Post';
+import { loadMorePosts } from '@/store/post/actions';
 import { ISentiment } from '@/store/sentiment/types';
-import { loadMoreTweets } from '@/store/tweet/actions';
 import { IPost } from '@/store/types';
 
 interface IProps {
@@ -11,7 +11,7 @@ interface IProps {
   sentiment?: ISentiment;
   posts: IPost[];
   style?: React.CSSProperties;
-  loadMore?: typeof loadMoreTweets;
+  loadMore?: typeof loadMorePosts;
 }
 
 type AllProps = IProps;

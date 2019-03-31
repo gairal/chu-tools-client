@@ -4,7 +4,7 @@ import { all, fork, put, takeEvery } from 'redux-saga/effects';
 
 import config from '@/config';
 import { firebaseAuthError } from '../firebase/actions';
-import { requestSaved } from '../tweet/actions';
+import { requestSaved } from '../post/actions';
 import { customFetch } from '../utils';
 import {
   requestSheetsError,

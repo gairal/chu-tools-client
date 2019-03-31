@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { setSentiment } from '@/store/post/actions';
 import { ISentiment } from '@/store/sentiment/types';
-import { setSentiment } from '@/store/tweet/actions';
 
 interface IProps {
   id: string;
