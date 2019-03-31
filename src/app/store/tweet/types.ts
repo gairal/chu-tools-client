@@ -25,27 +25,9 @@ export interface ITranslateQuery {
   source: number;
 }
 
-interface ITweeturls {
-  url: string;
-  expanded_url: string;
-  indices: number[];
-}
-
-interface ITweetHashtag {
-  text: string;
-  indices: number[];
-}
-
-interface ITweetEntities {
-  hashtags: ITweetHashtag[];
-  urls: ITweeturls[];
-}
-
 export interface ITweet {
-  created_at: Date;
-  entities: ITweetEntities;
-  id: number;
-  id_str: string;
+  created: Date;
+  id: string;
   hidden?: boolean;
   lang: string;
   retweet_count: number;

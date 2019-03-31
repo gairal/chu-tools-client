@@ -34,7 +34,7 @@ const ResultView: React.SFC<AllProps> = ({
   const sentimentLabels = sentiments.map(s => s.label);
 
   const orderedTweets: IOrderedTweets = tweets
-    .filter(t => !saved.includes(t.id_str))
+    .filter(t => !saved.includes(t.id))
     .reduce(
       (acc: IOrderedTweets, t) => {
         if (!t.sentiment) {

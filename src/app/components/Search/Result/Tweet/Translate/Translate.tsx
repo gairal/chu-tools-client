@@ -10,7 +10,7 @@ interface IProps {
 type AllProps = IProps;
 
 const Translate: React.SFC<AllProps> = ({ tweet, translate }) => {
-  const handleClick = () => translate(tweet.id_str, tweet.lang, tweet.text);
+  const handleClick = () => translate(tweet.id, tweet.lang, tweet.text);
 
   return (
     !['en', 'und'].includes(tweet.lang) && (

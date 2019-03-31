@@ -40,7 +40,7 @@ const TweetView: React.SFC<AllProps> = ({
   translate,
   tweet,
 }) => {
-  const date = moment(new Date(tweet.created_at)).format('MMM Do YY');
+  const date = moment(new Date(tweet.created)).format('MMM Do YY');
   return (
     <li
       className={`flex flex-col p-4 my-2 shadow-sm rounded overflow-hidden bg-${
@@ -65,7 +65,7 @@ const TweetView: React.SFC<AllProps> = ({
       </div>
       {!tweet.hidden && (
         <SentimentActions
-          id={tweet.id_str}
+          id={tweet.id}
           setTheSentiment={setTheSentiment}
           sentiments={sentiments}
         />

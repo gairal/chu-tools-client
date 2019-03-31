@@ -17,7 +17,7 @@ const Category: React.SFC<AllProps> = ({
   setTheCategory,
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setTheCategory(tweet.id_str, e.target.value);
+    setTheCategory(tweet.id, e.target.value);
   };
 
   return tweet.sentiment ? (

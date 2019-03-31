@@ -16,7 +16,7 @@ const initialState: ITweetState = {
 
 const copyTweetsAndGetIDX = (state: ITweetState, action: AnyAction) => {
   const newTweets = [...state.tweets];
-  const idx = newTweets.findIndex(t => t.id_str === action.payload.id);
+  const idx = newTweets.findIndex(t => t.id === action.payload.id);
 
   return { newTweets, idx };
 };
