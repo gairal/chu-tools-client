@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import SaveFormView from '@/components/Search/Result/SaveForm/SaveFormView';
 import { IApplicationState } from '@/store';
 import { saveSend } from '@/store/sheet/actions';
-import { ITweet } from '@/store/tweet/types';
+import { IPost } from '@/store/types';
 
 const mapStateToProps = ({ tweet, sheet }: IApplicationState) => ({
   loading: tweet.loading,
@@ -13,7 +13,7 @@ const mapStateToProps = ({ tweet, sheet }: IApplicationState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  save: (sheetId: string, tweets: ITweet[]) =>
+  save: (sheetId: string, tweets: IPost[]) =>
     dispatch(saveSend(sheetId, tweets)),
 });
 

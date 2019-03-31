@@ -1,7 +1,8 @@
 import moment from 'moment';
 import { action } from 'typesafe-actions';
 
-import { ISearchParams, ITranslation, ITweet, TweetActionTypes } from './types';
+import { IPost } from '@/store/types';
+import { ISearchParams, ITranslation, TweetActionTypes } from './types';
 
 export const tweetsLoad = () => action(TweetActionTypes.TWEETS_LOAD);
 export const tweetsFlush = () => action(TweetActionTypes.TWEETS_FLUSH);
@@ -20,7 +21,7 @@ export const loadMoreTweets = () => {
   return action(TweetActionTypes.REQUEST_MORE);
 };
 
-export const loadTweetsSuccess = (params: ISearchParams, tweets: ITweet[]) =>
+export const loadTweetsSuccess = (params: ISearchParams, tweets: IPost[]) =>
   action(TweetActionTypes.REQUEST_SUCCESS, { params, tweets });
 export const loadTweetsError = (message: string) =>
   action(TweetActionTypes.REQUEST_ERROR, message);

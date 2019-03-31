@@ -11,13 +11,13 @@ import {
   setSentiment,
   setVisibility,
 } from '@/store/tweet/actions';
-import { ITweet } from '@/store/tweet/types';
+import { IPost } from '@/store/types';
 import Category from './Category';
 import HideActions from './HideActions';
 import Translate from './Translate';
 
 interface IProps {
-  tweet: ITweet;
+  tweet: IPost;
   categories: ICategory[];
   sentiments: ISentiment[];
 }
@@ -57,7 +57,7 @@ const TweetView: React.SFC<AllProps> = ({
         </a>
         <div>
           <i className="fas fa-retweet mr-1" />
-          {tweet.retweet_count}
+          {tweet.likes}
         </div>
         <span className={`text-${theme.tweetHeaderText}`}>{date}</span>
 

@@ -1,5 +1,6 @@
 import Search from '@/data/Search';
 import SearchParams from '@/data/SearchParams';
+import { IPost } from '../types';
 
 export interface ISearchQuery {
   count: number;
@@ -23,19 +24,6 @@ export interface ISheetQuery {
 export interface ITranslateQuery {
   q: string;
   source: number;
-}
-
-export interface ITweet {
-  created: Date;
-  id: string;
-  hidden?: boolean;
-  lang: string;
-  retweet_count: number;
-  sentiment?: string;
-  text: string;
-  url: string;
-  category?: string;
-  translation?: string;
 }
 
 export interface ITranslation {
@@ -68,7 +56,7 @@ export interface ITweetState {
   readonly currentSearch: ISearchParams;
   readonly currentSearchData: SearchParams;
   readonly loading: boolean;
-  readonly tweets: ITweet[];
+  readonly tweets: IPost[];
   readonly errors?: string;
   readonly saved: string[];
   readonly data: Search;

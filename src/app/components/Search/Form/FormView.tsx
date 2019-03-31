@@ -4,12 +4,12 @@ import * as React from 'react';
 import DatePicker from '@/components/Search/Form/DatePicker';
 import QueryInput from '@/components/Search/Form/QueryInput';
 import { tweetsFlush, tweetsLoad } from '@/store/tweet/actions';
-import { ITweet } from '@/store/tweet/types';
+import { IPost } from '@/store/types';
 import FlushCache from './FlushCache';
 
 interface IPropsFromState {
   loading: boolean;
-  tweets: ITweet[];
+  tweets: IPost[];
 }
 
 interface IPropsFromDispatch {

@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { ITweet } from '@/store/tweet/types';
+import { IPost } from '@/store/types';
 
 interface IProps {
   loading: boolean;
-  save: (tweets: ITweet[]) => void;
-  tweets: ITweet[];
+  save: (tweets: IPost[]) => void;
+  tweets: IPost[];
 }
 
 const SaveButton: React.SFC<IProps> = ({ loading, save, tweets }) => {

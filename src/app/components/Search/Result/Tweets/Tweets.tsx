@@ -3,13 +3,13 @@ import * as React from 'react';
 import Tweet from '@/components/Search/Result/Tweet';
 import { ISentiment } from '@/store/sentiment/types';
 import { loadMoreTweets } from '@/store/tweet/actions';
-import { ITweet } from '@/store/tweet/types';
+import { IPost } from '@/store/types';
 
 interface IProps {
   className?: string;
   loading?: boolean;
   sentiment?: ISentiment;
-  tweets: ITweet[];
+  tweets: IPost[];
   style?: React.CSSProperties;
   loadMore?: typeof loadMoreTweets;
 }

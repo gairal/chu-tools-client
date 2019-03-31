@@ -4,11 +4,11 @@ import SaveForm from '@/components/Search/Result/SaveForm';
 import Tweets from '@/components/Search/Result/Tweets';
 import { ISentiment } from '@/store/sentiment/types';
 import { loadMoreTweets } from '@/store/tweet/actions';
-import { ITweet } from '@/store/tweet/types';
+import { IPost } from '@/store/types';
 
 interface IPropsFromState {
   saved: string[];
-  tweets: ITweet[];
+  tweets: IPost[];
   loading?: boolean;
   sentiments: ISentiment[];
   title?: string;
@@ -19,8 +19,8 @@ interface IPropsFromDispatch {
 }
 
 interface IOrderedTweets {
-  unordered: ITweet[];
-  [key: string]: ITweet[];
+  unordered: IPost[];
+  [key: string]: IPost[];
 }
 
 type AllProps = IPropsFromState & IPropsFromDispatch;

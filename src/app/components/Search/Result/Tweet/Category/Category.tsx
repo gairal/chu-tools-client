@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { ICategory } from '@/store/category/types';
 import { setCategory } from '@/store/tweet/actions';
-import { ITweet } from '@/store/tweet/types';
+import { IPost } from '@/store/types';
 
 interface IProps {
   categories: ICategory[];
-  tweet: ITweet;
+  tweet: IPost;
   setTheCategory: typeof setCategory;
 }
 type AllProps = IProps;

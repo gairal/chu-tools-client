@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 import { setVisibility } from '@/store/tweet/actions';
-import { ITweet } from '@/store/tweet/types';
+import { IPost } from '@/store/types';
 
 interface IProps {
   setTheVisibility: typeof setVisibility;
-  tweet: ITweet;
+  tweet: IPost;
 }
 type AllProps = IProps;
 

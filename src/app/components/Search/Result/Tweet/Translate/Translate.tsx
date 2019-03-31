@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import { requestTranslate } from '@/store/tweet/actions';
-import { ITweet } from '@/store/tweet/types';
+import { IPost } from '@/store/types';
 
 interface IProps {
-  tweet: ITweet;
+  tweet: IPost;
   translate: typeof requestTranslate;
 }
 type AllProps = IProps;
