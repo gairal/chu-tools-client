@@ -10,6 +10,7 @@ const searchParams = new SearchParams();
 const initialState: IPostState = {
   currentSearch: null,
   errors: undefined,
+  hasLoaded: false,
   loading: false,
   posts: [],
   saved: [],
@@ -25,10 +26,14 @@ const copyPostsAndGetIDX = (state: IPostState, action: AnyAction) => {
 const reducer: Reducer<IPostState> = (state = initialState, action) => {
   switch (action.type) {
     case PostActionTypes.POSTS_LOAD: {
+      const currentSearch = searchParams.load();
+      const posts = data.load();
+
       return {
         ...state,
-        currentSearch: searchParams.load(),
-        posts: data.load(),
+        currentSearch,
+        posts,
+        hasLoaded: true,
       };
     }
     case PostActionTypes.POSTS_FLUSH: {

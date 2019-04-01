@@ -59,6 +59,7 @@ export const enum PostActionTypes {
 
 export interface IPostState {
   readonly currentSearch: ISearchParams;
+  readonly hasLoaded: boolean;
   readonly loading: boolean;
   readonly posts: IPost[];
   readonly errors?: string;

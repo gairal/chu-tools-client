@@ -9,6 +9,7 @@ import { PostType } from '@/store/types';
 
 const mapStateToProps = ({ post }: IApplicationState) => ({
   currentSearch: post.currentSearch,
+  hasLoaded: post.hasLoaded,
   loading: post.loading,
   posts: post.posts,
 });

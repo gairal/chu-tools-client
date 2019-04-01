@@ -3,7 +3,7 @@ import qs from 'query-string';
 import config from '@/config';
 
 import { IPostResult, ISearchParams, ISearchQuery } from '../post/types';
-import { customFetch } from '../utils';
+import { customFetch, RESULT_COUNT } from '../utils';
 
 export function* fetchReddits(params: ISearchParams): IterableIterator<any> {
   const result: IPostResult = {};
@@ -13,8 +13,8 @@ export function* fetchReddits(params: ISearchParams): IterableIterator<any> {
 
     const query: ISearchQuery = {
       max_id,
-      count: 5,
-      term: q,
+      count: RESULT_COUNT,
+      term: `linkedin ${q}`,
     };
 
     const json = yield customFetch(

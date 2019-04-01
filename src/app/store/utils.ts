@@ -15,3 +15,5 @@ export function* customFetch(query: string, requestInit: RequestInit = {}) {
 
   return json;
 }
+
+export const RESULT_COUNT = 4;

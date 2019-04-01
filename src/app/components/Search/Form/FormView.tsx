@@ -10,9 +10,10 @@ import { IPost, PostType } from '@/store/types';
 import FlushCache from './FlushCache';
 
 interface IPropsFromState {
+  currentSearch: ISearchParams;
+  hasLoaded: boolean;
   loading: boolean;
   posts: IPost[];
-  currentSearch: ISearchParams;
 }
 
 interface IPropsFromDispatch {
@@ -36,18 +37,18 @@ const checkedIcon: JSX.Element = (
 );
 
 const FormView: React.SFC<AllProps> = ({
+  hasLoaded,
   request,
   loading,
   load,
   flush,
   currentSearch,
 }) => {
-  const didLoadRef = React.useRef(false);
+  const [isInit, setIsInit] = React.useState(false);
   const [keyword, setKeyword] = React.useState('');
   const [start, setStart] = React.useState(moment().subtract(5, 'days'));
   const [end, setEnd] = React.useState(moment());
   const [isTwitter, setIsTwitter] = React.useState(true);
-  // const [isInit, setIsInit] = React.useState(false);
 
   const search = () => {
     request(
@@ -59,23 +60,26 @@ const FormView: React.SFC<AllProps> = ({
   };
 
   React.useEffect(() => {
-    if (didLoadRef.current) {
+    if (hasLoaded && isInit) {
       search();
     }
   }, [start, end, isTwitter]);
 
   // Set saved search params
   React.useEffect(() => {
-    if (currentSearch && currentSearch.q) {
-      setKeyword(currentSearch.q);
-      setIsTwitter(currentSearch.type === PostType.Twitter);
+    if (hasLoaded) {
+      const { q = '', type = PostType.Twitter } = currentSearch || {};
+      setKeyword(q);
+      setIsTwitter(type === PostType.Twitter);
+      setTimeout(() => {
+        setIsInit(true);
+      }, 100);
     }
-  }, [didLoadRef.current]);
+  }, [hasLoaded]);
 
   // Loads localStorage results
   React.useEffect(() => {
     load();
-    didLoadRef.current = true;
   }, []);
 
   const handleTypeSwitch = (checked: boolean) => {
