@@ -72,7 +72,7 @@ function* trash(q: any) {
   const { id, hidden } = q.payload;
 
   try {
-    const { json } = yield customFetch(
+    const json = yield customFetch(
       `${config.API_TRASH_ENDPOINT}?${qs.stringify({ id, untrash: !hidden })}`,
       {
         method: 'POST',
@@ -140,11 +140,11 @@ function* handleTranslate(data: any) {
       source,
     };
 
-    const { res, json } = yield customFetch(
+    const json = yield customFetch(
       `${config.API_TRANSLATE_ENDPOINT}?${qs.stringify(query)}`,
     );
 
-    if (res.error) {
+    if (json.error) {
       yield put(requestTranslateError(json.error));
     } else if (json.status && json.status === 403) {
       yield put(firebaseAuthError(json.message));

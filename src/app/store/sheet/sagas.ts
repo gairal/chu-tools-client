@@ -24,7 +24,7 @@ function* handleSave(q: any) {
       spreadsheetId: sheetId,
     };
 
-    const { res, json } = yield customFetch(
+    const json = yield customFetch(
       `${config.API_SAVE_ENDPOINT}?${qs.stringify(query)}`,
       {
         body: JSON.stringify(posts),
@@ -32,7 +32,7 @@ function* handleSave(q: any) {
       },
     );
 
-    if (res.error) {
+    if (json.error) {
       yield put(saveError(json.error));
     } else if (json.status && json.status === 403) {
       yield put(firebaseAuthError(json.message));
