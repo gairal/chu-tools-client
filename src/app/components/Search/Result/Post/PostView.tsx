@@ -11,7 +11,7 @@ import {
   setVisibility,
 } from '@/store/post/actions';
 import { ISentiment } from '@/store/sentiment/types';
-import { IPost } from '@/store/types';
+import { IPost, PostType } from '@/store/types';
 import Category from './Category';
 import HideActions from './HideActions';
 import Translate from './Translate';
@@ -56,7 +56,11 @@ const PostView: React.SFC<AllProps> = ({
           <i className="fas fa-external-link-alt" />
         </a>
         <div>
-          <i className="fas fa-retweet mr-1" />
+          <i
+            className={`fas fa-${
+              post.type === PostType.Twitter ? 'retweet' : 'star'
+            } mr-1`}
+          />
           {post.likes}
         </div>
         <span className={`text-${theme.postHeaderText}`}>{date}</span>

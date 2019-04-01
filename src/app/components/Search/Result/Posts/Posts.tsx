@@ -36,7 +36,7 @@ const PostsView: React.SFC<AllProps> = ({
           loadMore();
         }
       });
-    }, [false]);
+    }, []);
   }
 
   return (

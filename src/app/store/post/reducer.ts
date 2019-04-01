@@ -4,10 +4,11 @@ import Search from '@/data/Search';
 import SearchParams from '@/data/SearchParams';
 import { IPostState, PostActionTypes } from './types';
 
+const data = new Search();
+const searchParams = new SearchParams();
+
 const initialState: IPostState = {
   currentSearch: null,
-  currentSearchData: new SearchParams(),
-  data: new Search(),
   errors: undefined,
   loading: false,
   posts: [],
@@ -26,13 +27,13 @@ const reducer: Reducer<IPostState> = (state = initialState, action) => {
     case PostActionTypes.POSTS_LOAD: {
       return {
         ...state,
-        currentSearch: state.currentSearchData.load(),
-        posts: state.data.load(),
+        currentSearch: searchParams.load(),
+        posts: data.load(),
       };
     }
     case PostActionTypes.POSTS_FLUSH: {
-      state.data.flush();
-      state.currentSearchData.flush();
+      data.flush();
+      searchParams.flush();
 
       return {
         ...state,
@@ -41,8 +42,8 @@ const reducer: Reducer<IPostState> = (state = initialState, action) => {
       };
     }
     case PostActionTypes.REQUEST_SEND: {
-      state.data.flush();
-      state.currentSearchData.flush();
+      data.flush();
+      searchParams.flush();
 
       return {
         ...state,
@@ -65,8 +66,8 @@ const reducer: Reducer<IPostState> = (state = initialState, action) => {
 
       const newPosts = action.payload.posts;
       if (!newPosts || !newPosts.length) {
-        state.data.flush();
-        state.currentSearchData.flush();
+        data.flush();
+        searchParams.flush();
         return baseState;
       }
 
@@ -83,8 +84,8 @@ const reducer: Reducer<IPostState> = (state = initialState, action) => {
         ...action.payload.params,
         max_id: posts[posts.length - 1].id,
       };
-      state.data.value = posts;
-      state.currentSearchData.value = currentSearch;
+      data.value = posts;
+      searchParams.value = currentSearch;
 
       return {
         ...baseState,
@@ -108,7 +109,7 @@ const reducer: Reducer<IPostState> = (state = initialState, action) => {
         ...newPosts[idx],
         sentiment: action.payload.sentiment,
       };
-      state.data.value = newPosts;
+      data.value = newPosts;
 
       return { ...state, posts: newPosts };
     }
@@ -120,7 +121,7 @@ const reducer: Reducer<IPostState> = (state = initialState, action) => {
         hidden: action.payload.hidden,
         sentiment: null,
       };
-      state.data.value = newPosts;
+      data.value = newPosts;
 
       return { ...state, posts: newPosts };
     }
@@ -131,7 +132,7 @@ const reducer: Reducer<IPostState> = (state = initialState, action) => {
         ...newPosts[idx],
         category: action.payload.category,
       };
-      state.data.value = newPosts;
+      data.value = newPosts;
 
       return { ...state, posts: newPosts };
     }
@@ -165,7 +166,7 @@ const reducer: Reducer<IPostState> = (state = initialState, action) => {
         ...newPosts[idx],
         translation: action.payload.translation.translatedText,
       };
-      state.data.value = newPosts;
+      data.value = newPosts;
 
       return { ...state, loading: false, posts: newPosts };
     }

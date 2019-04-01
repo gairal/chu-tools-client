@@ -5,20 +5,20 @@ import config from '@/config';
 import { IPostResult, ISearchParams, ISearchQuery } from '../post/types';
 import { customFetch } from '../utils';
 
-export function* fetchTweets(params: ISearchParams): IterableIterator<any> {
+export function* fetchReddits(params: ISearchParams): IterableIterator<any> {
   const result: IPostResult = {};
 
   try {
-    const { q, start, end, max_id } = params;
+    const { q, max_id } = params;
 
     const query: ISearchQuery = {
       max_id,
-      count: 100,
-      term: `linkedin ${q} since:${start} until:${end}`,
+      count: 5,
+      term: q,
     };
 
     const json = yield customFetch(
-      `${config.API_SEARCH_TWEETS_ENDPOINT}?${qs.stringify(query)}`,
+      `${config.API_SEARCH_REDDITS_ENDPOINT}?${qs.stringify(query)}`,
     );
 
     if (json.error) {

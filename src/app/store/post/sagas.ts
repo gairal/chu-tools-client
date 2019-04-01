@@ -1,9 +1,10 @@
-import { fetchTweets } from '@/store/tweet/fetch';
 import firebase from 'firebase/app';
 import qs from 'query-string';
 import { all, fork, put, select, takeEvery } from 'redux-saga/effects';
 
 import config from '@/config';
+import { fetchReddits } from '@/store/reddit/fetch';
+import { fetchTweets } from '@/store/tweet/fetch';
 import { firebaseAuthError } from '../firebase/actions';
 import { PostType } from '../types';
 import { customFetch } from '../utils';
@@ -28,6 +29,9 @@ function* fetchPosts(params: ISearchParams) {
   switch (type) {
     case PostType.Twitter:
       json = yield fetchTweets(params);
+      break;
+    case PostType.Reddit:
+      json = yield fetchReddits(params);
       break;
     default:
       break;

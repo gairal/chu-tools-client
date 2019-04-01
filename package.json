@@ -104,6 +104,7 @@
     "react-redux": "^6.0",
     "react-router": "^5.0",
     "react-router-dom": "^5.0",
+    "react-switch": "^4.1.0",
     "redux": "^4.0",
     "redux-saga": "^1.0",
     "tailwindcss": "^0.7",

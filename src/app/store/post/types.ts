@@ -1,5 +1,3 @@
-import Search from '@/data/Search';
-import SearchParams from '@/data/SearchParams';
 import { IPost, PostType } from '../types';
 
 export interface ISearchQuery {
@@ -61,10 +59,8 @@ export const enum PostActionTypes {
 
 export interface IPostState {
   readonly currentSearch: ISearchParams;
-  readonly currentSearchData: SearchParams;
   readonly loading: boolean;
   readonly posts: IPost[];
   readonly errors?: string;
   readonly saved: string[];
-  readonly data: Search;
 }

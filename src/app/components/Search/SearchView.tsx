@@ -12,7 +12,7 @@ type AllProps = IConnectedReduxProps & IPropsFromDispatch;
 const SearchView: React.SFC<AllProps> = ({ init }) => {
   React.useEffect(() => {
     init();
-  }, [false]);
+  }, []);
 
   return (
     <div className="flex flex-1 flex-col h-full">

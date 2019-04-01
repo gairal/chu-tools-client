@@ -17,11 +17,9 @@ export default class Persistable<T> implements IPersistable<T> {
     }
   }
 
-  private key = '';
   private hasLocalStorage = false;
-  constructor(key: string) {
+  constructor(private key: string = '', private defaultValue: any = []) {
     this.hasLocalStorage = Persistable.hasLocalStorage();
-    this.key = key;
   }
 
   get value() {
@@ -51,7 +49,7 @@ export default class Persistable<T> implements IPersistable<T> {
 
   public flush() {
     try {
-      this.value = [];
+      this.value = this.defaultValue;
       return true;
     } catch (error) {
       return false;

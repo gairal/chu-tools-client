@@ -8,6 +8,7 @@ import { loadPosts, postsFlush, postsLoad } from '@/store/post/actions';
 import { PostType } from '@/store/types';
 
 const mapStateToProps = ({ post }: IApplicationState) => ({
+  currentSearch: post.currentSearch,
   loading: post.loading,
   posts: post.posts,
 });
