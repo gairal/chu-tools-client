@@ -62,7 +62,7 @@ const ResultView: React.SFC<AllProps> = ({
         loadMore={loadMore}
         className="posts__unordered"
       />
-      <div className="shadow-sm flex-1 w-0 flex flex-col w-full p-2">
+      <div className="shadow-sm flex-1 flex flex-col w-full md:w-0 p-2">
         {shouldSave && <SaveForm />}
         <div className="hidden md:flex overflow-x-auto flex-1">
           {sentiments.map(s => (

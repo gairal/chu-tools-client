@@ -94,15 +94,14 @@ const FormView: React.SFC<AllProps> = ({
         setKeyword={setKeyword}
         keyword={keyword}
       />
-      <div className="flex items-center mr-2">
+      <div className="flex items-center justify-between">
         <Switch
+          className="mr-2"
           onChange={handleTypeSwitch}
           checked={isTwitter}
           uncheckedIcon={uncheckedIcon}
           checkedIcon={checkedIcon}
         />
-      </div>
-      <div className="flex items-center justify-between">
         <DatePicker
           loading={loading}
           setStart={setStart}
