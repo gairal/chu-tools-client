@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 
 import FormView from '@/components/Search/Form/FormView';
 import { IApplicationState } from '@/store';
-import { loadPosts, postsFlush, postsLoad } from '@/store/post/actions';
+import { loadPosts, postsFlush } from '@/store/post/actions';
 import { PostType } from '@/store/types';
 
 const mapStateToProps = ({ post }: IApplicationState) => ({
@@ -16,7 +16,6 @@ const mapStateToProps = ({ post }: IApplicationState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   flush: () => dispatch(postsFlush()),
-  load: () => dispatch(postsLoad()),
   request: (
     q: string,
     start: moment.Moment,

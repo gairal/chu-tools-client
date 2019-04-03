@@ -4,7 +4,7 @@ import Switch from 'react-switch';
 
 import DatePicker from '@/components/Search/Form/DatePicker';
 import QueryInput from '@/components/Search/Form/QueryInput';
-import { postsFlush, postsLoad } from '@/store/post/actions';
+import { postsFlush } from '@/store/post/actions';
 import { ISearchParams } from '@/store/post/types';
 import { IPost, PostType } from '@/store/types';
 import FlushCache from './FlushCache';
@@ -18,7 +18,6 @@ interface IPropsFromState {
 
 interface IPropsFromDispatch {
   flush: typeof postsFlush;
-  load: typeof postsLoad;
   request: (
     term: string,
     start: moment.Moment,
@@ -40,7 +39,6 @@ const FormView: React.SFC<AllProps> = ({
   hasLoaded,
   request,
   loading,
-  load,
   flush,
   currentSearch,
 }) => {
@@ -76,11 +74,6 @@ const FormView: React.SFC<AllProps> = ({
       }, 100);
     }
   }, [hasLoaded]);
-
-  // Loads localStorage results
-  React.useEffect(() => {
-    load();
-  }, []);
 
   const handleTypeSwitch = (checked: boolean) => {
     setIsTwitter(checked);
