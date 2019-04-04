@@ -58,7 +58,7 @@ const SentimentActions: React.SFC<AllProps> = ({
             <SentimentButton
               key={s.id}
               color={s.color}
-              label={s.color}
+              label={s.label}
               icon={s.icon}
               setASentiment={setASentiment}
             />

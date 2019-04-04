@@ -75,7 +75,7 @@ const PostView: React.SFC<AllProps> = ({
         />
       )}
       <p
-        className={`p-1 pl-2 word-break-all text-${
+        className={`p-1 pl-2 word-break-word text-${
           theme.color
         } border-l-4 border-blue-light break-words`}
       >
