@@ -1,0 +1,9 @@
+{
+  "short_name": "Chools",
+  "name": "Chools",
+  "start_url": "/",
+  "background_color": "#3d4852",
+  "display": "fullscreen",
+  "scope": "/",
+  "theme_color": "#3d4852"
+}
