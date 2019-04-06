@@ -10,10 +10,10 @@ const CountInput: React.SFC<IProps> = ({ flush }) => {
   return (
     <button
       type="button"
-      className="text-grey hover:text-grey-dark mx-2"
+      className="text-grey hover:text-grey-dark"
       onClick={flush}
     >
-      <i className="fas fa-toilet fa-2x" />
+      <i className="fas fa-toilet fa-2x text-red" />
     </button>
   );
 };

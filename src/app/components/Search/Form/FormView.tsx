@@ -88,13 +88,6 @@ const FormView: React.SFC<AllProps> = ({
         keyword={keyword}
       />
       <div className="flex items-center justify-between">
-        <Switch
-          className="mr-2"
-          onChange={handleTypeSwitch}
-          checked={isTwitter}
-          uncheckedIcon={uncheckedIcon}
-          checkedIcon={checkedIcon}
-        />
         <DatePicker
           loading={loading}
           setStart={setStart}
@@ -102,7 +95,15 @@ const FormView: React.SFC<AllProps> = ({
           setEnd={setEnd}
           end={end}
         />
-        <FlushCache flush={flush} />
+        <div className="flex flex-col sm:flex-row mx-2 items-center">
+          <Switch
+            onChange={handleTypeSwitch}
+            checked={isTwitter}
+            uncheckedIcon={uncheckedIcon}
+            checkedIcon={checkedIcon}
+          />
+          <FlushCache flush={flush} />
+        </div>
       </div>
     </form>
   );
