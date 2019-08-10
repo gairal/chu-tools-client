@@ -17,7 +17,7 @@ const Translate: React.SFC<AllProps> = ({ post, translate }) => {
     !['en', 'und'].includes(post.lang) && (
       <button
         type="button"
-        className="text-grey hover:text-grey-dark ml-2"
+        className="text-grey-500 hover:text-grey-600 ml-2"
         onClick={handleClick}
       >
         <i className="fas fa-language fa-lg" />

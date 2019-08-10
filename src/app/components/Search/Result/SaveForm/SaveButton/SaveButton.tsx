@@ -17,7 +17,7 @@ const SaveButton: React.SFC<IProps> = ({ loading, save, posts }) => {
   return (
     <button
       type="button"
-      className="text-blue hover:text-blue-dark px-8"
+      className="text-blue-500 hover:text-blue-700 px-8"
       onClick={handleSave}
       disabled={loading}
     >

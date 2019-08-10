@@ -48,7 +48,7 @@ const PostsView: React.SFC<AllProps> = ({
       {sentiment && (
         <h2
           className={`p-2 border-b uppercase text-${
-            sentiment.color
+            sentiment.color === 'black' ? 'white' : `${sentiment.color}-500`
           } text-center text-lg`}
         >
           {sentiment.label}

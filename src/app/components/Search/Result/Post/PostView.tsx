@@ -43,16 +43,14 @@ const PostView: React.SFC<AllProps> = ({
   const date = moment(new Date(post.created)).format('MMM Do YY');
   return (
     <li
-      className={`flex flex-col p-4 my-2 shadow-sm rounded overflow-hidden bg-${
+      className={`flex flex-col p-4 my-2 shadow rounded-sm overflow-hidden bg-${
         theme.postBg
-      } border ${post.hidden && 'opacity-50'}`}
+      } border border-grey-500 ${post.hidden && 'opacity-50'}`}
     >
       <div
-        className={`flex justify-between items-center text-${
-          theme.postHeaderText
-        } text-sm`}
+        className={`flex justify-between items-center text-${theme.postHeaderText} text-sm`}
       >
-        <a className="p-2 hover:text-grey" href={post.url} target="_blank">
+        <a className="p-2 hover:text-grey-500" href={post.url} target="_blank">
           <i className="fas fa-external-link-alt" />
         </a>
         <div>
@@ -75,9 +73,7 @@ const PostView: React.SFC<AllProps> = ({
         />
       )}
       <p
-        className={`p-1 pl-2 word-break-word text-${
-          theme.color
-        } border-l-4 border-blue-light break-words`}
+        className={`p-1 pl-2 word-break-word text-${theme.color} border-l-4 border-blue-200 break-words`}
       >
         {post.translation || post.text}
       </p>

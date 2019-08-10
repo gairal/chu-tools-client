@@ -1,13 +1,13 @@
 body {
-  @apply bg-grey-darkest;
+  @apply bg-grey-900;
 }
 
 a {
-  @apply text-grey-darkest;
+  @apply text-grey-900;
 }
 
 button {
-  @apply p-2 cursor-pointer rounded-sm text-grey-lightest;
+  @apply p-2 cursor-pointer rounded-sm text-grey-100;
 }
 
 button,
@@ -20,7 +20,7 @@ select {
 }
 
 .input {
-  @apply p-2 w-full bg-grey-dark text-white;
+  @apply p-2 w-full bg-blue-800 text-white;
 }
 
 button:disabled {

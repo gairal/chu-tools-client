@@ -12,12 +12,10 @@ type AllProps = IHeaderProps;
 
 const Header: React.SFC<AllProps> = ({ title }) => (
   <div
-    className={`flex flex-col items-center px-8 py-2 bg-${
-      theme.headerBg
-    } border-b relative`}
+    className={`flex flex-col items-center px-8 py-2 bg-${theme.headerBg} border-b border-grey-500 relative`}
   >
     <div className="flex flex-col justify-between cursor-pointer w-full">
-      <h1 className={`mr-4 text-sm text-${theme.headerText} pb-2`}>
+      <h1 className={`mr-4 text-sm text-${theme.headerText} pb-2 font-bold`}>
         Posts Factory - {title}
       </h1>
       <Form />

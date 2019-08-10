@@ -22,8 +22,8 @@ const SentimentButton: React.SFC<ISentimentButtonProps> = ({
     type="button"
     className={`p-1 m-2 w-full ${
       isPlaceholder
-        ? `border border-${color}`
-        : `bg-${color} hover:bg-${color}-dark`
+        ? `border border-${color}-500`
+        : `bg-${color}-500 hover:bg-${color}-600`
     }`}
     data-sentiment={label}
     title={label}

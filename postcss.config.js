@@ -5,7 +5,7 @@ const reporter = require('postcss-reporter');
 
 module.exports = {
   plugins: [
-    tailwindcss('./tailwind.js'),
+    tailwindcss,
     autoprefixer,
     cssnano,
     reporter({ clearReportedMessages: true }),

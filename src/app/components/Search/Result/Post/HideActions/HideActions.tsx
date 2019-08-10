@@ -18,7 +18,7 @@ const HideActions: React.SFC<AllProps> = ({ post, setTheVisibility }) => {
       {post.hidden ? (
         <button
           type="button"
-          className="text-grey hover:text-grey-dark"
+          className="text-grey-500 hover:text-grey-700"
           onClick={show}
         >
           <i className="fas fa-trash-restore" />
@@ -26,7 +26,7 @@ const HideActions: React.SFC<AllProps> = ({ post, setTheVisibility }) => {
       ) : post.sentiment ? (
         <button
           type="button"
-          className="text-grey hover:text-grey-dark"
+          className="text-grey-500 hover:text-grey-700"
           onClick={show}
         >
           <i className="fas fa-undo" />
@@ -34,7 +34,7 @@ const HideActions: React.SFC<AllProps> = ({ post, setTheVisibility }) => {
       ) : (
         <button
           type="button"
-          className="text-red-light hover:text-red-dark"
+          className="text-red-500 hover:text-red-700"
           onClick={hide}
         >
           <i className="fas fa-trash" />
