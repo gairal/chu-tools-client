@@ -24,6 +24,10 @@ const PostsView: React.SFC<AllProps> = ({
   loadMore,
 }) => {
   const infiniteListRef: React.RefObject<HTMLDivElement> = React.useRef(null);
+  let color = 'black';
+  if (sentiment) {
+    color = 'black' === sentiment.color ? 'white' : `${sentiment.color}-500`;
+  }
 
   if (loadMore) {
     React.useEffect(() => {
@@ -47,15 +51,13 @@ const PostsView: React.SFC<AllProps> = ({
     >
       {sentiment && (
         <h2
-          className={`p-2 border-b uppercase text-${
-            sentiment.color === 'black' ? 'white' : `${sentiment.color}-500`
-          } text-center text-lg`}
+          className={`p-2 border-b border-${color} uppercase text-${color} text-center text-lg`}
         >
           {sentiment.label}
           <i className={`fas fa-${sentiment.icon} ml-2`} />
         </h2>
       )}
-      <ul className="list-reset p-2">
+      <ul className="list-reset">
         {posts
           .sort((t1, t2) => {
             if (t1.hidden && !t2.hidden) {

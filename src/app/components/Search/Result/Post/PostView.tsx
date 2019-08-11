@@ -45,7 +45,7 @@ const PostView: React.SFC<AllProps> = ({
     <li
       className={`flex flex-col p-4 my-2 shadow rounded-sm overflow-hidden bg-${
         theme.postBg
-      } border border-grey-500 ${post.hidden && 'opacity-50'}`}
+      } border border-grey-600 ${post.hidden && 'opacity-50'}`}
     >
       <div
         className={`flex justify-between items-center text-${theme.postHeaderText} text-sm`}
@@ -73,7 +73,7 @@ const PostView: React.SFC<AllProps> = ({
         />
       )}
       <p
-        className={`p-1 pl-2 word-break-word text-${theme.color} border-l-4 border-blue-200 break-words`}
+        className={`p-1 pl-2 word-break-word text-${theme.color} border-l-4 border-blue-500 break-words`}
       >
         {post.translation || post.text}
       </p>
