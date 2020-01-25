@@ -16,18 +16,18 @@ interface IRouteConf {
   inNav?: boolean;
   label: string;
   navLinkProps: INavLinkProps;
-  private?: boolean;
+  isPrivate?: boolean;
   props: IRouteProps;
 }
 
 const routes: IRouteConf[] = [
   {
     inNav: false,
+    isPrivate: false,
     label: 'login',
     navLinkProps: {
       to: '/auth',
     },
-    private: false,
     props: {
       component: AuthPage,
       exact: true,
@@ -36,15 +36,28 @@ const routes: IRouteConf[] = [
   },
   {
     inNav: true,
+    isPrivate: true,
     label: 'search',
     navLinkProps: {
       to: '/',
     },
-    private: true,
     props: {
       component: IndexPage,
       exact: true,
       path: '/',
+    },
+  },
+  {
+    inNav: true,
+    isPrivate: true,
+    label: 'posts',
+    navLinkProps: {
+      to: '/posts',
+    },
+    props: {
+      component: IndexPage,
+      exact: true,
+      path: '/posts',
     },
   },
 ];

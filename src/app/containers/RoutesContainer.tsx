@@ -5,21 +5,24 @@ import PrivateRoute from '@/components/PrivateRoute';
 import NotFound from '@/pages/notFound';
 import routes from '@/routes';
 
-const RoutesContainer: React.SFC = () => {
-  return (
-    <div className="content flex justify-center items-center">
-      <Switch>
-        {routes.map(route => {
-          return route.private ? (
-            <PrivateRoute key={route.props.path} {...route.props} />
-          ) : (
-            <Route key={route.props.path} {...route.props} />
-          );
-        })}
-        <Route component={NotFound} />
-      </Switch>
-    </div>
-  );
-};
+const RoutesContainer: React.SFC = () => (
+  <div className="content flex justify-center items-center">
+    <Switch>
+      {routes.map(({ props, isPrivate }) => {
+        const routeProps = {
+          ...props,
+          key: props.path,
+        };
+
+        return isPrivate ? (
+          <PrivateRoute {...routeProps} />
+        ) : (
+          <Route {...routeProps} />
+        );
+      })}
+      <Route component={NotFound} />
+    </Switch>
+  </div>
+);
 
 export default RoutesContainer;
